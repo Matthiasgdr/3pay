@@ -1,9 +1,14 @@
 import React from "react";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  background-color: ${(p) => p.theme.colors.background.primary};
+`;
 
 const Example = () => {
   return (
     <div>
-      <h1>Example</h1>
+      <Title>Example</Title>
     </div>
   );
 };
