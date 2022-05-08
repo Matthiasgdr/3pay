@@ -12,23 +12,13 @@ const App = () => {
     isWeb3Enabled,
     isAuthenticated,
     user,
-    enableWeb3,
-    Moralis,
+    enableWeb3
   } = useMoralis();
 
   async function authWalletConnect() {
     const user = authenticate({
       provider: "walletconnect",
       chainId: 56,
-      // mobileLinks: [
-      //   "metamask",
-      //   "trust",
-      //   "rainbow",
-      //   "argent",
-      //   "imtoken",
-      //   "pillar",
-      // ],
-      signingMessage: "Welcome!",
     });
     console.log(user);
   }
@@ -42,8 +32,7 @@ const App = () => {
 
   useEffect(() => {
     if (!isWeb3Enabled && isAuthenticated) {
-      enableWeb3({ provider: "walletconnect", chainId: 56 });
-      console.log("web3 activated");
+      enableWeb3();
     }
   }, [isWeb3Enabled, isAuthenticated, enableWeb3]);
 
@@ -64,7 +53,7 @@ const App = () => {
         {!isAuthenticated && !user ?
         <div>
           <button
-            onClick={() => authenticate({ signingMessage: "Hello youtube" })}>
+            onClick={() => authenticate({ signingMessage: "Welcome to 3pay" })}>
             Sign in using Metamask
           </button>
           <button
@@ -72,7 +61,12 @@ const App = () => {
             Sign in using Wallet Connect
           </button>
         </div>:
-        <LogoutButton />}
+        <div>
+          <LogoutButton />
+          <p>user id is: {user.id}</p>
+          <button onClick={() => console.log(user)}>log user data</button>
+        </div>
+        }
 
         <Example />
         {/* <button type="button" onClick={toggleTheme}></button>

@@ -6,7 +6,6 @@ const LogoutButton = () => {
   
     return (
       <button
-        isLoading={isAuthenticating}
         onClick={() => logout()}
         disabled={isAuthenticating}>
         Logout
