@@ -1,27 +1,22 @@
 import React from "react";
-import { Example, WalletLinking } from "./components";
-import { ThemeProvider } from "styled-components";
+import {  WalletLinking } from "./components";
+import { BankLinking } from "./components";
 
-import { useToggleTheme } from "./components/theme/context";
-import { lightTheme, darkTheme, redTheme } from "./components/theme/theme";
+import { ToggleThemeProvider } from "./components/theme/context";
+import Theme from "./components/theme";
+import GlobalStyle from "./components/theme/globalStyle";
+import Toolbar from "./components/Toolbar";
 
 const App = () => {
-  const value = useToggleTheme();
-  const themes = {
-    light: lightTheme,
-    dark: darkTheme,
-    red: redTheme,
-  };
-
   return (
-    <ThemeProvider theme={themes[value.theme] || lightTheme}>
-      <div className="App">
+    <ToggleThemeProvider>
+      <Theme>
+        <GlobalStyle />
+        <BankLinking />
         <WalletLinking />
-        <Example />
-        {/* <button type="button" onClick={toggleTheme}></button>
-        <button type="button" onClick={setTheme("red")}></button> */}
-      </div>
-    </ThemeProvider>
+        <Toolbar />
+      </Theme>
+    </ToggleThemeProvider>
   );
 };
 

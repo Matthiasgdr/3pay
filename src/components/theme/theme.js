@@ -3,6 +3,7 @@ export const lightTheme = {
     background: {
       primary: "white",
     },
+    text: "black",
   },
 };
 
@@ -11,6 +12,7 @@ export const darkTheme = {
     background: {
       primary: "gray",
     },
+    text: "white",
   },
 };
 
@@ -19,5 +21,6 @@ export const redTheme = {
     background: {
       primary: "red",
     },
+    text: "white",
   },
 };
