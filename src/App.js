@@ -1,4 +1,5 @@
 import React from "react";
+import {  WalletLinking } from "./components";
 import { BankLinking } from "./components";
 
 import { ToggleThemeProvider } from "./components/theme/context";
@@ -12,6 +13,7 @@ const App = () => {
       <Theme>
         <GlobalStyle />
         <BankLinking />
+        <WalletLinking />
         <Toolbar />
       </Theme>
     </ToggleThemeProvider>

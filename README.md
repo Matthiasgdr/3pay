@@ -1,7 +1,6 @@
-# Getting Started with Create React App
+# Web3 Tresorerie & placement destiné aux entreprises
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+Pour utiliser, il faut créer un fichier `.env.local` à la racine et y ajouter les id nécessaires suivants: `REACT_APP_ID` & `REACT_APP_SERVER_URL` pour se connecter au serveur web3 géré par [Moralis](https://moralis.io).
 ## Available Scripts
 
 In the project directory, you can run:
