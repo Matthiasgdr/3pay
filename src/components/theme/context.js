@@ -1,19 +1,24 @@
 import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
 
 export const ToggleContext = React.createContext();
 
-export const ThemeContext = () => {
+export const ToggleThemeProvider = ({ children }) => {
   const [theme, setThemeState] = useState("light");
 
   const toggleTheme = () => {
-    setThemeState(theme === "light" ? "dark" : "light");
+    setThemeState((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   const setTheme = (t) => {
     setThemeState(t);
   };
 
-  return <ToggleContext.Provider value={{ theme, toggleTheme, setTheme }} />;
+  return (
+    <ToggleContext.Provider value={{ theme, toggleTheme, setTheme }}>
+      {children}
+    </ToggleContext.Provider>
+  );
 };
 
 export const useToggleTheme = () => {
@@ -21,6 +26,8 @@ export const useToggleTheme = () => {
   return { ...context };
 };
 
-ThemeContext.propTypes = {};
+ToggleThemeProvider.propTypes = {
+  children: PropTypes.any,
+};
 
-export default { ThemeContext, useToggleTheme };
+export default { ToggleThemeProvider, useToggleTheme };
