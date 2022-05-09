@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { useMoralis } from "react-moralis";
+import { useMoralis, useMoralisQuery } from "react-moralis";
+import { useUserAddress } from "../context"
 
 const LogoutButton = () => {
     const { logout, isAuthenticating } = useMoralis();
@@ -19,16 +20,22 @@ const WalletLinking = () => {
       isWeb3Enabled,
       isAuthenticated,
       user,
-      enableWeb3,
-      Moralis,
+      enableWeb3
     } = useMoralis();
 
-    async function getEntranceTransactions() {
-      const query = new Moralis.Query("EthTransactions");
-      const result = query.equalTo("to_address", user.get("ethAddress"));
-  
-      console.log(result);
-    }
+    const { userAddress } = useUserAddress()
+
+    const { fetch } = useMoralisQuery(
+      "EthTransactions",
+      (query) => query.equalTo("to_address", userAddress[0]),
+      [],
+      { autoFetch: false }
+    );
+
+    const basicQuery = async () => {
+      const results = await fetch();
+      console.log(results);
+    };
   
     async function authWalletConnect() {
       const user = authenticate({
@@ -65,8 +72,8 @@ const WalletLinking = () => {
           <div>
             <LogoutButton />
             <p>user id is: {user.get("ethAddress")}</p>
-            <button onClick={() => console.log(user)}>log user data</button>
-            <button onClick={() => getEntranceTransactions()}>
+            <button onClick={() => console.log(user.getACL())}>log user data</button>
+            <button onClick={() => basicQuery()}>
               get transactions
             </button>
           </div>
