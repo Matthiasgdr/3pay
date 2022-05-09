@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import axios from "axios";
 
-const Title = styled.h1`
-  background-color: ${(p) => p.theme.colors.background.primary};
-  color: ${(p) => p.theme.colors.text};
-`;
-
-const Example = () => {
+const BankLinking = () => {
   const [country, setCountry] = useState("fr");
   const [banksOptions, setBanksOptions] = useState([]);
   const [bank, setBank] = useState("");
-  const [accountId, setAccountId] = useState("");
-  const [accountsTransactions, setAccountsTransactions] = useState({});
-  console.log(
-    "LOG ~ file: index.jsx ~ line 16 ~ Example ~ accountsTransactions",
-    accountsTransactions
+  const [accountId, setAccountId] = useState(
+    "8aa6c6b0-d94c-4112-acd6-2f6fb7930f33"
   );
+  const [accountsTransactions, setAccountsTransactions] = useState([]);
 
   const getBanks = () => {
     axios
@@ -49,7 +41,7 @@ const Example = () => {
           axios
             .post("http://localhost:5200/account", { id: acc })
             .then(({ data }) =>
-              setAccountsTransactions((prv) => ({ ...prv, [acc]: data }))
+              setAccountsTransactions((prv) => [...prv, data])
             )
         )
       );
@@ -63,7 +55,6 @@ const Example = () => {
 
   return (
     <div>
-      <Title>Example</Title>
       <select value={country} onChange={(e) => setCountry(e.target.value)}>
         {countryOptions.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -84,10 +75,40 @@ const Example = () => {
         </select>
       )}
       <button onClick={linkAccount}>Link account</button>
-      <div>{accountId}</div>
       <button onClick={listAccounts}>List transactions</button>
+      <div>
+        {accountsTransactions.map((account, index) => (
+          <div key={index}>
+            {account.transactions.booked.map((transaction, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  borderBottom: "1px solid black",
+                }}
+              >
+                <div>
+                  <p>
+                    {transaction.remittanceInformationUnstructuredArray.map(
+                      (line, y) => (
+                        <p key={y} style={{}}>
+                          {line}
+                        </p>
+                      )
+                    )}
+                  </p>
+                </div>
+                <p>{transaction.transactionAmount.amount}</p>
+                <p>{transaction.bookingDate}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export { Example };
+export default BankLinking;

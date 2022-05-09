@@ -1,1 +1,1 @@
-export { Example } from "./example";
+export { default as BankLinking } from "./BankLinking";

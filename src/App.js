@@ -1,15 +1,17 @@
 import React from "react";
-import { Example } from "./components";
+import { BankLinking } from "./components";
 
 import { ToggleThemeProvider } from "./components/theme/context";
 import Theme from "./components/theme";
+import GlobalStyle from "./components/theme/globalStyle";
 import Toolbar from "./components/Toolbar";
 
 const App = () => {
   return (
     <ToggleThemeProvider>
       <Theme>
-        <Example />
+        <GlobalStyle />
+        <BankLinking />
         <Toolbar />
       </Theme>
     </ToggleThemeProvider>
