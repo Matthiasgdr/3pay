@@ -27,7 +27,7 @@ const WalletLinking = () => {
 
     const { fetch } = useMoralisQuery(
       "EthTransactions",
-      (query) => query.equalTo("to_address", userAddress[0]),
+      (query) => query.equalTo("to_address", userAddress),
       [],
       { autoFetch: false }
     );
