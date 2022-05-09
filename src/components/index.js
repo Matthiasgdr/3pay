@@ -1,2 +1,2 @@
 export { Example } from "./example";
-export { LogoutButton } from "./moralis"
+export { LogoutButton, WalletLinking } from "./moralis";
