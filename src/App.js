@@ -1,11 +1,11 @@
 import React from "react";
-import {  WalletLinking } from "./components";
 import { BankLinking } from "./components";
 
 import { ToggleThemeProvider } from "./components/theme/context";
 import Theme from "./components/theme";
 import GlobalStyle from "./components/theme/globalStyle";
 import Toolbar from "./components/Toolbar";
+import { SignUpButton } from "./components/WalletLinking";
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
       <Theme>
         <GlobalStyle />
         <BankLinking />
-        <WalletLinking />
+        <SignUpButton />
         <Toolbar />
       </Theme>
     </ToggleThemeProvider>

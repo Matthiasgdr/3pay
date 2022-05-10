@@ -22,7 +22,6 @@ const WalletLinking = () => {
       user,
       enableWeb3
     } = useMoralis();
-
     const { userAddress } = useUserAddress()
 
     const { fetch } = useMoralisQuery(
@@ -49,7 +48,8 @@ const WalletLinking = () => {
       if (!isWeb3Enabled && isAuthenticated) {
         enableWeb3();
       }
-    }, [isWeb3Enabled, isAuthenticated, enableWeb3]);  
+      basicQuery();
+    }, [isWeb3Enabled, isAuthenticated, enableWeb3, userAddress]);  
   
     return (
       <div>
