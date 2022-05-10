@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
+import { UserContextProvider } from "./hooks/useUser";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,7 +11,9 @@ ReactDOM.render(
       appId={process.env.REACT_APP_ID}
       serverUrl={process.env.REACT_APP_SERVER_URL}
     >
-      <App />
+      <UserContextProvider>
+        <App />
+      </UserContextProvider>
     </MoralisProvider>
   </React.StrictMode>,
   document.getElementById("root")
