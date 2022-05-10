@@ -10,22 +10,24 @@ export const UserContextProvider = (props) => {
   const { user } = useMoralis();
 
   useEffect(() => {
-    setUserAddress(user?.get("ethAddress"))
-    console.log(user?.get("ethAddress"))
-  }, [user, userAddress]);
+    setUserAddress(user?.get("accounts"));
+    console.log(user?.get("accounts"));
+  }, [user, setUserAddress]);
 
   const value = {
     userAddress,
     setUserAddress,
   };
+
   return <UserContext.Provider value={value} {...props} />;
 };
 
-export const useUserAddress = () => {
+export const useUser = () => {
   const context = useContext(UserContext);
   if (context === undefined) {
     throw new Error(`useUser must be used within a UserContextProvider.`);
   }
   return context;
 };
-  
+
+export default useUser;
