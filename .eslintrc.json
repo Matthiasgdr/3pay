@@ -12,5 +12,8 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
+  "globals": {
+    "process": true
+  },
   "rules": {}
 }

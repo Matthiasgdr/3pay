@@ -11,21 +11,23 @@ export const UserContextProvider = (props) => {
 
   useEffect(() => {
     setUserAddress(user?.get("accounts"));
-    console.log(user?.get("accounts"))
+    console.log(user?.get("accounts"));
   }, [user, setUserAddress]);
 
   const value = {
     userAddress,
     setUserAddress,
   };
+
   return <UserContext.Provider value={value} {...props} />;
 };
 
-export const useUserAddress = () => {
-    const context = useContext(UserContext);
-    if (context === undefined) {
-      throw new Error(`useUser must be used within a UserContextProvider.`);
-    }
-    return context;
-  };
-  
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error(`useUser must be used within a UserContextProvider.`);
+  }
+  return context;
+};
+
+export default useUser;

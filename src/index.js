@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
-import { UserContextProvider } from "./components/context";
+import { UserContextProvider } from "./hooks/useUser";
 
 ReactDOM.render(
   <React.StrictMode>
