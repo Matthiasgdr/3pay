@@ -8,6 +8,7 @@ import Toolbar from "./components/Toolbar";
 import SignUp from "./components/account/Signup";
 import Login from "./components/account/Login";
 import { SignUpButton } from "./components/WalletLinking";
+import { Link } from "react-router-dom";
 import useUser from "./hooks/useUser";
 import useWalletTransactions from "./hooks/useWalletTransactions";
 // import { useMoralisQuery } from "react-moralis";
@@ -20,6 +21,8 @@ const App = () => {
   return (
     <ToggleThemeProvider>
       <Theme>
+        <Link to="/login">login</Link>
+        <Link to="/signup">signup</Link>
         <GlobalStyle />
         <BankLinking />
         <SignUpButton />

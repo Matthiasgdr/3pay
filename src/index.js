@@ -4,18 +4,27 @@ import "./index.css";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
 import { UserContextProvider } from "./hooks/useUser";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MoralisProvider
-      appId={process.env.REACT_APP_ID}
-      serverUrl={process.env.REACT_APP_SERVER_URL}
-    >
-      <UserContextProvider>
-        <App />
-      </UserContextProvider>
-    </MoralisProvider>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <React.StrictMode>
+      <MoralisProvider
+        appId={process.env.REACT_APP_ID}
+        serverUrl={process.env.REACT_APP_SERVER_URL}
+      >
+        <UserContextProvider>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+          </Routes>
+        </UserContextProvider>
+      </MoralisProvider>
+    </React.StrictMode>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 
