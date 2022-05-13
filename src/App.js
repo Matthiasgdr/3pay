@@ -1,37 +1,26 @@
 import React from "react";
-import { BankLinking } from "./components";
-
+import { Routes, Route } from "react-router-dom";
 import { ToggleThemeProvider } from "./components/theme/context";
+import { UserContextProvider } from "./hooks/useUser";
 import Theme from "./components/theme";
 import GlobalStyle from "./components/theme/globalStyle";
-import Toolbar from "./components/Toolbar";
-import SignUp from "./components/account/Signup";
-import Login from "./components/account/Login";
-import { SignUpButton } from "./components/WalletLinking";
-import { Link } from "react-router-dom";
-import useUser from "./hooks/useUser";
-import useWalletTransactions from "./hooks/useWalletTransactions";
+
+import LoginPage from "./pages/login";
+import SignUpPage from "./pages/signup";
+import Home from "./pages/home";
 
 const App = () => {
-  const { userAddress } = useUser();
-  const transactions = useWalletTransactions(userAddress && userAddress[0]);
-
   return (
     <ToggleThemeProvider>
       <Theme>
-        <Link to="/login">login</Link>
-        <Link to="/signup">signup</Link>
-        <GlobalStyle />
-        <BankLinking />
-        <SignUpButton />
-        <SignUp />
-        <Login />
-        <Toolbar />
-        {transactions?.map((transaction) => (
-          <p key={transaction.id}>
-            {transaction.attributes.decimal.value.$numberDecimal} ETH
-          </p>
-        ))}
+        <UserContextProvider>
+          <GlobalStyle />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignUpPage />} />
+          </Routes>
+        </UserContextProvider>
       </Theme>
     </ToggleThemeProvider>
   );
