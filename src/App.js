@@ -5,6 +5,8 @@ import { ToggleThemeProvider } from "./components/theme/context";
 import Theme from "./components/theme";
 import GlobalStyle from "./components/theme/globalStyle";
 import Toolbar from "./components/Toolbar";
+import SignUp from "./components/account/Signup";
+import Login from "./components/account/Login";
 import { SignUpButton } from "./components/WalletLinking";
 
 const App = () => {
@@ -14,6 +16,8 @@ const App = () => {
         <GlobalStyle />
         <BankLinking />
         <SignUpButton />
+        <SignUp />
+        <Login />
         <Toolbar />
       </Theme>
     </ToggleThemeProvider>
