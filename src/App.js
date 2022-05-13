@@ -11,12 +11,10 @@ import { SignUpButton } from "./components/WalletLinking";
 import { Link } from "react-router-dom";
 import useUser from "./hooks/useUser";
 import useWalletTransactions from "./hooks/useWalletTransactions";
-// import { useMoralisQuery } from "react-moralis";
 
 const App = () => {
   const { userAddress } = useUser();
   const transactions = useWalletTransactions(userAddress && userAddress[0]);
-  console.log("🚀 ~ file: App.js ~ line 18 ~ App ~ transactions", transactions);
 
   return (
     <ToggleThemeProvider>

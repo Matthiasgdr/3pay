@@ -1,26 +1,5 @@
-export const lightTheme = {
-  colors: {
-    background: {
-      primary: "white",
-    },
-    text: "black",
-  },
-};
+export const lightTheme = {};
 
-export const darkTheme = {
-  colors: {
-    background: {
-      primary: "gray",
-    },
-    text: "white",
-  },
-};
+export const darkTheme = {};
 
-export const redTheme = {
-  colors: {
-    background: {
-      primary: "red",
-    },
-    text: "white",
-  },
-};
+export const redTheme = {};

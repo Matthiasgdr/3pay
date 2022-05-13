@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ThemeProvider } from "styled-components";
+import { MantineProvider } from "@mantine/core";
 
 import { useToggleTheme } from "./context";
 import { lightTheme, darkTheme, redTheme } from "./theme";
@@ -15,9 +15,9 @@ const Theme = ({ children }) => {
   };
 
   return (
-    <ThemeProvider theme={themes[theme] || lightTheme}>
+    <MantineProvider theme={themes[theme] || lightTheme}>
       {children}
-    </ThemeProvider>
+    </MantineProvider>
   );
 };
 
