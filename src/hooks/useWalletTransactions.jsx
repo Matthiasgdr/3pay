@@ -1,20 +1,15 @@
 import { useMoralisQuery } from "react-moralis";
 
 const useWalletTransactions = (address) => {
-
-    const { fetch } = useMoralisQuery(
-      "EthTransactions",
-      (query) => query.equalTo("to_address", address),
-      [],
-      { autoFetch: false }
-    );
-
-    const basicQuery = async () => {
-      const results = await fetch();
-      return results
-    };
+  console.log(address)
+  const { data } = useMoralisQuery(
+    "EthTransactions",
+    (query) => query.equalTo("to_address", address),
+    [address],
+    { autoFetch: true }
+  );
   
-  return basicQuery()
+  return data
 }
 
-export { useWalletTransactions }
+export default useWalletTransactions;
