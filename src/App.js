@@ -5,6 +5,8 @@ import { ToggleThemeProvider } from "./components/theme/context";
 import Theme from "./components/theme";
 import GlobalStyle from "./components/theme/globalStyle";
 import Toolbar from "./components/Toolbar";
+import SignUp from "./components/account/Signup";
+import Login from "./components/account/Login";
 import { SignUpButton } from "./components/WalletLinking";
 import { Link } from "react-router-dom";
 import useUser from "./hooks/useUser";
@@ -24,6 +26,8 @@ const App = () => {
         <GlobalStyle />
         <BankLinking />
         <SignUpButton />
+        <SignUp />
+        <Login />
         <Toolbar />
         {transactions?.map((transaction) => (
           <p key={transaction.id}>
