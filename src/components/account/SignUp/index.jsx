@@ -5,10 +5,12 @@ import { Formik } from "formik";
 const SignUp = () => {
   const { Moralis } = useMoralis();
 
-  const handleSubmitSignup = async ({ username, password }) => {
+  const handleSubmitSignup = async ({ username, email, password }) => {
     const user = new Moralis.User();
     user.set("username", username);
+    user.set("email", email);
     user.set("password", password);
+
     try {
       await user.signUp();
     } catch (error) {
@@ -19,7 +21,7 @@ const SignUp = () => {
   return (
     <Formik
       onSubmit={handleSubmitSignup}
-      initialValues={{ username: "", password: "" }}
+      initialValues={{ username: "", email: "", password: "" }}
     >
       {({ handleSubmit, handleChange, values }) => (
         <form onSubmit={handleSubmit}>
@@ -28,6 +30,12 @@ const SignUp = () => {
             type="text"
             onChange={handleChange}
             value={values.username}
+          ></input>
+          <input
+            name="email"
+            type="email"
+            onChange={handleChange}
+            value={values.email}
           ></input>
           <input
             name="password"
