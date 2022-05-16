@@ -1,8 +1,17 @@
 import React from "react";
-import { Container } from "@mantine/core";
+import { Outlet } from "react-router-dom";
+import { Container, Box } from "@mantine/core";
+import { useAuthLayoutStyles } from "./styles.layouts";
 
-const AuthLayout = ({ children }) => {
-  <Container>{children}</Container>;
+const AuthLayout = () => {
+  const { classes } = useAuthLayoutStyles();
+  return (
+    <Container className={classes.container} fluid px="0px">
+      <Box className={classes.wrapper} p="xl">
+        <Outlet />
+      </Box>
+    </Container>
+  );
 };
 
 export default AuthLayout;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useMoralis } from "react-moralis";
 import LogoutButton from "./logout";
 
@@ -14,11 +14,11 @@ const SignUpButton = () => {
     console.log(user);
   }
 
-  useEffect(() => {
+  const handleEnableWeb3 = () => {
     if (!isWeb3Enabled && isAuthenticated) {
       enableWeb3();
     }
-  }, [isWeb3Enabled, isAuthenticated, enableWeb3]);
+  };
 
   return (
     <div>
@@ -33,6 +33,7 @@ const SignUpButton = () => {
         <div>
           <p>user id is: {user.get("ethAddress")}</p>
           <button onClick={() => console.log(user)}>log user data</button>
+          <button onClick={handleEnableWeb3}>enable web3</button>
           <LogoutButton />
         </div>
       )}
