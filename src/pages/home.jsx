@@ -2,7 +2,6 @@ import React from "react";
 import BankLinking from "../components/BankLinking";
 import Toolbar from "../components/Toolbar";
 import { SignUpButton } from "../components/WalletLinking";
-import { Link } from "react-router-dom";
 import useUser from "../hooks/useUser";
 import useWalletTransactions from "../hooks/useWalletTransactions";
 
@@ -12,8 +11,6 @@ const App = () => {
 
   return (
     <div>
-      <Link to="/login">login</Link>
-      <Link to="/signup">signup</Link>
       <BankLinking />
       <SignUpButton />
       <Toolbar />

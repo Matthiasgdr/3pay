@@ -1,44 +1,62 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
+import { InputWrapper, Input, Button } from "@mantine/core";
 import { Formik } from "formik";
-import { Container } from "@mantine/core";
 
 const Login = () => {
   const { Moralis } = useMoralis();
+  const navigate = useNavigate();
 
   const handleSubmitLogin = async ({ username, password }) => {
     try {
-      await Moralis.User.logIn(username, password, { usePost: true });
+      await Moralis.User.logIn(username, password, { usePost: true }).then(
+        ({ id }) => id && navigate("/home")
+      );
     } catch (error) {
       alert("Error: " + error.code + " " + error.message);
     }
   };
 
   return (
-    <Container fluid>
-      <Formik
-        onSubmit={handleSubmitLogin}
-        initialValues={{ username: "", password: "" }}
-      >
-        {({ handleSubmit, handleChange, values }) => (
-          <form onSubmit={handleSubmit}>
-            <input
+    <Formik
+      onSubmit={handleSubmitLogin}
+      initialValues={{ username: "", password: "" }}
+    >
+      {({ handleSubmit, handleChange, values, errors }) => (
+        <form onSubmit={handleSubmit}>
+          <InputWrapper
+            id="username"
+            label="Votre nom d'utilisateur"
+            error={errors.username}
+          >
+            <Input
+              id="username"
               name="username"
               type="text"
+              placeholder="Nom d'utilisateur"
               onChange={handleChange}
               value={values.username}
             />
-            <input
+          </InputWrapper>
+          <InputWrapper
+            id="password"
+            label="Votre mot de passe"
+            error={errors.username}
+          >
+            <Input
+              id="password"
               name="password"
               type="password"
+              placeholder="Mot de passe"
               onChange={handleChange}
               value={values.password}
             />
-            <button type="submit">login</button>
-          </form>
-        )}
-      </Formik>
-    </Container>
+          </InputWrapper>
+          <Button type="submit">Se connecter</Button>
+        </form>
+      )}
+    </Formik>
   );
 };
 
