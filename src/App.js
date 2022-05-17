@@ -21,12 +21,12 @@ const App = () => {
         <UserContextProvider>
           <GlobalStyle />
           <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route path="" element={<Home />} />
+            </Route>
             <Route path="/" element={<AuthLayout />}>
               <Route path="login" element={<LoginPage />} />
               <Route path="signup" element={<SignUpPage />} />
-            </Route>
-            <Route path="/" element={<MainLayout />}>
-              <Route path="home" element={<Home />} />
             </Route>
           </Routes>
         </UserContextProvider>

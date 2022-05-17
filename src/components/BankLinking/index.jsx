@@ -1,13 +1,12 @@
 import React, { useState } from "react";
+import { useMoralis } from "react-moralis";
 import axios from "axios";
 
 const BankLinking = () => {
+  const { user } = useMoralis();
   const [country, setCountry] = useState("fr");
   const [banksOptions, setBanksOptions] = useState([]);
   const [bank, setBank] = useState("");
-  const [accountId, setAccountId] = useState(
-    "8aa6c6b0-d94c-4112-acd6-2f6fb7930f33"
-  );
   const [accountsTransactions, setAccountsTransactions] = useState([]);
 
   const getBanks = () => {
@@ -21,21 +20,23 @@ const BankLinking = () => {
       });
   };
 
-  const linkAccount = () => {
+  const linkAccount = async () => {
     axios
       .post("http://localhost:5200/link", {
         redirect: "http://localhost:3000",
         id: bank,
       })
       .then(({ data }) => {
-        setAccountId(data.id);
-        window.open(data.link, "_blank").focus();
+        user.set("bankId", data.id);
+        user.save();
+        window.open(data.link);
       });
   };
 
   const listAccounts = () => {
+    const bankId = user.get("bankId");
     axios
-      .post("http://localhost:5200/list", { id: accountId })
+      .post("http://localhost:5200/list", { id: bankId })
       .then(({ data }) =>
         data.accounts.forEach((acc) =>
           axios
