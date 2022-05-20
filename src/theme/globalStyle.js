@@ -1,4 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+import CabinetRegular from "./fonts/CabinetGrotesk-Regular.ttf";
+import CabinetMedium from "./fonts/CabinetGrotesk-Medium.ttf";
+import CabinetBold from "./fonts/CabinetGrotesk-Bold.ttf";
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -6,6 +9,25 @@ import { createGlobalStyle } from "styled-components";
 */
 
 const GlobalStyle = createGlobalStyle`
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+    @font-face {
+    font-family: 'Cabinet Grotesk';
+    src: url(${CabinetRegular}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+    @font-face {
+    font-family: 'Cabinet Grotesk';
+    src: url(${CabinetMedium}) format('truetype');
+    font-weight: medium;
+    font-style: normal;
+    }
+    @font-face {
+    font-family: 'Cabinet Grotesk';
+    src: url(${CabinetBold}) format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    }
     * {
         box-sizing: border-box;
     }

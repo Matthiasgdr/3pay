@@ -46,15 +46,9 @@ const Login = () => {
               id="username"
               label="Mail"
               error={errors.username}
-              sx={(theme) => {
-                console.log(
-                  "LOG ~ file: index.jsx ~ line 40 ~ Login ~ theme",
-                  theme
-                );
-                return {
-                  marginBottom: theme.spacing.md,
-                };
-              }}
+              sx={(theme) => ({
+                marginBottom: theme.spacing.md,
+              })}
             >
               <Input
                 id="username"
@@ -82,7 +76,9 @@ const Login = () => {
               <Text component={Link} to="/reset-password" underline size="xs">
                 {"J'ai perdu mon mot de passe"}
               </Text>
-              <Checkbox label="Garder-moi connecté sur cet appareil"></Checkbox>
+              <Box sx={(theme) => ({ margin: theme.spacing.xl + "px 0px" })}>
+                <Checkbox label="Garder-moi connecté sur cet appareil"></Checkbox>
+              </Box>
             </Box>
             <Box
               sx={(theme) => ({
