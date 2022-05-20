@@ -15,7 +15,14 @@ const Theme = ({ children }) => {
   };
 
   return (
-    <MantineProvider theme={themes[theme] || lightTheme}>
+    <MantineProvider
+      theme={themes[theme] || lightTheme}
+      styles={{
+        Input: { root: { height: "48px", color: "red" } },
+        Button: { root: { height: "48px", padding: "0px 48px" } },
+        Checkbox: { label: { fontSize: "12px" } },
+      }}
+    >
       {children}
     </MantineProvider>
   );

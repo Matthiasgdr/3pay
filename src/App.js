@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router";
-import { ToggleThemeProvider } from "./components/theme/context";
+import { ToggleThemeProvider } from "./theme/context";
 import { UserContextProvider } from "./hooks/useUser";
-import Theme from "./components/theme";
-import GlobalStyle from "./components/theme/globalStyle";
+import Theme from "./theme";
+import GlobalStyle from "./theme/globalStyle";
 // import { useMoralis } from "react-moralis";
 
 import AuthLayout from "./layouts/AuthLayout";

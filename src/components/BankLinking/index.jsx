@@ -7,7 +7,6 @@ const BankLinking = () => {
   const [country, setCountry] = useState("fr");
   const [banksOptions, setBanksOptions] = useState([]);
   const [bank, setBank] = useState("");
-  const [accountsTransactions, setAccountsTransactions] = useState([]);
 
   const getBanks = () => {
     axios
@@ -31,21 +30,6 @@ const BankLinking = () => {
         user.save();
         window.open(data.link);
       });
-  };
-
-  const listAccounts = () => {
-    const bankId = user.get("bankId");
-    axios
-      .post("http://localhost:5200/list", { id: bankId })
-      .then(({ data }) =>
-        data.accounts.forEach((acc) =>
-          axios
-            .post("http://localhost:5200/account", { id: acc })
-            .then(({ data }) =>
-              setAccountsTransactions((prv) => [...prv, data])
-            )
-        )
-      );
   };
 
   const countryOptions = [
@@ -76,38 +60,6 @@ const BankLinking = () => {
         </select>
       )}
       <button onClick={linkAccount}>Link account</button>
-      <button onClick={listAccounts}>List transactions</button>
-      <div>
-        {accountsTransactions.map((account, index) => (
-          <div key={index}>
-            {account.transactions.booked.map((transaction, i) => (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  borderBottom: "1px solid black",
-                }}
-              >
-                <div>
-                  <p>
-                    {transaction.remittanceInformationUnstructuredArray.map(
-                      (line, y) => (
-                        <p key={y} style={{}}>
-                          {line}
-                        </p>
-                      )
-                    )}
-                  </p>
-                </div>
-                <p>{transaction.transactionAmount.amount}</p>
-                <p>{transaction.bookingDate}</p>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
