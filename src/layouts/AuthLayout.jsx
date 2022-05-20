@@ -7,7 +7,7 @@ const AuthLayout = () => {
   const { classes } = useAuthLayoutStyles();
   return (
     <Container className={classes.container} fluid px="0px">
-      <Box className={classes.wrapper} p="xl">
+      <Box className={classes.wrapper}>
         <Outlet />
       </Box>
     </Container>

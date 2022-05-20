@@ -1,5 +1,5 @@
 import React from "react";
-import { useToggleTheme } from "../theme/context";
+import { useToggleTheme } from "../../theme/context";
 
 const Toolbar = () => {
   const { toggleTheme, setTheme } = useToggleTheme();

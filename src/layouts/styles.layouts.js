@@ -8,14 +8,13 @@ export const useAuthLayoutStyles = createStyles((theme) => {
       justifyContent: "center",
       height: "100vh",
       width: "100vw",
-      backgroundColor: theme.colors.background.secondary,
+      backgroundColor: theme.colors.background.primary,
     },
     wrapper: {
       height: "50vh",
-      width: "480px",
+      width: "396px",
       backgroundColor: theme.colors.background.primary,
       borderRadius: theme.radius.lg,
-      boxShadow: theme.shadows.lg,
     },
   };
 });

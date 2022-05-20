@@ -7,8 +7,8 @@ const useWalletTransactions = (address) => {
     [address],
     { autoFetch: true }
   );
-  
-  return data
-}
+
+  return data;
+};
 
 export default useWalletTransactions;
