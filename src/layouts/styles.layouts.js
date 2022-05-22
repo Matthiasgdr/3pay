@@ -19,4 +19,13 @@ export const useAuthLayoutStyles = createStyles((theme) => {
   };
 });
 
-export default { useAuthLayoutStyles };
+export const TopNavigationStyles = createStyles((theme) => {
+  return {
+    container: {
+      height: "48px",
+      boxShadow: theme.shadows.md,
+    },
+  };
+});
+
+export default { useAuthLayoutStyles, TopNavigationStyles };

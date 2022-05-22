@@ -76,7 +76,7 @@ const Login = () => {
               <Text component={Link} to="/reset-password" underline size="xs">
                 {"J'ai perdu mon mot de passe"}
               </Text>
-              <Box sx={(theme) => ({ margin: theme.spacing.xl + "px 0px" })}>
+              <Box sx={(theme) => ({ margin: theme.spacing.lg + "px 0px" })}>
                 <Checkbox label="Garder-moi connecté sur cet appareil"></Checkbox>
               </Box>
             </Box>
@@ -85,7 +85,7 @@ const Login = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                padding: theme.spacing.xl,
+                paddingBottom: theme.spacing.lg,
               })}
             >
               <Button type="submit">Connexion</Button>
