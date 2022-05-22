@@ -20,7 +20,15 @@ const Theme = ({ children }) => {
       styles={{
         Input: { root: { height: "48px", color: "red" } },
         Button: { root: { height: "48px", padding: "0px 48px" } },
-        Checkbox: { label: { fontSize: "12px" } },
+        Checkbox: {
+          label: {
+            fontSize: "14px",
+            cursor: "pointer",
+            lineHeight: "normal",
+            color: themes[theme].colors.grey,
+          },
+          input: { cursor: "pointer" },
+        },
       }}
     >
       {children}
