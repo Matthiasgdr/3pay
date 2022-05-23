@@ -50,7 +50,7 @@ const BankLinking = () => {
         icon={<Search size={14} />}
         searchable
         clearable
-        placeholder="Pick one"
+        placeholder="Ma Banque"
         data={banksOptions}
         onChange={setSelectedBankId}
         sx={(t) => ({

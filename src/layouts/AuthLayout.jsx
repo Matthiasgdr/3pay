@@ -7,6 +7,7 @@ import { useAuthLayoutStyles } from "./styles.layouts";
 const AuthLayout = () => {
   const { classes } = useAuthLayoutStyles();
   const { isAuthenticated } = useMoralis();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +15,7 @@ const AuthLayout = () => {
       navigate("/");
     }
   }, [isAuthenticated]);
+
   if (isAuthenticated) return null;
 
   return (
