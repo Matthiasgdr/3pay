@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { Select, Button, Box } from "@mantine/core";
-import { Search } from "tabler-icons-react";
+import React, { useState, useEffect, useMemo } from "react";
+import { Select, Button, Box, Title, Image, Text } from "@mantine/core";
+import { Search, Check } from "tabler-icons-react";
 import { useMoralis } from "react-moralis";
 import axios from "axios";
 
 const BankLinking = () => {
   const { user } = useMoralis();
-  const [banksOptions, setBanksOptions] = useState([]);
-  const [bank, setBank] = useState("");
+  const [banks, setBanks] = useState([]);
+  const [selectedBankId, setSelectedBankId] = useState(null);
 
   useEffect(() => {
     axios
       .get("http://localhost:5200/banks/?country=" + "fr")
       .then(({ data }) => {
-        setBanksOptions(
-          data.map((bank) => ({ value: bank.id, label: bank.name }))
-        );
-        setBank(data[0].id);
+        setBanks(data);
       });
   }, []);
+
+  const banksOptions = useMemo(
+    () => banks.map((bank) => ({ value: bank.id, label: bank.name })),
+    [banks]
+  );
+
+  const selectedBank = useMemo(() => {
+    return banks.find((b) => b.id === selectedBankId);
+  }, [selectedBankId]);
 
   const linkAccount = async () => {
     axios
       .post("http://localhost:5200/link", {
         redirect: "http://localhost:3000",
-        id: bank,
+        id: selectedBankId,
       })
       .then(({ data }) => {
         user.set("bankId", data.id);
@@ -37,13 +43,51 @@ const BankLinking = () => {
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
+      <Title sx={(t) => ({ marginBottom: t.spacing.lg })}>
+        Trouver ma banque
+      </Title>
       <Select
         icon={<Search size={14} />}
         searchable
+        clearable
         placeholder="Pick one"
         data={banksOptions}
+        onChange={setSelectedBankId}
+        sx={(t) => ({
+          marginBottom: t.spacing.lg,
+        })}
       />
-
+      {selectedBankId && (
+        <Box
+          sx={(theme) => ({
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: theme.spacing.lg,
+            borderRadius: theme.radius.md,
+            padding: theme.spacing.md,
+            border: `2px solid ${theme.colors.green[1]}`,
+            backgroundColor: theme.colors.green[0],
+          })}
+        >
+          <Image
+            height={80}
+            fit="contain"
+            radius="md"
+            src={selectedBank.logo}
+          />
+          <Text
+            sx={(theme) => ({
+              textAlign: "center",
+              color: theme.colors.green[2],
+              marginTop: theme.spacing.sm,
+            })}
+          >
+            <Text>{selectedBank.name}</Text>
+            <Check />
+          </Text>
+        </Box>
+      )}
       <Button onClick={linkAccount}>Lié mon compte</Button>
     </Box>
   );
