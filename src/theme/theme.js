@@ -2,6 +2,15 @@ export const lightTheme = {
   primaryColor: "blue",
   primaryShade: { dark: 6, light: 4 },
   defaultRadius: "xs",
+  fontFamily: "IBM Plex Sans",
+  headings: { fontFamily: "Cabinet Grotesk" },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 32,
+    xl: 54,
+  },
   colors: {
     blue: [
       "#EAF2FF",
@@ -25,6 +34,7 @@ export const lightTheme = {
       "#3A3843",
       "#100F15"
     ],
+    green: ["#DDFBA3", "#A7E950", "#256905"],
     background: {
       primary: "#fff",
       secondary: "#fafafa",

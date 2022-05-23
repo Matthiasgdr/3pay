@@ -1,29 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { Select, Button, Box, Title, Image, Text } from "@mantine/core";
+import { Search, Check } from "tabler-icons-react";
 import { useMoralis } from "react-moralis";
 import axios from "axios";
 
 const BankLinking = () => {
   const { user } = useMoralis();
-  const [country, setCountry] = useState("fr");
-  const [banksOptions, setBanksOptions] = useState([]);
-  const [bank, setBank] = useState("");
+  const [banks, setBanks] = useState([]);
+  const [selectedBankId, setSelectedBankId] = useState(null);
 
-  const getBanks = () => {
+  useEffect(() => {
     axios
-      .get("http://localhost:5200/banks/?country=" + country)
+      .get("http://localhost:5200/banks/?country=" + "fr")
       .then(({ data }) => {
-        setBanksOptions(
-          data.map((bank) => ({ value: bank.id, label: bank.name }))
-        );
-        setBank(data[0].id);
+        setBanks(data);
       });
-  };
+  }, []);
+
+  const banksOptions = useMemo(
+    () => banks.map((bank) => ({ value: bank.id, label: bank.name })),
+    [banks]
+  );
+
+  const selectedBank = useMemo(() => {
+    return banks.find((b) => b.id === selectedBankId);
+  }, [selectedBankId]);
 
   const linkAccount = async () => {
     axios
       .post("http://localhost:5200/link", {
         redirect: "http://localhost:3000",
-        id: bank,
+        id: selectedBankId,
       })
       .then(({ data }) => {
         user.set("bankId", data.id);
@@ -32,35 +39,57 @@ const BankLinking = () => {
       });
   };
 
-  const countryOptions = [
-    { value: "fr", label: "France" },
-    { value: "gb", label: "Angleterre" },
-    { value: "de", label: "Allemagne" },
-  ];
-
   return (
-    <div>
-      <select value={country} onChange={(e) => setCountry(e.target.value)}>
-        {countryOptions.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-      <button type="button" onClick={getBanks}>
-        Get banks
-      </button>
-      {banksOptions.length > 0 && (
-        <select value={bank} onChange={(e) => setBank(e.target.value)}>
-          {banksOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Title sx={(t) => ({ marginBottom: t.spacing.lg })}>
+        Trouver ma banque
+      </Title>
+      <Select
+        icon={<Search size={14} />}
+        searchable
+        clearable
+        placeholder="Pick one"
+        data={banksOptions}
+        onChange={setSelectedBankId}
+        sx={(t) => ({
+          marginBottom: t.spacing.lg,
+        })}
+      />
+      {selectedBankId && (
+        <Box
+          sx={(theme) => ({
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: theme.spacing.lg,
+            borderRadius: theme.radius.md,
+            padding: theme.spacing.md,
+            border: `2px solid ${theme.colors.green[1]}`,
+            backgroundColor: theme.colors.green[0],
+          })}
+        >
+          <Image
+            height={80}
+            fit="contain"
+            radius="md"
+            src={selectedBank.logo}
+          />
+          <Text
+            sx={(theme) => ({
+              textAlign: "center",
+              color: theme.colors.green[2],
+              marginTop: theme.spacing.sm,
+            })}
+          >
+            <Text>{selectedBank.name}</Text>
+            <Check />
+          </Text>
+        </Box>
       )}
-      <button onClick={linkAccount}>Link account</button>
-    </div>
+      <Button onClick={linkAccount}>Lié mon compte</Button>
+    </Box>
   );
 };
 

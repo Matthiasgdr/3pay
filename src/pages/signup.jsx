@@ -6,7 +6,7 @@ import Siren from "../components/account/SignUp/siren";
 import EndingSignUp from "../components/account/SignUp/ending";
 
 const SignUpPage = () => {
-  const [step, setStep] = useState("siren");
+  const [step, setStep] = useState("connectwallet");
   const handleValidate = (index) => {
     setStep(index)
   };

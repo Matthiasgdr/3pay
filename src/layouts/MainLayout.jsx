@@ -1,12 +1,25 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-// import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useMoralis } from "react-moralis";
+import TopNavigation from "./TopNavigation";
 
 const MainLayout = () => {
+  const { isAuthenticated } = useMoralis();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated]);
+
+  if (!isAuthenticated) return null;
+
   return (
-    <div>
+    <>
+      <TopNavigation />
       <Outlet />
-    </div>
+    </>
   );
 };
 
