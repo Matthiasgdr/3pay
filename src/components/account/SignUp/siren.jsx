@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMoralis, useMoralisCloudFunction } from "react-moralis";
 import { Formik } from "formik";
-import { InputWrapper, Input, Button, Text, Box } from '@mantine/core';
+import { InputWrapper, Input, Button, Title, Box } from '@mantine/core';
 import axios from "axios";
 import * as Yup from 'yup';
 import PropTypes from "prop-types";
@@ -22,7 +22,7 @@ const Siren = ({ onValidate }) => {
       setUserSiren(data)
     }
 
-    const SirenSchema = Yup.object().shape({
+    const sirenSchema = Yup.object().shape({
       siren: Yup.string()
         .min(9, 'Numéro de SIREN invalide')
         .required('Required')
@@ -47,9 +47,15 @@ const Siren = ({ onValidate }) => {
     };
   return (
     <>
-        <Text size="xl">Vérfier votre entreprise</Text>
+        <Title 
+          order={1}
+          align="center"
+          sx={{ marginBottom: "40px" }}
+        >
+          Vérifier votre entreprise
+        </Title>
         <Formik
-          validationSchema={SirenSchema}
+          validationSchema={sirenSchema}
           onSubmit={handleSubmitSignup}
           initialValues={{ siren: "" }}
         >
@@ -65,8 +71,11 @@ const Siren = ({ onValidate }) => {
               >
                 <Input type="number" name="siren" id="siren" onChange={handleChange} value={values.siren} />
               </InputWrapper>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Box sx={(theme) => ({ display: "flex", justifyContent: "center", marginBottom: theme.spacing.sm })}>
                 <Button type="submit">Valider</Button>
+              </Box>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Button variant="subtle" onClick={() => onValidate("connectwallet")}>Passer</Button>
               </Box>
             </form>
           )}

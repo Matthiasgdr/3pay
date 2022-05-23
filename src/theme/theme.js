@@ -1,6 +1,6 @@
 export const lightTheme = {
   primaryColor: "blue",
-  primaryShade: { dark: 7, light: 5 },
+  primaryShade: { dark: 6, light: 4 },
   defaultRadius: "xs",
   colors: {
     blue: [
@@ -14,7 +14,17 @@ export const lightTheme = {
       "#0A0F84",
       "#090451",
     ],
-    grey: "#58566B",
+    grey: [
+      "#F9F9FF",
+      "#F4F4FB",
+      "#E5E5EA",
+      "#CCCCD5",
+      "#AAA9B9",
+      "#9392B0",
+      "#58566B",
+      "#3A3843",
+      "#100F15"
+    ],
     background: {
       primary: "#fff",
       secondary: "#fafafa",

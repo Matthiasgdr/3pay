@@ -19,13 +19,13 @@ const Theme = ({ children }) => {
       theme={themes[theme] || lightTheme}
       styles={{
         Input: { root: { height: "48px", color: "red" } },
-        Button: { root: { height: "48px", padding: "0px 48px" } },
+        Button: { root: { height: "48px", padding: "0px 48px" }, subtle: { color: themes[theme].colors.grey[6] }, light: { color: themes[theme].colors.blue[4], backgroundColor: themes[theme].colors.grey[0] } },
         Checkbox: {
           label: {
             fontSize: "14px",
             cursor: "pointer",
             lineHeight: "normal",
-            color: themes[theme].colors.grey,
+            color: themes[theme].colors.grey[6],
           },
           input: { cursor: "pointer" },
         },
