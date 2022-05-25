@@ -5,19 +5,20 @@ import { useUser } from "../hooks/useUser";
 import TopNavigation from "./TopNavigation";
 
 const MainLayout = () => {
-  const { Moralis, isAuthenticated, serverUrl, appId } = useMoralis();
+  const { Moralis, serverUrl, appId } = useMoralis();
+
   const navigate = useNavigate();
   const { user, setUser } = useUser();
-  console.log("LOG ~ file: MainLayout.jsx ~ line 11 ~ MainLayout ~ user", user);
 
   useEffect(() => {
     Moralis.start({ appId, serverUrl });
     const currentUser = Moralis.User.current();
     if (!currentUser) {
       navigate("/login");
+    } else {
+      setUser(currentUser);
     }
-    setUser(currentUser);
-  }, [isAuthenticated, Moralis]);
+  }, [Moralis, user]);
 
   if (!user) return null;
 
