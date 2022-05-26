@@ -3,6 +3,7 @@ import BankLinking from "../components/BankLinking";
 import { Box } from "@mantine/core";
 import Toolbar from "../components/Toolbar";
 import useBankTransactions from "../hooks/useBankTransaction";
+import LogoutButton from "../components/WalletLinking/logout"
 
 const Home = () => {
   const { response } = useBankTransactions();
@@ -12,6 +13,7 @@ const Home = () => {
       <BankLinking />
       <Toolbar />
       <div>
+        <LogoutButton />
         {response?.transactions?.booked.map((transaction, i) => (
           <Box
             key={i}

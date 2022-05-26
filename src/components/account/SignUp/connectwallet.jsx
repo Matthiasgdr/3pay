@@ -10,12 +10,12 @@ const ConnectWallet = ({ onValidate }) => {
       <Title 
         order={1}
         align="center"
-        sx={{ marginBottom: "40px" }}
+        sx={(theme) => ({ marginBottom: theme.spacing.lg })}
       >
         Connecter mon wallet
       </Title>
-      <SignUpButton />
-      <Text>Pas encore de wallet ?  <Link to="create-wallet">Me créer un wallet</Link></Text>
+      <SignUpButton onConnect={onValidate} />
+      <Text sx={(theme) => ({ marginBottom: theme.spacing.sm })} align="center">Pas encore de wallet ?  <Link to="create-wallet">Me créer un wallet</Link></Text>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Button variant="subtle" onClick={() => onValidate("ending")}>Passer</Button>
       </Box>

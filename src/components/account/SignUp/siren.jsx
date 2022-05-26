@@ -38,11 +38,13 @@ const Siren = ({ onValidate }) => {
         })
       
       if(checkSiren && !isExist && currentUser) {
-        currentUser.set("siren", siren);
+        currentUser.set("siren", siren.toString());
         currentUser.save();
-        onValidate("bank");
+        onValidate("connectwallet");
       } else if (isExist) {
         setFieldError("siren", "Numéro SIREN déjà utilisé pour un autre compte")
+      } else {
+        alert("User Session Expired")
       }
     };
   return (
