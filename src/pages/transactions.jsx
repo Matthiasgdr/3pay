@@ -1,19 +1,28 @@
 import React from 'react'
-import useUser from "../hooks/useUser";
 import useWalletTransactions from "../hooks/useWalletTransactions";
+import { useMoralis } from "react-moralis";
+import { Box, Title } from "@mantine/core";
 
 const Transactions = () => {
-  const { userAddress } = useUser();
-  const transactions = useWalletTransactions(userAddress && userAddress[0]);
+  const { Moralis } = useMoralis();
+  const currentUserAddress = Moralis.User.current().attributes.accounts;
+  
+  const transactions = useWalletTransactions(currentUserAddress && currentUserAddress[0]);
 
   return (
-    <div>
+    <Box>
+      <Title order={1}
+        align="center"
+        sx={{ marginBottom: "40px" }}
+      >
+        Historique de transactions
+      </Title>
       {transactions?.map((transaction) => (
         <p key={transaction.id}>
           {transaction.attributes.decimal.value.$numberDecimal} ETH
         </p>
       ))}
-    </div>
+    </Box>
   )
 }
 
