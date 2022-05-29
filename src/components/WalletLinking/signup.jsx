@@ -24,19 +24,17 @@ const SignUpButton = ({ onConnect }) => {
           onConnect("ending")
         })
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   }
 
   return (
-    <>
-      <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column", marginBottom: "40px" }}>
-        <Button sx={(theme) => ({ marginBottom: theme.spacing.sm })} variant="light" onClick={connectMetaMask}>Connecter mon wallet avec Metamask</Button>
-        <Button variant="light" disabled onClick={() => authWalletConnect()}>
-          Sign in using Wallet Connect
-        </Button>
-      </Box>
-    </>
+    <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column", marginBottom: "40px" }}>
+      <Button sx={(theme) => ({ marginBottom: theme.spacing.sm })} variant="light" onClick={connectMetaMask}>Connecter mon wallet avec Metamask</Button>
+      <Button variant="light" disabled onClick={() => authWalletConnect()}>
+        Sign in using Wallet Connect
+      </Button>
+    </Box>
   );
 };
 
