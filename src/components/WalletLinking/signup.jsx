@@ -1,45 +1,43 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
-import { Button, Box } from '@mantine/core';
-import PropTypes from "prop-types";
+import { useUser } from "../../hooks/useUser";
+import LogoutButton from "./logout";
 
-const SignUpButton = ({ onConnect }) => {
-  const { authenticate, enableWeb3, Moralis } = useMoralis();
+const SignUpButton = () => {
+  const { authenticate, isWeb3Enabled, isAuthenticated, enableWeb3 } =
+    useMoralis();
+  const { user } = useUser();
 
   async function authWalletConnect() {
-    enableWeb3().then(() => {
-      authenticate({
-        provider: "walletconnect",
-        chainId: 56,
-      });
-    })
+    const user = authenticate({
+      provider: "walletconnect",
+      chainId: 56,
+    });
+    console.log(user);
   }
 
-  async function connectMetaMask() {
-    const web3 = await enableWeb3();
-    const currentAccount = web3.provider.selectedAddress
-    try {
-      await Moralis.link(currentAccount, {signingMessage: `Connectez-vous à Invo!`})
-        .then(() => {
-          onConnect("ending")
-        })
-    } catch (err) {
-      alert(err);
+  const handleEnableWeb3 = () => {
+    if (!isWeb3Enabled && isAuthenticated) {
+      enableWeb3();
     }
-  }
+  };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column", marginBottom: "40px" }}>
-      <Button sx={(theme) => ({ marginBottom: theme.spacing.sm })} variant="light" onClick={connectMetaMask}>Connecter mon wallet avec Metamask</Button>
-      <Button variant="light" disabled onClick={() => authWalletConnect()}>
-        Sign in using Wallet Connect
-      </Button>
-    </Box>
+    <div>
+      <div>
+        <button onClick={() => authenticate()}>Sign in using Metamask</button>
+        <button onClick={() => authWalletConnect()}>
+          Sign in using Wallet Connect
+        </button>
+      </div>
+      <div>
+        <p>user id is: {user.get("ethAddress")}</p>
+        <button onClick={() => console.log(user)}>log user data</button>
+        <button onClick={handleEnableWeb3}>enable web3</button>
+        <LogoutButton />
+      </div>
+    </div>
   );
-};
-
-SignUpButton.propTypes = {
-  onConnect: PropTypes.any
 };
 
 export default SignUpButton;

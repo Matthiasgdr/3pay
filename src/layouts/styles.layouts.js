@@ -11,6 +11,7 @@ export const useAuthLayoutStyles = createStyles((theme) => {
       backgroundColor: theme.colors.background.primary,
     },
     wrapper: {
+      height: "50vh",
       width: "396px",
       backgroundColor: theme.colors.background.primary,
       borderRadius: theme.radius.lg,
@@ -18,13 +19,23 @@ export const useAuthLayoutStyles = createStyles((theme) => {
   };
 });
 
-export const TopNavigationStyles = createStyles((theme) => {
+export const SideNavigationStyles = createStyles((theme) => {
   return {
-    container: {
-      height: "48px",
+    navigationContainer: {
+      width: "257px",
       boxShadow: theme.shadows.md,
     },
   };
 });
 
-export default { useAuthLayoutStyles, TopNavigationStyles };
+export const MainLayoutStyles = createStyles(() => {
+  return {
+    mainLayoutContainer: {
+      display: "flex",
+      flexDirection: "column",
+      height: "100vh",
+    },
+  };
+});
+
+export default { useAuthLayoutStyles, SideNavigationStyles };

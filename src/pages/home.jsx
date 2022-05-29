@@ -1,9 +1,8 @@
 import React from "react";
-// import { useMoralis } from "react-moralis";
 import BankLinking from "../components/BankLinking";
 import { Box } from "@mantine/core";
-import { SignUpButton, LogoutButton } from "../components/WalletLinking";
-// import useBankTransactions from "../hooks/useBankTransaction";
+import { SignUpButton } from "../components/WalletLinking";
+import useBankTransactions from "../hooks/useBankTransaction";
 import useUser from "../hooks/useUser";
 import useWalletTransactions from "../hooks/useWalletTransactions";
 
@@ -12,8 +11,7 @@ const Home = () => {
   const transactions = useWalletTransactions(
     user?.accounts && user.accounts[0]
   );
-  // const { response } = useBankTransactions();
-  const { response } = {};
+  const { response, loading } = useBankTransactions();
 
   return (
     <div>
@@ -25,8 +23,8 @@ const Home = () => {
         </p>
       ))}
       <div>
-        <LogoutButton />
-        {response?.transactions?.booked.map((transaction, i) => (
+        {loading && "Loading..."}
+        {response?.transactions?.transactions.booked.map((transaction, i) => (
           <Box
             key={i}
             sx={{
@@ -37,7 +35,7 @@ const Home = () => {
             }}
           >
             <Box>
-              <p>
+              <div>
                 {transaction.remittanceInformationUnstructuredArray.map(
                   (line, y) => (
                     <p
@@ -48,7 +46,7 @@ const Home = () => {
                     </p>
                   )
                 )}
-              </p>
+              </div>
             </Box>
             <p>{transaction.transactionAmount.amount}</p>
             <p>{transaction.bookingDate}</p>

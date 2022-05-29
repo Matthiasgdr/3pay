@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useMoralis } from "react-moralis";
+import { useUser } from "../hooks/useUser";
 
 const useBankTransactions = () => {
-  const { user } = useMoralis();
-  const [response, setResponse] = useState([]);
+  const { user } = useUser();
+  const [response, setResponse] = useState(null);
   const [error, setError] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const listAccounts = () => {
-    if (user) {
+    if (user && !response) {
       const bankId = user.get("bankId");
       axios
         .post("http://localhost:5200/list", { id: bankId })
