@@ -1,6 +1,6 @@
 import { useMoralisQuery } from "react-moralis";
 
-const useWalletTransactions = ({ address }) => {
+const useWalletTransactions = (address) => {
   const { data } = useMoralisQuery(
     "EthTransactions",
     (query) => query.equalTo("to_address", address),

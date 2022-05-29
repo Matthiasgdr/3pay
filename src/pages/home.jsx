@@ -11,7 +11,7 @@ const Home = () => {
   const transactions = useWalletTransactions(
     user?.accounts && user.accounts[0]
   );
-  const { response, loading } = useBankTransactions();
+  const { response } = useBankTransactions();
 
   return (
     <div>
