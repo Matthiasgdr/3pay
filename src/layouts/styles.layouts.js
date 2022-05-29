@@ -11,7 +11,6 @@ export const useAuthLayoutStyles = createStyles((theme) => {
       backgroundColor: theme.colors.background.primary,
     },
     wrapper: {
-      height: "50vh",
       width: "396px",
       backgroundColor: theme.colors.background.primary,
       borderRadius: theme.radius.lg,
