@@ -1,5 +1,6 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../../../hooks/useUser";
 import { useMoralis } from "react-moralis";
 import {
   InputWrapper,
@@ -15,12 +16,19 @@ import { Formik } from "formik";
 
 const Login = () => {
   const { Moralis } = useMoralis();
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
 
   const handleSubmitLogin = async ({ username, password }) => {
     try {
-      await Moralis.User.logIn(username, password, { usePost: true }).then(
-        ({ id }) => id && navigate("/")
+      await Moralis.User.logIn(username, password).then(
+        (data) => data && setUser(data)
       );
     } catch (error) {
       alert("Error: " + error.code + " " + error.message);

@@ -1,17 +1,29 @@
 import React from "react";
+// import { useMoralis } from "react-moralis";
 import BankLinking from "../components/BankLinking";
 import { Box } from "@mantine/core";
-import Toolbar from "../components/Toolbar";
-import useBankTransactions from "../hooks/useBankTransaction";
-import LogoutButton from "../components/WalletLinking/logout"
+import { SignUpButton, LogoutButton } from "../components/WalletLinking";
+// import useBankTransactions from "../hooks/useBankTransaction";
+import useUser from "../hooks/useUser";
+import useWalletTransactions from "../hooks/useWalletTransactions";
 
 const Home = () => {
-  const { response } = useBankTransactions();
+  const { user } = useUser();
+  const transactions = useWalletTransactions(
+    user?.accounts && user.accounts[0]
+  );
+  // const { response } = useBankTransactions();
+  const { response } = {};
 
   return (
     <div>
       <BankLinking />
-      <Toolbar />
+      <SignUpButton />
+      {transactions?.map((transaction) => (
+        <p key={transaction.id}>
+          {transaction.attributes.decimal.value.$numberDecimal} ETH
+        </p>
+      ))}
       <div>
         <LogoutButton />
         {response?.transactions?.booked.map((transaction, i) => (

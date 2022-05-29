@@ -4,7 +4,6 @@ import { ToggleThemeProvider } from "./theme/context";
 import { UserContextProvider } from "./hooks/useUser";
 import Theme from "./theme";
 import GlobalStyle from "./theme/globalStyle";
-// import { useMoralis } from "react-moralis";
 
 import AuthLayout from "./layouts/AuthLayout";
 import MainLayout from "./layouts/MainLayout";
@@ -14,7 +13,6 @@ import SignUpPage from "./pages/signup";
 import Home from "./pages/home";
 
 const App = () => {
-  //   const { isAuthenticated } = useMoralis();
   return (
     <ToggleThemeProvider>
       <Theme>

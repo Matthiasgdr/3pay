@@ -1,14 +1,17 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
+import { useUser } from "../../hooks/useUser";
 
 const LogoutButton = () => {
-  const { logout, isAuthenticating } = useMoralis();
+  const { logout } = useMoralis();
+  const { setUser } = useUser();
 
-  return (
-    <button onClick={() => logout()} disabled={isAuthenticating}>
-      Logout
-    </button>
-  );
+  const handleLogOut = () => {
+    setUser(null);
+    logout();
+  };
+
+  return <button onClick={handleLogOut}>Logout</button>;
 };
 
 export default LogoutButton;
