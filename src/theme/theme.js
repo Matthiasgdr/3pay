@@ -23,6 +23,17 @@ export const lightTheme = {
       "#0A0F84",
       "#090451",
     ],
+    grey: [
+      "#F9F9FF",
+      "#F4F4FB",
+      "#E5E5EA",
+      "#CCCCD5",
+      "#AAA9B9",
+      "#9392B0",
+      "#58566B",
+      "#3A3843",
+      "#100F15"
+    ],
     green: ["#DDFBA3", "#A7E950", "#256905"],
     background: {
       primary: "#fff",

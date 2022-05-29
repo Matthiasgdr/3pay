@@ -1,43 +1,45 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
-import { useUser } from "../../hooks/useUser";
-import LogoutButton from "./logout";
+import { Button, Box } from '@mantine/core';
+import PropTypes from "prop-types";
 
-const SignUpButton = () => {
-  const { authenticate, isWeb3Enabled, isAuthenticated, enableWeb3 } =
-    useMoralis();
-  const { user } = useUser();
+const SignUpButton = ({ onConnect }) => {
+  const { authenticate, enableWeb3, Moralis } = useMoralis();
 
   async function authWalletConnect() {
-    const user = authenticate({
-      provider: "walletconnect",
-      chainId: 56,
-    });
-    console.log(user);
+    enableWeb3().then(() => {
+      authenticate({
+        provider: "walletconnect",
+        chainId: 56,
+      });
+    })
   }
 
-  const handleEnableWeb3 = () => {
-    if (!isWeb3Enabled && isAuthenticated) {
-      enableWeb3();
+  async function connectMetaMask() {
+    const web3 = await enableWeb3();
+    const currentAccount = web3.provider.selectedAddress
+    try {
+      await Moralis.link(currentAccount, {signingMessage: `Connectez-vous à Invo!`})
+        .then(() => {
+          onConnect("ending")
+        })
+    } catch (err) {
+      alert(err);
     }
-  };
+  }
 
   return (
-    <div>
-      <div>
-        <button onClick={() => authenticate()}>Sign in using Metamask</button>
-        <button onClick={() => authWalletConnect()}>
-          Sign in using Wallet Connect
-        </button>
-      </div>
-      <div>
-        <p>user id is: {user.get("ethAddress")}</p>
-        <button onClick={() => console.log(user)}>log user data</button>
-        <button onClick={handleEnableWeb3}>enable web3</button>
-        <LogoutButton />
-      </div>
-    </div>
+    <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column", marginBottom: "40px" }}>
+      <Button sx={(theme) => ({ marginBottom: theme.spacing.sm })} variant="light" onClick={connectMetaMask}>Connecter mon wallet avec Metamask</Button>
+      <Button variant="light" disabled onClick={() => authWalletConnect()}>
+        Sign in using Wallet Connect
+      </Button>
+    </Box>
   );
+};
+
+SignUpButton.propTypes = {
+  onConnect: PropTypes.any
 };
 
 export default SignUpButton;
