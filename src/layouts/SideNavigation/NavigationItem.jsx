@@ -9,9 +9,7 @@ import { SideNavigationStyles } from "../styles.layouts";
 const NavigationItem = ({ label, icon, route }) => {
   const { classes } = SideNavigationStyles();
   const location = useLocation();
-
   const isCurrentPage = location.pathname === route;
-  console.log(location.pathname, isCurrentPage);
 
   return (
     <UnstyledButton
