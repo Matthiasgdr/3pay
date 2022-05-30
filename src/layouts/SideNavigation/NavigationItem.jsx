@@ -19,17 +19,23 @@ const NavigationItem = ({ label, icon, route }) => {
       component={Link}
       to={route}
       sx={
-        isCurrentPage && {
-          "&::before": {
-            opacity: "1",
-            width: "6px",
-          },
-        }
+        isCurrentPage
+          ? (theme) => ({
+              color: theme.colors.blue[5],
+              backgroundColor: theme.colors.blue[0],
+              "&::before": {
+                opacity: "1",
+                width: "6px",
+              },
+            })
+          : undefined
       }
     >
       <Group>
         {icon}
-        <Text size="sm">{label}</Text>
+        <Text size="sm" weight={isCurrentPage && "600"}>
+          {label}
+        </Text>
       </Group>
     </UnstyledButton>
   );
