@@ -19,7 +19,14 @@ const Theme = ({ children }) => {
       theme={themes[theme] || lightTheme}
       styles={{
         Input: { root: { height: "48px", color: "red" } },
-        Button: { root: { height: "48px", padding: "0px 48px" }, subtle: { color: themes[theme].colors.grey[6] }, light: { color: themes[theme].colors.blue[4], backgroundColor: themes[theme].colors.grey[0] } },
+        Button: {
+          root: { height: "48px", padding: "0px 48px" },
+          subtle: { color: themes[theme].colors.grey[6] },
+          light: {
+            color: themes[theme].colors.blue[4],
+            backgroundColor: themes[theme].colors.grey[0],
+          },
+        },
         Checkbox: {
           label: {
             fontSize: "14px",
@@ -29,6 +36,8 @@ const Theme = ({ children }) => {
           },
           input: { cursor: "pointer" },
         },
+        // Text: { root: { color: themes[theme].colors.blue[8] } },
+        // Title: { root: { color: themes[theme].colors.blue[8] } },
       }}
     >
       {children}
