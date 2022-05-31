@@ -36,8 +36,12 @@ const Theme = ({ children }) => {
           },
           input: { cursor: "pointer" },
         },
+        Title: {
+          root: {
+            color: themes[theme].colors.blue[8],
+          },
+        },
         // Text: { root: { color: themes[theme].colors.blue[8] } },
-        // Title: { root: { color: themes[theme].colors.blue[8] } },
       }}
     >
       {children}
