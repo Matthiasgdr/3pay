@@ -41,6 +41,7 @@ const Theme = ({ children }) => {
             color: themes[theme].colors.blue[8],
           },
         },
+        // Text: { root: { color: themes[theme].colors.blue[8] } },
       }}
     >
       {children}

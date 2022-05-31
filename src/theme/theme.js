@@ -1,4 +1,5 @@
 export const lightTheme = {
+  black: "#090451",
   primaryColor: "blue",
   primaryShade: { dark: 6, light: 4 },
   defaultRadius: "xs",
@@ -32,7 +33,7 @@ export const lightTheme = {
       "#9392B0",
       "#58566B",
       "#3A3843",
-      "#100F15"
+      "#100F15",
     ],
     green: ["#DDFBA3", "#A7E950", "#256905"],
     background: {
