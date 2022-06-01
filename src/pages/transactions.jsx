@@ -1,30 +1,33 @@
-import React from 'react'
+import React from "react";
 import useWalletTransactions from "../hooks/useWalletTransactions";
 import { Box, Title, Table } from "@mantine/core";
-import { useUser } from "../hooks/useUser"
+import { useUser } from "../hooks/useUser";
 
 const Transactions = () => {
-  const { user } = useUser()
+  console.log(
+    "LOG ~ file: useBankTransaction.jsx ~ line 16 ~ listAccounts",
+    process.env.BANK_PROXY_URL
+  );
+  const { user } = useUser();
   const currentUserAddress = user.attributes.accounts;
   function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, "0");
   }
-  
+
   function formatDate(date) {
     return [
       padTo2Digits(date.getDate()),
       padTo2Digits(date.getMonth() + 1),
       date.getFullYear(),
-    ].join('/');
+    ].join("/");
   }
-  
-  const transactions = useWalletTransactions(currentUserAddress && currentUserAddress[0]);
+
+  const transactions = useWalletTransactions(
+    currentUserAddress && currentUserAddress[0]
+  );
   return (
     <Box>
-      <Title order={1}
-        align="center"
-        sx={{ marginBottom: "40px" }}
-      >
+      <Title order={1} sx={(theme) => ({ marginBottom: theme.spacing.md })}>
         Historique de transactions
       </Title>
       <Table>
@@ -46,7 +49,7 @@ const Transactions = () => {
         </tbody>
       </Table>
     </Box>
-  )
-}
+  );
+};
 
-export default Transactions
+export default Transactions;

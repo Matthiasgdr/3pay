@@ -12,6 +12,7 @@ import LoginPage from "./pages/login";
 import SignUpPage from "./pages/signup";
 import Home from "./pages/home";
 import Transactions from "./pages/transactions";
+import Settings from "./pages/settings";
 
 const App = () => {
   return (
@@ -23,7 +24,7 @@ const App = () => {
             <Route path="/" element={<MainLayout />}>
               <Route path="" element={<Home />} />
               <Route path="transactions" element={<Transactions />} />
-              <Route path="settings" element={<Transactions />} />
+              <Route path="settings" element={<Settings />} />
             </Route>
             <Route path="/" element={<AuthLayout />}>
               <Route path="login" element={<LoginPage />} />

@@ -27,7 +27,7 @@ const MainLayout = () => {
 
   return (
     <AppShell
-      padding="md"
+      padding="xl"
       fixed
       navbar={
         <Navbar width={{ base: 250 }}>
