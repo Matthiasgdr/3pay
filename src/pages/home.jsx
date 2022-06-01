@@ -1,8 +1,6 @@
 import React from "react";
 import BankLinking from "../components/BankLinking";
-import { Box } from "@mantine/core";
 import { SignUpButton, LogoutButton } from "../components/WalletLinking";
-import useBankTransactions from "../hooks/useBankTransaction";
 import useUser from "../hooks/useUser";
 import useWalletTransactions from "../hooks/useWalletTransactions";
 
@@ -11,7 +9,6 @@ const Home = () => {
   const transactions = useWalletTransactions(
     user?.accounts && user.accounts[0]
   );
-  const { response } = useBankTransactions();
 
   return (
     <div>
@@ -22,37 +19,7 @@ const Home = () => {
           {transaction.attributes.decimal.value.$numberDecimal} ETH
         </p>
       ))}
-      <div>
-        <LogoutButton />
-        {response?.transactions?.booked.map((transaction, i) => (
-          <Box
-            key={i}
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderBottom: "1px solid black",
-            }}
-          >
-            <Box>
-              <div>
-                {transaction.remittanceInformationUnstructuredArray.map(
-                  (line, y) => (
-                    <p
-                      key={y}
-                      style={{ fontWeight: y === 0 ? "bold" : "normal" }}
-                    >
-                      {line}
-                    </p>
-                  )
-                )}
-              </div>
-            </Box>
-            <p>{transaction.transactionAmount.amount}</p>
-            <p>{transaction.bookingDate}</p>
-          </Box>
-        ))}
-      </div>
+      <LogoutButton />
     </div>
   );
 };
