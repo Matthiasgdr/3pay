@@ -14,7 +14,7 @@ const TransactionsPage = () => {
 
   return (
     <Box>
-      <Title order={1} align="center" sx={{ marginBottom: "40px" }}>
+      <Title order={1} sx={{ marginBottom: "40px" }}>
         Historique de transactions
       </Title>
       <Transactions cryptoTransactions={transactions} />

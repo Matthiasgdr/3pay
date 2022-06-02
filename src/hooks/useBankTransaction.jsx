@@ -12,11 +12,13 @@ const useBankTransactions = () => {
     if (user && !response) {
       const bankId = user.get("bankId");
       axios
-        .post(process.env.BANK_PROXY_URL + "/list", { id: bankId })
+        .post(process.env.REACT_APP_BANK_PROXY_URL + "/list", { id: bankId })
         .then(({ data }) =>
           data.accounts.forEach((acc) =>
             axios
-              .post(process.env.BANK_PROXY_URL + "/account", { id: acc })
+              .post(process.env.REACT_APP_BANK_PROXY_URL + "/account", {
+                id: acc,
+              })
               .then(({ data }) => setResponse(data))
               .catch((err) => setError(err))
               .finally(() => {
