@@ -1,16 +1,26 @@
 import React from 'react'
 import useWalletTransactions from "../hooks/useWalletTransactions";
-import { Box, Title, Table } from "@mantine/core";
-import { useUser } from "../hooks/useUser"
+import { Box, Title, Table, createStyles } from "@mantine/core";
+import { useUser } from "../hooks/useUser";
+import cryptoToEuro from "../utils/cryptoToEuro";
+
+const useStyles = createStyles((theme) => ({
+  nameTable: {
+    color: theme.colors.blue[3],
+    fontSize: theme.fontSizes.body,
+    fontWeight: 700
+  }
+}));
 
 const Transactions = () => {
+  const { classes } = useStyles();
   const { user } = useUser()
   const currentUserAddress = user.attributes.accounts;
-  function padTo2Digits(num) {
+  const padTo2Digits = (num) => {
     return num.toString().padStart(2, '0');
   }
-  
-  function formatDate(date) {
+
+  const formatDate = (date) => {
     return [
       padTo2Digits(date.getDate()),
       padTo2Digits(date.getMonth() + 1),
@@ -19,6 +29,7 @@ const Transactions = () => {
   }
   
   const transactions = useWalletTransactions(currentUserAddress && currentUserAddress[0]);
+  const euro = cryptoToEuro('ETH')
   return (
     <Box>
       <Title order={1}
@@ -32,14 +43,15 @@ const Transactions = () => {
           <tr>
             <th>Nom</th>
             <th>Prix</th>
+            <th></th>
             <th>Date</th>
           </tr>
         </thead>
         <tbody>
           {transactions?.map((transaction) => (
             <tr key={transaction.id}>
-              <td>{transaction.className}</td>
-              <td>{transaction.attributes.decimal.value.$numberDecimal}</td>
+              <td className={classes.nameTable}>{transaction.className}</td>
+              <td>{Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(4)} {Number(Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(5) * euro).toFixed(2)} €</td>
               <td>{formatDate(transaction.attributes.createdAt)}</td>
             </tr>
           ))}

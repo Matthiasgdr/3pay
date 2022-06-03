@@ -5,6 +5,14 @@ export const lightTheme = {
   defaultRadius: "xs",
   fontFamily: "IBM Plex Sans",
   headings: { fontFamily: "Cabinet Grotesk" },
+  fontSizes: {
+    h1: '48px',
+    h2: '40px',
+    h3: '32px',
+    h4: '24px',
+    body: '16px',
+    small: '14px'
+  },
   spacing: {
     xs: 4,
     sm: 8,

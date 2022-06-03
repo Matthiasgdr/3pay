@@ -43,8 +43,6 @@ const Siren = ({ onValidate }) => {
         onValidate("connectwallet");
       } else if (isExist) {
         setFieldError("siren", "Numéro SIREN déjà utilisé pour un autre compte")
-      } else {
-        alert("User Session Expired")
       }
     };
   return (
