@@ -2,12 +2,28 @@ import React from "react";
 import PropTypes from "prop-types";
 import useBankTransaction from "../../hooks/useBankTransaction";
 import { transformBankToDefault } from "./utils/transformBankToDefault";
-import { Table } from "@mantine/core";
+import { Table, createStyles } from "@mantine/core";
+import cryptoToEuro from "./utils/cryptoToEuro"
+import formatWalletTransactions from "./utils/formatWalletTransactions";
+
+
+const useStyles = createStyles((theme) => ({
+  nameTable: {
+    color: theme.colors.blue[3],
+    fontSize: theme.fontSizes.body,
+    fontWeight: 700
+  }
+}));
 
 const Transactions = ({ cryptoTransactions }) => {
+  const { classes } = useStyles();
+  const euro = cryptoToEuro('ETH');
   const transactions = cryptoTransactions;
   transactions;
 
+  const formatedWalletTransactions = formatWalletTransactions(transactions, euro)
+
+  console.log(formatedWalletTransactions)
   const { response, loading } = useBankTransaction();
   const defaultTransactions = transformBankToDefault(
     response?.transactions?.booked
@@ -28,7 +44,7 @@ const Transactions = ({ cryptoTransactions }) => {
           <tbody>
             {defaultTransactions?.map((transaction, i) => (
               <tr key={i}>
-                <td>{transaction.type}</td>
+                <td className={classes.nameTable}>{transaction.type}</td>
                 <td>{transaction.amount}</td>
                 <td>
                   {transaction?.description.map((l, y) => (
