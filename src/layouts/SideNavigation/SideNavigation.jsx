@@ -1,10 +1,11 @@
 import React from "react";
+import { Navbar } from "@mantine/core";
 import { Settings, ArrowsLeftRight, LayoutBoard } from "tabler-icons-react";
+
+import { LogoutButton } from "../../components/WalletLinking";
 import NavigationItem from "./NavigationItem";
 
-// import { SideNavigationStyles } from "../styles.layouts";
-// import { useNavigate } from "react-router-dom";
-// import { useMoralis } from "react-moralis";
+import { SideNavigationStyles } from "../styles.layouts";
 
 const data = [
   { icon: <LayoutBoard size={16} />, label: "Tableau de bord", route: "/" },
@@ -17,12 +18,26 @@ const data = [
 ];
 
 const SideNavigation = () => {
-  // const { classes } = SideNavigationStyles();
-  //   const { isAuthenticated } = useMoralis();
+  const { classes } = SideNavigationStyles();
 
-  return data.map((link) => (
-    <NavigationItem {...link} key={link.label}></NavigationItem>
-  ));
+  return (
+    <Navbar width={{ base: 250 }}>
+      <Navbar.Section grow>
+        {data.map((link) => (
+          <NavigationItem {...link} key={link.label}></NavigationItem>
+        ))}
+      </Navbar.Section>
+      <Navbar.Section
+        sx={(theme) => ({
+          padding: theme.spacing.sm,
+          display: "flex",
+          justifyContent: "center",
+        })}
+      >
+        <LogoutButton />
+      </Navbar.Section>
+    </Navbar>
+  );
 };
 
 SideNavigation.propTypes = {};

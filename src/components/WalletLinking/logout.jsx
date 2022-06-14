@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@mantine/core";
 import { useMoralis } from "react-moralis";
 import { useUser } from "../../hooks/useUser";
 
@@ -11,7 +12,11 @@ const LogoutButton = () => {
     logout();
   };
 
-  return <button onClick={handleLogOut}>Logout</button>;
+  return (
+    <Button variant="light" onClick={handleLogOut}>
+      Déconnexion
+    </Button>
+  );
 };
 
 export default LogoutButton;

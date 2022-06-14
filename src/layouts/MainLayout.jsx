@@ -29,11 +29,7 @@ const MainLayout = () => {
     <AppShell
       padding="xl"
       fixed
-      navbar={
-        <Navbar width={{ base: 250 }}>
-          <SideNavigation />
-        </Navbar>
-      }
+      navbar={<SideNavigation />}
       header={
         <Header height={60} p="xs">
           <TopBar />

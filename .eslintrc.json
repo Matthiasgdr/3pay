@@ -15,5 +15,27 @@
   "globals": {
     "process": true
   },
-  "rules": {}
+  "rules": {
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "consistent-return": "off",
+    "camelcase": "off",
+    "arrow-body-style": "off",
+    "array-callback-return": "off",
+    "react/require-default-props": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-default": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/display-name": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/forbid-prop-types": "off",
+    "react/static-property-placement": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ]
+  }
 }

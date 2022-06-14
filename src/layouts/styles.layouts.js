@@ -26,6 +26,7 @@ export const SideNavigationStyles = createStyles((theme) => {
     },
     navigationItem: {
       position: "relative",
+      display: "block",
       width: "100%",
       padding: `${theme.spacing.md}px ${theme.spacing.lg}px`,
       color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,

@@ -1,30 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useBankTransaction from "../../hooks/useBankTransaction";
+import useBankTransactions from "../../hooks/useBankTransactions";
 import { transformBankToDefault } from "./utils/transformBankToDefault";
-import { Table, createStyles } from "@mantine/core";
-import cryptoToEuro from "./utils/cryptoToEuro"
+import { Table, Loader, Box, createStyles } from "@mantine/core";
+import cryptoToEuro from "./utils/cryptoToEuro";
 import formatWalletTransactions from "./utils/formatWalletTransactions";
-
 
 const useStyles = createStyles((theme) => ({
   nameTable: {
     color: theme.colors.blue[3],
     fontSize: theme.fontSizes.body,
-    fontWeight: 700
-  }
+    fontWeight: 700,
+  },
 }));
 
 const Transactions = ({ cryptoTransactions }) => {
   const { classes } = useStyles();
-  const euro = cryptoToEuro('ETH');
+  const euro = cryptoToEuro("ETH");
   const transactions = cryptoTransactions;
   transactions;
 
-  const formatedWalletTransactions = formatWalletTransactions(transactions, euro)
+  const formatedWalletTransactions = formatWalletTransactions(
+    transactions,
+    euro
+  );
 
-  console.log(formatedWalletTransactions)
-  const { response, loading } = useBankTransaction();
+  const { response, loading } = useBankTransactions();
   const defaultTransactions = transformBankToDefault(
     response?.transactions?.booked
   );
@@ -57,7 +58,17 @@ const Transactions = ({ cryptoTransactions }) => {
           </tbody>
         )}
       </Table>
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <Box
+          sx={(theme) => ({
+            display: "flex",
+            justifyContent: "center",
+            marginTop: theme.spacing.md,
+          })}
+        >
+          <Loader />
+        </Box>
+      )}
     </>
   );
 };

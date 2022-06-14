@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Select, Button, Box, Title, Image, Text } from "@mantine/core";
 import { Search, Check } from "tabler-icons-react";
-import { useMoralis } from "react-moralis";
+import { useUser } from "../../hooks/useUser";
 import axios from "axios";
 
 const BankLinking = () => {
-  const { user } = useMoralis();
+  const { user } = useUser();
   const [banks, setBanks] = useState([]);
   const [selectedBankId, setSelectedBankId] = useState(null);
 
@@ -39,12 +39,12 @@ const BankLinking = () => {
       });
   };
 
-  return (
+  return !user.attributes.bankId ? (
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <Title sx={(t) => ({ marginBottom: t.spacing.lg })}>
-        Trouver ma banque
+        Connecter mon compte en banque
       </Title>
       <Select
         icon={<Search size={14} />}
@@ -90,6 +90,8 @@ const BankLinking = () => {
       )}
       <Button onClick={linkAccount}>Lié mon compte</Button>
     </Box>
+  ) : (
+    <Text>Votre compte en banque est lié !</Text>
   );
 };
 
