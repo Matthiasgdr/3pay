@@ -5,6 +5,8 @@ import { transformBankToDefault } from "./utils/transformBankToDefault";
 import { Table, createStyles } from "@mantine/core";
 import cryptoToEuro from "./utils/cryptoToEuro"
 import formatWalletTransactions from "./utils/formatWalletTransactions";
+import { useUser } from "../../hooks/useUser";
+import useWalletTransactions from "../../hooks/useWalletTransactions";
 
 
 const useStyles = createStyles((theme) => ({
@@ -17,17 +19,27 @@ const useStyles = createStyles((theme) => ({
 
 const Transactions = ({ cryptoTransactions }) => {
   const { classes } = useStyles();
+  const { user } = useUser();
   const euro = cryptoToEuro('ETH');
+
+  const currentUserAddress = user.attributes.accounts;
+  const transactionstest = useWalletTransactions(
+    currentUserAddress && currentUserAddress[0]
+  );
+  console.log(transactionstest)
+
   const transactions = cryptoTransactions;
   transactions;
 
-  const formatedWalletTransactions = formatWalletTransactions(transactions, euro)
+  const formatedWalletTransactions = formatWalletTransactions(transactionstest, euro)
 
   console.log(formatedWalletTransactions)
   const { response, loading } = useBankTransaction();
   const defaultTransactions = transformBankToDefault(
     response?.transactions?.booked
   );
+
+  console.log(defaultTransactions)
 
   return (
     <>
