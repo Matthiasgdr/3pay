@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import useBankTransaction from "../../hooks/useBankTransaction";
 import { transformBankToDefault } from "./utils/transformBankToDefault";
-import { Table, createStyles } from "@mantine/core";
+import { Table, createStyles, Text, Button } from "@mantine/core";
 import cryptoToEuro from "./utils/cryptoToEuro"
 import formatWalletTransactions from "./utils/formatWalletTransactions";
 import { useUser } from "../../hooks/useUser";
@@ -13,38 +13,39 @@ const useStyles = createStyles((theme) => ({
   nameTable: {
     color: theme.colors.blue[3],
     fontSize: theme.fontSizes.body,
-    fontWeight: 700
+    fontWeight: 700,
+    textTransform: 'uppercase'
+  },
+  headTable: {
+    position: 'sticky',
+    insetBlockStart: 60,
+    background: theme.colors.background.primary
   }
 }));
 
-const Transactions = ({ cryptoTransactions }) => {
+const Transactions = () => {
   const { classes } = useStyles();
   const { user } = useUser();
   const euro = cryptoToEuro('ETH');
+  const [transactionHistoric, setTransactionHistoric] = useState(null)
 
   const currentUserAddress = user.attributes.accounts;
-  const transactionstest = useWalletTransactions(
+  const cryptoTransactions = useWalletTransactions(
     currentUserAddress && currentUserAddress[0]
   );
-  console.log(transactionstest)
-
-  const transactions = cryptoTransactions;
-  transactions;
-
-  const formatedWalletTransactions = formatWalletTransactions(transactionstest, euro)
-
-  console.log(formatedWalletTransactions)
+  const formatedWalletTransactions = formatWalletTransactions(cryptoTransactions, euro)
   const { response, loading } = useBankTransaction();
   const defaultTransactions = transformBankToDefault(
     response?.transactions?.booked
   );
-
-  console.log(defaultTransactions)
-
+  const concatTransactions = formatedWalletTransactions.concat(defaultTransactions)
   return (
     <>
+      <Button onClick={() => setTransactionHistoric(concatTransactions)}>Both Crypto and Bank</Button>
+      <Button onClick={() => setTransactionHistoric(formatedWalletTransactions)}>Only Crypto</Button>
+      <Button onClick={() => setTransactionHistoric(defaultTransactions)}>Only Bank</Button>
       <Table>
-        <thead>
+        <thead className={classes.headTable}>
           <tr>
             <th>Nom</th>
             <th>Prix</th>
@@ -54,10 +55,27 @@ const Transactions = ({ cryptoTransactions }) => {
         </thead>
         {!loading && (
           <tbody>
-            {defaultTransactions?.map((transaction, i) => (
+            {transactionHistoric === null ? transactionHistoric?.map((transaction, i) => (
               <tr key={i}>
                 <td className={classes.nameTable}>{transaction.type}</td>
-                <td>{transaction.amount}</td>
+                <td>
+                  {transaction.amount}€
+                  <Text size="xs"  sx={(theme) => ({color: theme.colors.blue[3], display: 'inline-block', marginLeft: theme.spacing.sm})}>{transaction?.crypto}</Text>
+                </td>
+                <td>
+                  {transaction?.description.map((l, y) => (
+                    <p key={y}>{l}</p>
+                  ))}
+                </td>
+                <td>{transaction.date}</td>
+              </tr>
+            )) : transactionHistoric?.map((transaction, i) => (
+              <tr key={i}>
+                <td className={classes.nameTable}>{transaction.type}</td>
+                <td>
+                  {transaction.amount}€
+                  <Text size="xs"  sx={(theme) => ({color: theme.colors.blue[3], display: 'inline-block', marginLeft: theme.spacing.sm})}>{transaction?.crypto}</Text>
+                </td>
                 <td>
                   {transaction?.description.map((l, y) => (
                     <p key={y}>{l}</p>
