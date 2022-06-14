@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
-import { AppShell, Navbar, Header } from "@mantine/core";
+import { AppShell, Header } from "@mantine/core";
 
 import { useUser } from "../hooks/useUser";
 import SideNavigation from "./SideNavigation/SideNavigation";
@@ -29,11 +29,7 @@ const MainLayout = () => {
     <AppShell
       padding="xl"
       fixed
-      navbar={
-        <Navbar width={{ base: 250 }}>
-          <SideNavigation />
-        </Navbar>
-      }
+      navbar={<SideNavigation />}
       header={
         <Header height={60} p="xs">
           <TopBar />

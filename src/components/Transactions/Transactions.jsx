@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import useBankTransaction from "../../hooks/useBankTransaction";
+import useBankTransactions from "../../hooks/useBankTransactions";
 import { transformBankToDefault } from "./utils/transformBankToDefault";
-import { Table, createStyles, Text, Button } from "@mantine/core";
 import cryptoToEuro from "./utils/cryptoToEuro"
+import { Table, createStyles, Text, Button, Loader, Box } from "@mantine/core";
 import formatWalletTransactions from "./utils/formatWalletTransactions";
 import { useUser } from "../../hooks/useUser";
 import useWalletTransactions from "../../hooks/useWalletTransactions";
-
 
 const useStyles = createStyles((theme) => ({
   nameTable: {
@@ -34,7 +33,7 @@ const Transactions = () => {
     currentUserAddress && currentUserAddress[0]
   );
   const formatedWalletTransactions = formatWalletTransactions(cryptoTransactions, euro)
-  const { response, loading } = useBankTransaction();
+  const { response, loading } = useBankTransactions();
   const defaultTransactions = transformBankToDefault(
     response?.transactions?.booked
   );
@@ -87,7 +86,17 @@ const Transactions = () => {
           </tbody>
         )}
       </Table>
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <Box
+          sx={(theme) => ({
+            display: "flex",
+            justifyContent: "center",
+            marginTop: theme.spacing.md,
+          })}
+        >
+          <Loader />
+        </Box>
+      )}
     </>
   );
 };
