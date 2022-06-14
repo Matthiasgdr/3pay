@@ -4,7 +4,7 @@ export const transformBankToDefault = (transactions) => {
       description: t.remittanceInformationUnstructuredArray,
       amount: t.transactionAmount.amount,
       type: t.transactionAmount.currency,
-      date: t.bookingDate,
+      date: t.bookingDate.replace(/-/g, '/'),
     };
   });
   return transformedTransactions;
