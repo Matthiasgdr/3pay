@@ -1,14 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
-import {
-  Table,
-  createStyles,
-  Text,
-  Button,
-  Loader,
-  Box,
-  Select,
-} from "@mantine/core";
+import { Table, createStyles, Text, Loader, Box, Select } from "@mantine/core";
 
 import useBankTransactions from "../../hooks/useBankTransactions";
 import { useUser } from "../../hooks/useUser";
@@ -17,6 +9,7 @@ import useWalletTransactions from "../../hooks/useWalletTransactions";
 import { transformBankToDefault } from "./utils/transformBankToDefault";
 import cryptoToEuro from "./utils/cryptoToEuro";
 import formatWalletTransactions from "./utils/formatWalletTransactions";
+import filter from "./utils/filter";
 
 const useStyles = createStyles((theme) => ({
   nameTable: {
@@ -33,16 +26,16 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const selectData = [
-  { value: "all", label: "Tout" },
-  { value: "crypto", label: "Crypto" },
-  { value: "bank", label: "Bank" },
+  { value: null, label: "Tout" },
+  { value: "crypto", label: "Crypto-monnaie" },
+  { value: "bank", label: "Banque" },
 ];
 
 const Transactions = () => {
   const { classes } = useStyles();
   const { user } = useUser();
 
-  const [filter, setFilter] = useState({ type: "all" });
+  const [filterKeys, setFilter] = useState({ type: null });
 
   const euro = cryptoToEuro("ETH");
   const currentUserAddress = user.attributes.accounts;
@@ -62,7 +55,11 @@ const Transactions = () => {
   );
 
   const concatTransactions = useMemo(
-    () => [...defaultTransactions, ...formattedWalletTransactions],
+    () =>
+      filter(
+        [...defaultTransactions, ...formattedWalletTransactions],
+        filterKeys
+      ),
     [defaultTransactions, formattedWalletTransactions]
   );
 

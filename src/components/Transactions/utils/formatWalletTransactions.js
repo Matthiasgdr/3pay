@@ -5,10 +5,10 @@ const formatWalletTransactions = (transactions, euro) => {
   for (const transaction of transactions) {
     const formatedTransaction = {
       currency: transaction.className.replace("Transactions", ""),
-      amount: (formatedTransaction.amount = Number(
+      amount: Number(
         Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(5) *
           euro
-      ).toFixed(2)),
+      ).toFixed(2),
       description: [null],
       date: formatDate(transaction.attributes.createdAt),
       crypto: Number(

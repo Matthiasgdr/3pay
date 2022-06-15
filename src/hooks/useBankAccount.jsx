@@ -11,21 +11,23 @@ const useBankAccount = () => {
   const getDetails = () => {
     if (user && !response) {
       const bankId = user.get("bankId");
-      axios
-        .post(process.env.REACT_APP_BANK_PROXY_URL + "/list", { id: bankId })
-        .then(({ data }) =>
-          data.accounts.forEach((acc) =>
-            axios
-              .post(process.env.REACT_APP_BANK_PROXY_URL + "/details", {
-                id: acc,
-              })
-              .then(({ data }) => setResponse(data))
-              .catch((err) => setError(err))
-              .finally(() => {
-                setLoading(false);
-              })
-          )
-        );
+      if (bankId) {
+        axios
+          .post(process.env.REACT_APP_BANK_PROXY_URL + "/list", { id: bankId })
+          .then(({ data }) =>
+            data.accounts.forEach((acc) =>
+              axios
+                .post(process.env.REACT_APP_BANK_PROXY_URL + "/details", {
+                  id: acc,
+                })
+                .then(({ data }) => setResponse(data))
+                .catch((err) => setError(err))
+                .finally(() => {
+                  setLoading(false);
+                })
+            )
+          );
+      }
     }
   };
 
