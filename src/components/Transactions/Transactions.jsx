@@ -10,6 +10,7 @@ import { transformBankToDefault } from "./utils/transformBankToDefault";
 import cryptoToEuro from "./utils/cryptoToEuro";
 import formatWalletTransactions from "./utils/formatWalletTransactions";
 import filter from "./utils/filter";
+import formatDate from "./utils/dateFormat";
 
 const useStyles = createStyles((theme) => ({
   nameTable: {
@@ -106,7 +107,7 @@ const Transactions = () => {
                     <p key={y}>{l}</p>
                   ))}
                 </td>
-                <td>{transaction.date}</td>
+                <td>{formatDate(transaction.date)}</td>
               </tr>
             ))}
           </tbody>

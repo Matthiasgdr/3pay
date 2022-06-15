@@ -1,5 +1,3 @@
-import formatDate from "./dateFormat";
-
 const formatWalletTransactions = (transactions, euro) => {
   const array = [];
   for (const transaction of transactions) {
@@ -10,7 +8,7 @@ const formatWalletTransactions = (transactions, euro) => {
           euro
       ).toFixed(2),
       description: [null],
-      date: formatDate(transaction.attributes.createdAt),
+      date: transaction.attributes.createdAt,
       crypto: Number(
         transaction.attributes.decimal.value.$numberDecimal
       ).toFixed(4),
