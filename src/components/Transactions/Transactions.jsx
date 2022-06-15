@@ -1,48 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
+import {
+  Table,
+  createStyles,
+  Text,
+  Button,
+  Loader,
+  Box,
+  Select,
+} from "@mantine/core";
+
 import useBankTransactions from "../../hooks/useBankTransactions";
-import { transformBankToDefault } from "./utils/transformBankToDefault";
-import cryptoToEuro from "./utils/cryptoToEuro"
-import { Table, createStyles, Text, Button, Loader, Box } from "@mantine/core";
-import formatWalletTransactions from "./utils/formatWalletTransactions";
 import { useUser } from "../../hooks/useUser";
 import useWalletTransactions from "../../hooks/useWalletTransactions";
+
+import { transformBankToDefault } from "./utils/transformBankToDefault";
+import cryptoToEuro from "./utils/cryptoToEuro";
+import formatWalletTransactions from "./utils/formatWalletTransactions";
 
 const useStyles = createStyles((theme) => ({
   nameTable: {
     color: theme.colors.blue[3],
     fontSize: theme.fontSizes.body,
     fontWeight: 700,
-    textTransform: 'uppercase'
+    textTransform: "uppercase",
   },
   headTable: {
-    position: 'sticky',
+    position: "sticky",
     insetBlockStart: 60,
-    background: theme.colors.background.primary
-  }
+    background: theme.colors.background.primary,
+  },
 }));
+
+const selectData = [
+  { value: "all", label: "Tout" },
+  { value: "crypto", label: "Crypto" },
+  { value: "bank", label: "Bank" },
+];
 
 const Transactions = () => {
   const { classes } = useStyles();
   const { user } = useUser();
-  const euro = cryptoToEuro('ETH');
-  const [transactionHistoric, setTransactionHistoric] = useState(null)
 
+  const [filter, setFilter] = useState({ type: "all" });
+
+  const euro = cryptoToEuro("ETH");
   const currentUserAddress = user.attributes.accounts;
+  const { response, loading } = useBankTransactions();
+
   const cryptoTransactions = useWalletTransactions(
     currentUserAddress && currentUserAddress[0]
   );
-  const formatedWalletTransactions = formatWalletTransactions(cryptoTransactions, euro)
-  const { response, loading } = useBankTransactions();
-  const defaultTransactions = transformBankToDefault(
-    response?.transactions?.booked
+
+  const formattedWalletTransactions = formatWalletTransactions(
+    cryptoTransactions,
+    euro
   );
-  const concatTransactions = formatedWalletTransactions.concat(defaultTransactions)
+
+  const defaultTransactions = transformBankToDefault(
+    response?.transactions?.booked || []
+  );
+
+  const concatTransactions = useMemo(
+    () => [...defaultTransactions, ...formattedWalletTransactions],
+    [defaultTransactions, formattedWalletTransactions]
+  );
+
   return (
     <>
-      <Button onClick={() => setTransactionHistoric(concatTransactions)}>Both Crypto and Bank</Button>
-      <Button onClick={() => setTransactionHistoric(formatedWalletTransactions)}>Only Crypto</Button>
-      <Button onClick={() => setTransactionHistoric(defaultTransactions)}>Only Bank</Button>
+      <Box
+        sx={(theme) => ({ display: "flex", marginBottom: theme.spacing.md })}
+      >
+        <Select
+          data={selectData}
+          value={filter.type}
+          onChange={(v) => setFilter((prev) => ({ ...prev, type: v }))}
+        />
+      </Box>
       <Table>
         <thead className={classes.headTable}>
           <tr>
@@ -54,26 +88,21 @@ const Transactions = () => {
         </thead>
         {!loading && (
           <tbody>
-            {transactionHistoric === null ? transactionHistoric?.map((transaction, i) => (
+            {concatTransactions?.map((transaction, i) => (
               <tr key={i}>
-                <td className={classes.nameTable}>{transaction.type}</td>
+                <td className={classes.nameTable}>{transaction.currency}</td>
                 <td>
                   {transaction.amount}€
-                  <Text size="xs"  sx={(theme) => ({color: theme.colors.blue[3], display: 'inline-block', marginLeft: theme.spacing.sm})}>{transaction?.crypto}</Text>
-                </td>
-                <td>
-                  {transaction?.description.map((l, y) => (
-                    <p key={y}>{l}</p>
-                  ))}
-                </td>
-                <td>{transaction.date}</td>
-              </tr>
-            )) : transactionHistoric?.map((transaction, i) => (
-              <tr key={i}>
-                <td className={classes.nameTable}>{transaction.type}</td>
-                <td>
-                  {transaction.amount}€
-                  <Text size="xs"  sx={(theme) => ({color: theme.colors.blue[3], display: 'inline-block', marginLeft: theme.spacing.sm})}>{transaction?.crypto}</Text>
+                  <Text
+                    size="xs"
+                    sx={(theme) => ({
+                      color: theme.colors.blue[3],
+                      display: "inline-block",
+                      marginLeft: theme.spacing.sm,
+                    })}
+                  >
+                    {transaction?.crypto}
+                  </Text>
                 </td>
                 <td>
                   {transaction?.description.map((l, y) => (

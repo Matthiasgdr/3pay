@@ -1,24 +1,26 @@
-import formatDate from './dateFormat';
+import formatDate from "./dateFormat";
 
 const formatWalletTransactions = (transactions, euro) => {
-    const array = [];
-    for (const transaction of transactions) {
-      const formatedTransaction = {
-        type: null,
-        amount: null,
-        description: [null],
-        date: null,
-        crypto: null
-      }
+  const array = [];
+  for (const transaction of transactions) {
+    const formatedTransaction = {
+      currency: transaction.className.replace("Transactions", ""),
+      amount: (formatedTransaction.amount = Number(
+        Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(5) *
+          euro
+      ).toFixed(2)),
+      description: [null],
+      date: formatDate(transaction.attributes.createdAt),
+      crypto: Number(
+        transaction.attributes.decimal.value.$numberDecimal
+      ).toFixed(4),
+      type: "crypto",
+    };
 
-      formatedTransaction.type = transaction.className.replace('Transactions', '');
-      formatedTransaction.amount = Number(Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(5) * euro).toFixed(2)
-      formatedTransaction.crypto = Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(4)
-      formatedTransaction.date = formatDate(transaction.attributes.createdAt)
-      array.push(formatedTransaction)
-    }
+    array.push(formatedTransaction);
+  }
 
-    return array
-}
+  return array;
+};
 
 export default formatWalletTransactions;
