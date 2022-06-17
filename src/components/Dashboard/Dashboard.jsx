@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Title, Text, Loader } from "@mantine/core";
 import useBankAccount from "../../hooks/useBankAccount";
+import LineCharts from "../LineCharts/"
 
 const Dashboard = () => {
   const { response } = useBankAccount();
@@ -26,6 +27,7 @@ const Dashboard = () => {
       ) : (
         <Loader size="sm" />
       )}
+      <LineCharts />
     </Box>
   );
 };
