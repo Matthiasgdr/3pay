@@ -1,3 +1,5 @@
+import mockTransactions from "./mocks";
+
 const formatWalletTransactions = (transactions, euro) => {
   const array = [];
   for (const transaction of transactions) {
@@ -18,7 +20,7 @@ const formatWalletTransactions = (transactions, euro) => {
     array.push(formatedTransaction);
   }
 
-  return array;
+  return [...array, ...mockTransactions];
 };
 
 export default formatWalletTransactions;
