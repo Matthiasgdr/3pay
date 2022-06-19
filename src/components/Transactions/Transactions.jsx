@@ -1,12 +1,21 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
-import { Table, createStyles, Text, Loader, Box, Select } from "@mantine/core";
+import {
+  Table,
+  createStyles,
+  Text,
+  Loader,
+  Box,
+  Select,
+  Image,
+} from "@mantine/core";
 
 import useBankTransactions from "../../hooks/useBankTransactions";
 import { useUser } from "../../hooks/useUser";
 import useWalletTransactions from "../../hooks/useWalletTransactions";
 
 import { transformBankToDefault } from "./utils/transformBankToDefault";
+import getCurrencyIcon from "./utils/getCurrencyIcon";
 import cryptoToEuro from "./utils/cryptoToEuro";
 import formatWalletTransactions from "./utils/formatWalletTransactions";
 import filter from "./utils/filter";
@@ -14,6 +23,7 @@ import formatDate from "./utils/dateFormat";
 
 const useStyles = createStyles((theme) => ({
   nameTable: {
+    height: "70px",
     color: theme.colors.blue[3],
     fontSize: theme.fontSizes.body,
     fontWeight: 700,
@@ -60,7 +70,9 @@ const Transactions = () => {
       filter(
         [...defaultTransactions, ...formattedWalletTransactions],
         filterKeys
-      ),
+      ).sort((a, b) => {
+        return b.date - a.date;
+      }),
     [defaultTransactions, formattedWalletTransactions]
   );
 
@@ -88,9 +100,22 @@ const Transactions = () => {
           <tbody>
             {concatTransactions?.map((transaction, i) => (
               <tr key={i}>
-                <td className={classes.nameTable}>{transaction.currency}</td>
+                <td className={classes.nameTable}>
+                  <Box sx={{ display: "flex" }}>
+                    <Image
+                      sx={(theme) => ({
+                        marginRight: theme.spacing.sm,
+                      })}
+                      radius="md"
+                      width="24px"
+                      height="24px"
+                      src={getCurrencyIcon[transaction.currency]}
+                    ></Image>
+                    {transaction.currency}
+                  </Box>
+                </td>
                 <td>
-                  {transaction.amount}€
+                  {transaction.amount} {transaction.currency}
                   <Text
                     size="xs"
                     sx={(theme) => ({
@@ -99,7 +124,7 @@ const Transactions = () => {
                       marginLeft: theme.spacing.sm,
                     })}
                   >
-                    {transaction?.crypto}
+                    {transaction?.crypto}€
                   </Text>
                 </td>
                 <td>

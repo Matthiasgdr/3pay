@@ -1,3 +1,5 @@
+import mockTransactions from "./mocks";
+
 const formatWalletTransactions = (transactions, euro) => {
   const array = [];
   for (const transaction of transactions) {
@@ -8,7 +10,7 @@ const formatWalletTransactions = (transactions, euro) => {
           euro
       ).toFixed(2),
       description: [null],
-      date: transaction.attributes.createdAt,
+      date: new Date(transaction.attributes.createdAt),
       crypto: Number(
         transaction.attributes.decimal.value.$numberDecimal
       ).toFixed(4),
@@ -18,7 +20,7 @@ const formatWalletTransactions = (transactions, euro) => {
     array.push(formatedTransaction);
   }
 
-  return array;
+  return [...array, ...mockTransactions];
 };
 
 export default formatWalletTransactions;
