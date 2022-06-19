@@ -8,7 +8,7 @@ const formatWalletTransactions = (transactions, euro) => {
           euro
       ).toFixed(2),
       description: [null],
-      date: transaction.attributes.createdAt,
+      date: transaction.attributes.block_timestamp,
       crypto: Number(
         transaction.attributes.decimal.value.$numberDecimal
       ).toFixed(4),
