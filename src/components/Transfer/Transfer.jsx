@@ -115,10 +115,10 @@ function InchDex({ chain }) {
   }, [chain, isInitialized, toToken]);
 
   useEffect(() => {
-    if(tokenList) {
-      setFromToken(tokenList[nativeAddress]);
-    }
+    if (!tokenList) return null;
+    setFromToken(tokenList[nativeAddress]);
   }, [tokenList]);
+  console.log(tokenList)
 
   const ButtonState = useMemo(() => {
     if (chainIds?.[chainId] !== chain) return { isActive: false, text: `Switch to ${chain}` };

@@ -30,7 +30,6 @@ const   useInchDex = (chain) => {
           amount,
         })
         .then(async (allowance) => {
-          console.log(allowance);
           if (!allowance) {
             await Moralis.Plugins.oneInch.approve({
               chain, // The blockchain you want to use (eth/bsc/polygon)
