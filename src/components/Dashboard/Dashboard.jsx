@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Title, Text, Loader } from "@mantine/core";
 import useBankAccount from "../../hooks/useBankAccount";
 import LineCharts from "../LineCharts/";
-import NativeBalance from "../NativeBalance";
 import InchDex from "../Transfer/Transfer";
 import useGetBalance from "../../hooks/useGetBalance";
 
@@ -25,7 +24,7 @@ const Dashboard = () => {
       ) : (
         <>
           {balanceBank && (
-            <Box>
+            <>
               <Text>Compte bancaire :</Text>
               <Text
                 sx={(theme) => ({
@@ -34,16 +33,16 @@ const Dashboard = () => {
                   color: theme.colors.blue[8],
                 })}
               >{`${balanceBank.amount} ${balanceBank.currency}`}</Text>
-            </Box>
+            </>
           )}
           {error && <Text>{error}</Text>}
         </>
       )}
       <Box sx={(theme) => ({ marginBottom: theme.spacing.lg })}>
-        <Title order={3} sx={(theme) => ({ marginBottom: theme.spacing.xs })}>
-          Solde du Wallet
-        </Title>
-        {balanceBank ? (
+        <Text order={3} sx={(theme) => ({ marginBottom: theme.spacing.xs })}>
+          Wallet :
+        </Text>
+        {balanceWallet ? (
           <Box>
             <Text
               sx={(theme) => ({
