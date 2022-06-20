@@ -24,7 +24,7 @@ const Dashboard = () => {
       ) : (
         <>
           {balanceBank && (
-            <>
+            <Box>
               <Text>Compte bancaire :</Text>
               <Text
                 sx={(theme) => ({
@@ -33,7 +33,7 @@ const Dashboard = () => {
                   color: theme.colors.blue[8],
                 })}
               >{`${balanceBank.amount} ${balanceBank.currency}`}</Text>
-            </>
+            </Box>
           )}
           {error && <Text>{error}</Text>}
         </>
