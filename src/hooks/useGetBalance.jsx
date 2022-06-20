@@ -1,14 +1,20 @@
+import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 
-const useGetBalance = async () => {
+const useGetBalance = () => {
   const { Moralis } = useMoralis();
-  await Moralis.Web3API.account.getTokenBalances().then((res) => {
-    const result = Moralis.Cloud.units({
-      method: "fromWei",
-      value: res,
+  const [balance, setBalance] = useState(null);
+
+  useEffect(async () => {
+    await Moralis.Web3API.account.getNativeBalance().then((res) => {
+      if (res) {
+        const result = Moralis.Units.FromWei(res.balance);
+        setBalance(result);
+      }
     });
-    return result;
-  });
+  }, [balance]);
+
+  return balance;
 };
 
 export default useGetBalance;
