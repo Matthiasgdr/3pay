@@ -4,8 +4,9 @@ import { useUser } from "./useUser";
 
 const useBankAccount = () => {
   const { user } = useUser();
+
   const [response, setResponse] = useState(null);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const getDetails = () => {
@@ -21,12 +22,18 @@ const useBankAccount = () => {
                   id: acc,
                 })
                 .then(({ data }) => setResponse(data))
-                .catch((err) => setError(err))
+                .catch((err) => {
+                  setError(err);
+                  setLoading(false);
+                })
                 .finally(() => {
                   setLoading(false);
                 })
             )
           );
+      } else {
+        setError("Compte en banque non connecté");
+        setLoading(false);
       }
     }
   };

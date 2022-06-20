@@ -55,7 +55,6 @@ const Transactions = () => {
   const cryptoTransactions = useWalletTransactions(
     currentUserAddress && currentUserAddress[0]
   );
-  console.log(cryptoTransactions)
 
   const formattedWalletTransactions = formatWalletTransactions(
     cryptoTransactions,

@@ -41,11 +41,13 @@ const BankLinking = () => {
 
   return !user.attributes.bankId ? (
     <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      sx={(t) => ({
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: t.spacing.lg,
+      })}
     >
-      <Title sx={(t) => ({ marginBottom: t.spacing.lg })}>
-        Connecter mon compte en banque
-      </Title>
       <Select
         icon={<Search size={14} />}
         searchable
