@@ -3,6 +3,7 @@ import { Box, Title, Text, Loader } from "@mantine/core";
 import useBankAccount from "../../hooks/useBankAccount";
 import LineCharts from "../LineCharts/";
 import useWalletBalance from "../../hooks/useWalletBalance";
+import InchDex from "../Transfer/Transfer";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 
 const Dashboard = () => {
@@ -82,6 +83,7 @@ const Dashboard = () => {
         </Box>
       </Box>
       <LineCharts />
+      <InchDex chain="eth" />
     </Box>
   );
 };
