@@ -2,12 +2,16 @@ import React from "react";
 import { Box, Title, Text, Loader } from "@mantine/core";
 import useBankAccount from "../../hooks/useBankAccount";
 import LineCharts from "../LineCharts/";
-import useGetBalance from "../../hooks/useGetBalance";
+import useWalletBalance from "../../hooks/useWalletBalance";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 
 const Dashboard = () => {
   const { response, loading, error } = useBankAccount();
-  const balanceWallet = useGetBalance();
+  const {
+    balance,
+    error: errorWallet,
+    loading: loadingWallet,
+  } = useWalletBalance();
   const euro = cryptoToEuro("ETH");
 
   const balanceBank =
@@ -20,42 +24,62 @@ const Dashboard = () => {
       <Title order={3} sx={(theme) => ({ marginBottom: theme.spacing.xs })}>
         Soldes
       </Title>
-      {loading ? (
-        <Loader size="sm" />
-      ) : (
-        <>
-          {balanceBank && (
-            <Box>
+      <Box
+        sx={(theme) => ({ display: "flex", marginBottom: theme.spacing.lg })}
+      >
+        <Box>
+          {loading ? (
+            <Loader size="sm" />
+          ) : (
+            <>
               <Text>Compte bancaire :</Text>
-              <Text
-                sx={(theme) => ({
-                  ...theme.headings,
-                  ...theme.headings.sizes.h1,
-                  color: theme.colors.blue[8],
-                })}
-              >{`${balanceBank?.amount} ${balanceBank?.currency}`}</Text>
-            </Box>
+              {balanceBank && (
+                <>
+                  <Text
+                    sx={(theme) => ({
+                      ...theme.headings,
+                      ...theme.headings.sizes.h1,
+                      color: theme.colors.blue[8],
+                    })}
+                  >{`${balanceBank?.amount} ${balanceBank?.currency}`}</Text>
+                </>
+              )}
+              {error && <Text>{error}</Text>}
+            </>
           )}
-          {error && <Text>{error}</Text>}
-        </>
-      )}
-      <Box sx={(theme) => ({ marginBottom: theme.spacing.lg })}>
-        <Text order={3} sx={(theme) => ({ marginBottom: theme.spacing.xs })}>
-          Wallet :
-        </Text>
-        {balanceWallet ? (
-          <Box>
-            <Text
-              sx={(theme) => ({
-                ...theme.headings,
-                ...theme.headings.sizes.h1,
-                color: theme.colors.blue[8],
-              })}
-            >{`${Number(Number(balanceWallet).toFixed(7) * euro).toFixed(5)} ${balanceBank?.currency}`}</Text>
-          </Box>
-        ) : (
-          <Loader size="sm" />
-        )}
+        </Box>
+        <Box
+          sx={(theme) => ({
+            display: "flex",
+            alignItems: "stretch",
+            backgroundColor: theme.colors.blue[8],
+            width: "1px",
+            margin: `0 ${theme.spacing.lg}px`,
+          })}
+        />
+        <Box>
+          {loadingWallet ? (
+            <Loader size="sm" />
+          ) : (
+            <>
+              <Text>Wallet :</Text>
+              {balance && (
+                <>
+                  <Text
+                    sx={(theme) => ({
+                      ...theme.headings,
+                      ...theme.headings.sizes.h1,
+                      color: theme.colors.blue[8],
+                    })}
+                  >{`${Number(Number(balance).toFixed(7) * euro).toFixed(5)} ${
+                    balanceBank?.currency
+                  }`}</Text>
+                </>
+              )}
+              {errorWallet && <Text>{errorWallet}</Text>}
+            </>
+          )}
+        </Box>
       </Box>
       <LineCharts />
     </Box>
