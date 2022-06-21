@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Title, Text, Loader } from "@mantine/core";
 import useBankAccount from "../../hooks/useBankAccount";
 import LineCharts from "../LineCharts/";
+import InchDex from "../Transfer/Transfer";
 import useGetBalance from "../../hooks/useGetBalance";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 
@@ -58,6 +59,7 @@ const Dashboard = () => {
         )}
       </Box>
       <LineCharts />
+      <InchDex chain="eth" />
     </Box>
   );
 };
