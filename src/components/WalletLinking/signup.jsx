@@ -1,10 +1,10 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
-import { Button, Box } from "@mantine/core";
+import { Button, Box, Text } from "@mantine/core";
 import PropTypes from "prop-types";
 
-const SignUpButton = ({ onConnect }) => {
-  const { authenticate, enableWeb3, Moralis } = useMoralis();
+const SignUpButton = ({ onConnect = () => {} }) => {
+  const { authenticate, isAuthenticated, enableWeb3, Moralis } = useMoralis();
 
   async function authWalletConnect() {
     enableWeb3().then(() => {
@@ -38,22 +38,28 @@ const SignUpButton = ({ onConnect }) => {
         marginBottom: "40px",
       }}
     >
-      <Button
-        sx={(theme) => ({ marginBottom: theme.spacing.sm })}
-        variant="light"
-        onClick={connectMetaMask}
-      >
-        Connecter mon wallet avec Metamask
-      </Button>
-      <Button variant="light" disabled onClick={() => authWalletConnect()}>
-        Sign in using Wallet Connect
-      </Button>
+      {!isAuthenticated ? (
+        <>
+          <Button
+            sx={(theme) => ({ marginBottom: theme.spacing.sm })}
+            variant="light"
+            onClick={connectMetaMask}
+          >
+            Connecter mon wallet avec Metamask
+          </Button>
+          <Button variant="light" disabled onClick={() => authWalletConnect()}>
+            Sign in using Wallet Connect
+          </Button>
+        </>
+      ) : (
+        <Text>Votre wallet est connecté !</Text>
+      )}
     </Box>
   );
 };
 
 SignUpButton.propTypes = {
-  onConnect: PropTypes.any,
+  onConnect: PropTypes.func,
 };
 
 export default SignUpButton;

@@ -6,14 +6,14 @@ const formatWalletTransactions = (transactions, euro) => {
     const formatedTransaction = {
       currency: transaction.className.replace("Transactions", ""),
       amount: Number(
+        transaction.attributes.decimal.value.$numberDecimal
+      ).toFixed(4),
+      description: [null],
+      date: transaction.attributes.block_timestamp,
+      euro: Number(
         Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(5) *
           euro
       ).toFixed(2),
-      description: [null],
-      date: transaction.attributes.block_timestamp,
-      crypto: Number(
-        transaction.attributes.decimal.value.$numberDecimal
-      ).toFixed(4),
       type: "crypto",
     };
 

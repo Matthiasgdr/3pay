@@ -73,7 +73,7 @@ const Dashboard = () => {
                       color: theme.colors.blue[8],
                     })}
                   >{`${Number(Number(balance).toFixed(7) * euro).toFixed(5)} ${
-                    balanceBank?.currency
+                    balanceBank?.currency || "EUR"
                   }`}</Text>
                 </>
               )}

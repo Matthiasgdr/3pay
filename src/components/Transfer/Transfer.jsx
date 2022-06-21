@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
-import { useState, useEffect, useMemo } from "react";
 import { useMoralis, useTokenPrice } from "react-moralis";
-import InchModal from "./Modal";
-import useInchDex from "../../hooks/useInchIndex";
 import { Button, Card, Image, Text, Input, Modal, Box } from "@mantine/core";
+
+import useInchDex from "../../hooks/useInchIndex";
 import { tokenValue } from "./helpers/formatters";
 import { getWrappedNative } from "./helpers/networks";
+
+import InchModal from "./Modal";
 
 const styles = {
   card: {
@@ -64,7 +65,6 @@ function InchDex({ chain }) {
   const [currentTrade, setCurrentTrade] = useState();
   const { fetchTokenPrice } = useTokenPrice();
   const [tokenPricesUSD, setTokenPricesUSD] = useState({});
-  console.log(fromAmount);
 
   const fromTokenPriceUsd = useMemo(
     () =>
@@ -132,7 +132,6 @@ function InchDex({ chain }) {
     if (!tokenList) return null;
     setFromToken(tokenList[nativeAddress]);
   }, [tokenList]);
-  console.log(tokenList);
 
   const ButtonState = useMemo(() => {
     if (chainIds?.[chainId] !== chain)
@@ -156,7 +155,6 @@ function InchDex({ chain }) {
     const Quote = quote;
     if (!Quote || !tokenPricesUSD?.[toToken?.["address"]]) return null;
     if (Quote?.statusCode === 400) return <>{Quote.message}</>;
-    console.log(Quote);
     const { fromTokenAmount, toTokenAmount } = Quote;
     const { symbol: fromSymbol } = fromToken;
     const { symbol: toSymbol } = toToken;
