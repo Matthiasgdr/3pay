@@ -5,7 +5,7 @@ import { isEqual } from "lodash";
 import { Box, Input, InputWrapper, Button } from "@mantine/core";
 import useUser from "../../../hooks/useUser";
 
-const Settings = () => {
+const Profil = () => {
   const { user } = useUser();
   const { Moralis } = useMoralis();
   const handleSubmitUser = ({ surname, name, email }) => {
@@ -63,4 +63,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Profil;

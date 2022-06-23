@@ -1,7 +1,7 @@
 export const cryptoTransacMock = [
   {
     amount: "8.65",
-    crypto: "0.0075",
+    euro: "0.0075",
     currency: "Eth",
     date: new Date("2022-06-15"),
     description: [null],
@@ -9,7 +9,7 @@ export const cryptoTransacMock = [
   },
   {
     amount: "569.65",
-    crypto: "0.4245",
+    euro: "0.4245",
     currency: "Eth",
     date: new Date("2022-06-14"),
     description: [null],
@@ -17,7 +17,7 @@ export const cryptoTransacMock = [
   },
   {
     amount: "2323.65",
-    crypto: "1.225",
+    euro: "1.225",
     currency: "Eth",
     date: new Date("2022-06-12"),
     description: [null],
@@ -25,7 +25,7 @@ export const cryptoTransacMock = [
   },
   {
     amount: "42.65",
-    crypto: "0.75",
+    euro: "0.75",
     currency: "Eth",
     date: new Date("2022-06-6"),
     description: [null],

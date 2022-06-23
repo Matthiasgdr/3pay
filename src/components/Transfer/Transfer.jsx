@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
-import { useState, useEffect, useMemo } from "react";
 import { useMoralis, useTokenPrice } from "react-moralis";
-import InchModal from "./Modal";
-import useInchDex from "../../hooks/useInchIndex";
 import { Button, Card, Image, Text, Input, Modal, Box } from "@mantine/core";
+
+import useInchDex from "../../hooks/useInchIndex";
 import { tokenValue } from "./helpers/formatters";
 import { getWrappedNative } from "./helpers/networks";
+
+import InchModal from "./Modal";
 
 const styles = {
   card: {
@@ -48,7 +49,8 @@ const getChainIdByName = (chainName) => {
   }
 };
 
-const IsNative = (address) => address === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+const IsNative = (address) =>
+  address === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 
 function InchDex({ chain }) {
   const { trySwap, tokenList, getQuote } = useInchDex(chain);
@@ -63,15 +65,20 @@ function InchDex({ chain }) {
   const [currentTrade, setCurrentTrade] = useState();
   const { fetchTokenPrice } = useTokenPrice();
   const [tokenPricesUSD, setTokenPricesUSD] = useState({});
-  console.log(fromAmount)
 
   const fromTokenPriceUsd = useMemo(
-    () => (tokenPricesUSD?.[fromToken?.["address"]] ? tokenPricesUSD[fromToken?.["address"]] : null),
+    () =>
+      tokenPricesUSD?.[fromToken?.["address"]]
+        ? tokenPricesUSD[fromToken?.["address"]]
+        : null,
     [tokenPricesUSD, fromToken]
   );
 
   const toTokenPriceUsd = useMemo(
-    () => (tokenPricesUSD?.[toToken?.["address"]] ? tokenPricesUSD[toToken?.["address"]] : null),
+    () =>
+      tokenPricesUSD?.[toToken?.["address"]]
+        ? tokenPricesUSD[toToken?.["address"]]
+        : null,
     [tokenPricesUSD, toToken]
   );
 
@@ -82,14 +89,19 @@ function InchDex({ chain }) {
 
   const toTokenAmountUsd = useMemo(() => {
     if (!toTokenPriceUsd || !quote) return null;
-    return `~$ ${(Moralis.Units.FromWei(quote?.toTokenAmount, quote?.toToken?.decimals) * toTokenPriceUsd).toFixed(4)}`;
+    return `~$ ${(
+      Moralis.Units.FromWei(quote?.toTokenAmount, quote?.toToken?.decimals) *
+      toTokenPriceUsd
+    ).toFixed(4)}`;
   }, [toTokenPriceUsd, quote]);
 
   // tokenPrices
   useEffect(() => {
     if (!isInitialized || !fromToken || !chain) return null;
     const validatedChain = chain ? getChainIdByName(chain) : chainId;
-    const tokenAddress = IsNative(fromToken["address"]) ? getWrappedNative(validatedChain) : fromToken["address"];
+    const tokenAddress = IsNative(fromToken["address"])
+      ? getWrappedNative(validatedChain)
+      : fromToken["address"];
     fetchTokenPrice({
       params: { chain: validatedChain, address: tokenAddress },
       onSuccess: (price) =>
@@ -103,7 +115,9 @@ function InchDex({ chain }) {
   useEffect(() => {
     if (!isInitialized || !toToken || !chain) return null;
     const validatedChain = chain ? getChainIdByName(chain) : chainId;
-    const tokenAddress = IsNative(toToken["address"]) ? getWrappedNative(validatedChain) : toToken["address"];
+    const tokenAddress = IsNative(toToken["address"])
+      ? getWrappedNative(validatedChain)
+      : toToken["address"];
     fetchTokenPrice({
       params: { chain: validatedChain, address: tokenAddress },
       onSuccess: (price) =>
@@ -118,10 +132,10 @@ function InchDex({ chain }) {
     if (!tokenList) return null;
     setFromToken(tokenList[nativeAddress]);
   }, [tokenList]);
-  console.log(tokenList)
 
   const ButtonState = useMemo(() => {
-    if (chainIds?.[chainId] !== chain) return { isActive: false, text: `Switch to ${chain}` };
+    if (chainIds?.[chainId] !== chain)
+      return { isActive: false, text: `Switch to ${chain}` };
 
     if (!fromAmount) return { isActive: false, text: "Enter an amount" };
     if (fromAmount && currentTrade) return { isActive: true, text: "Swap" };
@@ -129,7 +143,8 @@ function InchDex({ chain }) {
   }, [fromAmount, currentTrade, chainId, chain]);
 
   useEffect(() => {
-    if (fromToken && toToken && fromAmount) setCurrentTrade({ fromToken, toToken, fromAmount, chain });
+    if (fromToken && toToken && fromAmount)
+      setCurrentTrade({ fromToken, toToken, fromAmount, chain });
   }, [toToken, fromToken, fromAmount, chain]);
 
   useEffect(() => {
@@ -140,19 +155,19 @@ function InchDex({ chain }) {
     const Quote = quote;
     if (!Quote || !tokenPricesUSD?.[toToken?.["address"]]) return null;
     if (Quote?.statusCode === 400) return <>{Quote.message}</>;
-    console.log(Quote);
     const { fromTokenAmount, toTokenAmount } = Quote;
     const { symbol: fromSymbol } = fromToken;
     const { symbol: toSymbol } = toToken;
     const pricePerToken = parseFloat(
-      tokenValue(fromTokenAmount, fromToken["decimals"]) / tokenValue(toTokenAmount, toToken["decimals"])
+      tokenValue(fromTokenAmount, fromToken["decimals"]) /
+        tokenValue(toTokenAmount, toToken["decimals"])
     ).toFixed(6);
     return (
       <Text sx={styles.priceSwap}>
         Price:{" "}
-        <Text>{`1 ${toSymbol} = ${pricePerToken} ${fromSymbol} ($${tokenPricesUSD[[toToken["address"]]].toFixed(
-          6
-        )})`}</Text>
+        <Text>{`1 ${toSymbol} = ${pricePerToken} ${fromSymbol} ($${tokenPricesUSD[
+          [toToken["address"]]
+        ].toFixed(6)})`}</Text>
       </Text>
     );
   };
@@ -161,7 +176,9 @@ function InchDex({ chain }) {
     <>
       <Card sx={styles.card} style={{ padding: "18px" }}>
         <Card sx={{ borderRadius: "1rem" }} style={{ padding: "0.8rem" }}>
-          <Box sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>From</Box>
+          <Box sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>
+            From
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -172,10 +189,12 @@ function InchDex({ chain }) {
               <Input
                 placeholder="0.00"
                 styles={{ ...styles.input, marginLeft: "-10px" }}
-                onChange={e => setFromAmount(e.target.value)}
+                onChange={(e) => setFromAmount(e.target.value)}
                 value={fromAmount}
               />
-              <Text sx={{ fontWeight: "600", color: "#434343" }}>{fromTokenAmountUsd}</Text>
+              <Text sx={{ fontWeight: "600", color: "#434343" }}>
+                {fromTokenAmountUsd}
+              </Text>
             </Box>
             <Button
               sx={{
@@ -194,7 +213,10 @@ function InchDex({ chain }) {
             >
               {fromToken ? (
                 <Image
-                  src={fromToken?.logoURI || "https://etherscan.io/images/main/empty-token.png"}
+                  src={
+                    fromToken?.logoURI ||
+                    "https://etherscan.io/images/main/empty-token.png"
+                  }
                   alt="nologo"
                   width="30px"
                   preview={false}
@@ -208,11 +230,15 @@ function InchDex({ chain }) {
             </Button>
           </Box>
         </Card>
-        <Box sx={{ display: "flex", justifyContent: "center", padding: "10px" }}>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", padding: "10px" }}
+        >
           \/
         </Box>
         <Card sx={{ borderRadius: "1rem" }} style={{ padding: "0.8rem" }}>
-          <Box sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>To</Box>
+          <Box sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>
+            To
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -224,9 +250,18 @@ function InchDex({ chain }) {
                 placeholder="0.00"
                 styles={styles.input}
                 readOnly
-                value={quote ? Moralis.Units.FromWei(quote?.toTokenAmount, quote?.toToken?.decimals).toFixed(6) : ""}
+                value={
+                  quote
+                    ? Moralis.Units.FromWei(
+                        quote?.toTokenAmount,
+                        quote?.toToken?.decimals
+                      ).toFixed(6)
+                    : ""
+                }
               />
-              <Text sx={{ fontWeight: "600", color: "#434343" }}>{toTokenAmountUsd}</Text>
+              <Text sx={{ fontWeight: "600", color: "#434343" }}>
+                {toTokenAmountUsd}
+              </Text>
             </Box>
             <Button
               sx={{
@@ -246,7 +281,10 @@ function InchDex({ chain }) {
             >
               {toToken ? (
                 <Image
-                  src={toToken?.logoURI || "https://etherscan.io/images/main/empty-token.png"}
+                  src={
+                    toToken?.logoURI ||
+                    "https://etherscan.io/images/main/empty-token.png"
+                  }
                   alt="nologo"
                   width="30px"
                   preview={false}
@@ -327,7 +365,7 @@ function InchDex({ chain }) {
 export default InchDex;
 
 InchDex.propTypes = {
-    chain: PropTypes.any
+  chain: PropTypes.any,
 };
 
 const Arrow = () => (

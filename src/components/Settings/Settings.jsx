@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Box, Title, Tabs } from "@mantine/core";
 import Profil from "./tabs/Profil";
 import Entreprise from "./tabs/Entreprise";
+import Wallet from "./tabs/Wallet";
 
 const tabs = ["profil", "entreprise", "wallet", "payement"];
 
@@ -32,8 +33,9 @@ const Settings = () => {
         <Tabs.Tab label="Mon entreprise">
           <Entreprise />
         </Tabs.Tab>
-        <Tabs.Tab label="Wallet"></Tabs.Tab>
-        <Tabs.Tab label="Méthode de paiement"></Tabs.Tab>
+        <Tabs.Tab label="Wallet">
+          <Wallet />
+        </Tabs.Tab>
       </Tabs>
     </Box>
   );

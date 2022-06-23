@@ -124,7 +124,7 @@ const Transactions = () => {
                       marginLeft: theme.spacing.sm,
                     })}
                   >
-                    {transaction?.crypto}€
+                    {transaction?.euro}€
                   </Text>
                 </td>
                 <td>

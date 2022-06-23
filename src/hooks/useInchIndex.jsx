@@ -10,7 +10,7 @@ const useInchDex = (chain) => {
     Moralis.Plugins.oneInch
       .getSupportedTokens({ chain })
       .then((tokens) => setTokenlist(tokens.tokens));
-  }, [Moralis, Moralis.Plugins, chain]);
+  }, [Moralis, Moralis.Plugins.oneInch, chain]);
 
   const getQuote = async (params) =>
     await Moralis.Plugins.oneInch.quote({
