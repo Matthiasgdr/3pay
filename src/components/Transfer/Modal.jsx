@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 function InchModal({ open, onClose, setToken, tokenList }) {
   if (!open) return null;
-  console.log(tokenList)
 
   return (
     <div style={{ overflow: "auto", height: "500px" }}>
@@ -53,8 +52,8 @@ function InchModal({ open, onClose, setToken, tokenList }) {
 export default InchModal;
 
 InchModal.propTypes = {
-    open: PropTypes.any,
-    onClose: PropTypes.any,
-    setToken: PropTypes.any,
-    tokenList: PropTypes.array
-}
+  open: PropTypes.any,
+  onClose: PropTypes.any,
+  setToken: PropTypes.any,
+  tokenList: PropTypes.array,
+};

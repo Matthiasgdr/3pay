@@ -13,6 +13,7 @@ import SignUpPage from "./pages/signup";
 import Home from "./pages/home";
 import Transactions from "./pages/transactions";
 import Settings from "./pages/settings";
+import Placement from "./pages/placement";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="" element={<Home />} />
               <Route path="transactions" element={<Transactions />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="placement" element={<Placement />} />
             </Route>
             <Route path="/" element={<AuthLayout />}>
               <Route path="login" element={<LoginPage />} />

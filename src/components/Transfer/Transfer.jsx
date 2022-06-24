@@ -56,6 +56,8 @@ function InchDex({ chain }) {
   const { trySwap, tokenList, getQuote } = useInchDex(chain);
 
   const { Moralis, isInitialized, chainId } = useMoralis();
+  const chainI = Moralis.getChainId();
+
   const [isFromModalActive, setFromModalActive] = useState(false);
   const [isToModalActive, setToModalActive] = useState(false);
   const [fromToken, setFromToken] = useState();
@@ -255,7 +257,7 @@ function InchDex({ chain }) {
                     ? Moralis.Units.FromWei(
                         quote?.toTokenAmount,
                         quote?.toToken?.decimals
-                      ).toFixed(6)
+                      )
                     : ""
                 }
               />
