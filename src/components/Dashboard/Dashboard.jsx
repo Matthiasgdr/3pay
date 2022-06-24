@@ -6,6 +6,8 @@ import useWalletBalance from "../../hooks/useWalletBalance";
 import InchDex from "../Transfer/Transfer";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 
+import Assets from "./components/Assets";
+
 const Dashboard = () => {
   const { response, loading, error } = useBankAccount();
   const {
@@ -82,7 +84,8 @@ const Dashboard = () => {
           )}
         </Box>
       </Box>
-      <LineCharts />
+      <Assets></Assets>
+      {/* <LineCharts /> */}
       <InchDex chain="eth" />
     </Box>
   );

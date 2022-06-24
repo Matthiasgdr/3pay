@@ -13,6 +13,7 @@ const data = [
     route: "/transactions",
   },
   { icon: <Settings size={16} />, label: "Paramètres", route: "/settings" },
+  //   { icon: <Settings size={16} />, label: "Placement", route: "/placement" },
 ];
 
 const SideNavigation = () => {
