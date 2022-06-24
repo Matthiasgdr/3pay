@@ -5,6 +5,7 @@ import LineCharts from "../LineCharts/";
 import useWalletBalance from "../../hooks/useWalletBalance";
 import InchDex from "../Transfer/Transfer";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
+import ListAssets from "../ListAssets/ListAssets";
 
 import Assets from "./components/Assets";
 
@@ -86,6 +87,8 @@ const Dashboard = () => {
       </Box>
       <Assets></Assets>
       {/* <LineCharts /> */}
+      <LineCharts />
+      <ListAssets />
       <InchDex chain="eth" />
     </Box>
   );
