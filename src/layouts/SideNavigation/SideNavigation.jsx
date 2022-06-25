@@ -1,12 +1,22 @@
 import React from "react";
 import { Navbar } from "@mantine/core";
-import { Settings, ArrowsLeftRight, LayoutBoard } from "tabler-icons-react";
+import {
+  Settings,
+  ArrowsLeftRight,
+  LayoutBoard,
+  Wallet,
+} from "tabler-icons-react";
 
 import { LogoutButton } from "../../components/WalletLinking";
 import NavigationItem from "./NavigationItem";
 
 const data = [
   { icon: <LayoutBoard size={16} />, label: "Tableau de bord", route: "/" },
+  {
+    icon: <Wallet size={16} />,
+    label: "Porte-monnaie",
+    route: "/wallet",
+  },
   {
     icon: <ArrowsLeftRight size={16} />,
     label: "Transactions",

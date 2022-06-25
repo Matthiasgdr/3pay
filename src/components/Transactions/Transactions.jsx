@@ -32,6 +32,7 @@ const useStyles = createStyles((theme) => ({
   headTable: {
     position: "sticky",
     insetBlockStart: 60,
+    zIndex: 2,
     background: theme.colors.background.primary,
   },
 }));
