@@ -1,10 +1,12 @@
 import React from "react";
 import { Box, Title, Text, Loader } from "@mantine/core";
 import useBankAccount from "../../hooks/useBankAccount";
-import LineCharts from "../LineCharts/";
 import useWalletBalance from "../../hooks/useWalletBalance";
 import InchDex from "../Transfer/Transfer";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
+import ListAssets from "../ListAssets/ListAssets";
+
+import Assets from "./components/Assets";
 
 const Dashboard = () => {
   const { response, loading, error } = useBankAccount();
@@ -72,7 +74,7 @@ const Dashboard = () => {
                       ...theme.headings.sizes.h1,
                       color: theme.colors.blue[8],
                     })}
-                  >{`${Number(Number(balance).toFixed(7) * euro).toFixed(5)} ${
+                  >{`${Number(Number(balance)?.toFixed(7) * euro)?.toFixed(5)} ${
                     balanceBank?.currency || "EUR"
                   }`}</Text>
                 </>
@@ -82,7 +84,9 @@ const Dashboard = () => {
           )}
         </Box>
       </Box>
-      <LineCharts />
+      <Assets></Assets>
+      {/* <LineCharts /> */}
+      <ListAssets />
       <InchDex chain="eth" />
     </Box>
   );
