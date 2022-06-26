@@ -4,8 +4,9 @@ import { Box, Title, Tabs } from "@mantine/core";
 
 import Automatisation from "./tabs/Automatisation";
 import AddCrypto from "./tabs/AddCrypto";
+import Tresorery from "./tabs/Tresorery";
 
-const tabs = ["add", "automatisation"];
+const tabs = ["add", "tresorery", "automatisation"];
 
 const Wallet = () => {
   const [params, setParams] = useSearchParams();
@@ -29,6 +30,9 @@ const Wallet = () => {
       >
         <Tabs.Tab label="Ajouter une crypto">
           <AddCrypto />
+        </Tabs.Tab>
+        <Tabs.Tab label="Ma trésorerie">
+          <Tresorery />
         </Tabs.Tab>
         <Tabs.Tab label="Automatisation des transferts">
           <Automatisation />

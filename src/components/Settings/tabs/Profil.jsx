@@ -129,31 +129,31 @@ const Profil = () => {
                   >
                     <Field name="address" as={Input} />
                   </InputWrapper>
+                  <Box sx={{ display: "flex" }}>
+                    <InputWrapper
+                      label="Code postal"
+                      sx={(theme) => ({
+                        width: "100px",
+                        marginRight: theme.spacing.md,
+                      })}
+                    >
+                      <Field name="zipcode" as={Input} />
+                    </InputWrapper>
+                    <InputWrapper
+                      label="Ville"
+                      sx={(theme) => ({
+                        flexGrow: "1",
+                        marginBottom: theme.spacing.md,
+                      })}
+                    >
+                      <Field name="city" as={Input} />
+                    </InputWrapper>
+                  </Box>
                   <InputWrapper
                     label="Pays"
                     sx={(theme) => ({ marginBottom: theme.spacing.md })}
                   >
                     <Field name="country" as={Input} />
-                  </InputWrapper>
-                </Box>
-                <Box sx={{ display: "flex" }}>
-                  <InputWrapper
-                    label="Code postal"
-                    sx={(theme) => ({
-                      width: "100px",
-                      marginRight: theme.spacing.md,
-                    })}
-                  >
-                    <Field name="zipcode" as={Input} />
-                  </InputWrapper>
-                  <InputWrapper
-                    label="Ville"
-                    sx={(theme) => ({
-                      flexGrow: "1",
-                      marginBottom: theme.spacing.md,
-                    })}
-                  >
-                    <Field name="city" as={Input} />
                   </InputWrapper>
                 </Box>
               </Box>

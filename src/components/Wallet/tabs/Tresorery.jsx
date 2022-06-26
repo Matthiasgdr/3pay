@@ -1,17 +1,16 @@
 import React from "react";
 import { Box, Title } from "@mantine/core";
+import Assets from "../../Dashboard/components/Assets";
 
-import ListAssets from "../../ListAssets/ListAssets";
-
-const AddCrypto = () => {
+const Tresorery = () => {
   return (
     <Box>
       <Title sx={(theme) => ({ marginBottom: theme.spacing.md })} order={3}>
-        Ajouter une crypto-monnaie a votre wallet
+        Ma trésorerie
       </Title>
-      <ListAssets />
+      <Assets />
     </Box>
   );
 };
 
-export default AddCrypto;
+export default Tresorery;

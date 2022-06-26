@@ -85,6 +85,7 @@ const Dashboard = () => {
             )}
           </Box>
         </Box>
+        <Title order={3}>Détail du wallet</Title>
         <Assets />
       </Box>
       <InchDex chain="eth" />
