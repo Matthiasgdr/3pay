@@ -8,6 +8,9 @@ const cryptoToEuro = (crypto) => {
     .get(
       `https://min-api.cryptocompare.com/data/price?fsym=${crypto}&tsyms=EUR`
     )
+    .catch(() => {
+      return null;
+    })
     .then(({ data }) => {
       setEuroValue(data.EUR);
     });

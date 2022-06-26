@@ -6,14 +6,18 @@ const useCryptoFluctuations = (crypto) => {
   const getInfos = () => {
     axios
       .get(`https://api.nomics.com/v1/currencies/ticker?key=${process.env.REACT_APP_CURRENCY_RATE_KEY}&ids=${crypto}&interval=1d&convert=EUR`)
+      .catch(() => {
+        return null
+      })
       .then((res) => {
-        setInfos(res[0].data)
+        setInfos(res.data)
+        //["1d"]?.volume_change_pct
       })
   }
 
   useEffect(() => {
     getInfos()
-  }, [infos, getInfos])
+  }, [infos])
 
   return infos
 }
