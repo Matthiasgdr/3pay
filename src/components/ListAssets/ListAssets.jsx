@@ -12,17 +12,15 @@ import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 import useCryptoFluctuations from '../../hooks/useCryptoFluctuations';
 
 const useStyles = createStyles((theme) => ({
-  nameTable: {
-    height: "70px",
-    color: theme.colors.blue[3],
-    fontSize: theme.fontSizes.body,
-    fontWeight: 700,
-    textTransform: "uppercase",
+  fluctuationUpText: {
+    color: theme.colors.green[2]
   },
-  headTable: {
-    position: "sticky",
-    insetBlockStart: 60,
-    background: theme.colors.background.primary,
+  fluctuationDownText: {
+    color: theme.colors.red[2]
+  },
+  buttonsAdd: {
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
 }));
 
@@ -32,7 +30,10 @@ const ListAssets = () => {
   const avaxEuro = cryptoToEuro("AVAX");
   const bnbEuro = cryptoToEuro("BNB");
   const polygonEuro = cryptoToEuro("MATIC");
-  const avaxFluctuations = useCryptoFluctuations("AVAX")
+  const fluctuations = useCryptoFluctuations("AVAX,BNB,MATIC")
+  const avaxFluctuations = fluctuations !== null ? fluctuations[1]["1d"]?.volume_change_pct : null
+  const bnbFluctuations = fluctuations !== null ? fluctuations[0]["1d"]?.volume_change_pct : null
+  const polygonFluctuations = fluctuations !== null ? fluctuations[2]["1d"]?.volume_change_pct : null
 
   const arrayAssets = [
     {
@@ -55,6 +56,7 @@ const ListAssets = () => {
       name: "Binance",
       symbol: "BNB",
       value: bnbEuro,
+      fluctuations: bnbFluctuations,
       chain: {
         chainId: 56,
         chainName: "Binance Smart Chain",
@@ -69,6 +71,7 @@ const ListAssets = () => {
       name: "Polygon",
       symbol: "MATIC",
       value: polygonEuro,
+      fluctuations: polygonFluctuations,
       chain: {
         chainId: 137,
         chainName: "Polygon Mainnet",
@@ -126,8 +129,8 @@ const ListAssets = () => {
                       </Box>
                     </Box>
                   </td>
-                  <td>
-                    +20%
+                  <td className={chain.fluctuations >= 0 ? classes.fluctuationUpText : classes.fluctuationDownText}>
+                    {chain.fluctuations ? chain.fluctuations + '%' : '+0%'}
                   </td>
                   <td>
                     <Text
@@ -137,10 +140,10 @@ const ListAssets = () => {
                         display: "inline-block",
                       })}
                     >
-                      {chain.value}€
+                      {chain.value + '€'}
                     </Text>
                   </td>
-                  <td>
+                  <td className={classes.buttonsAdd} >
                     <Button
                       onClick={
                         async () => await Moralis.addNetwork(

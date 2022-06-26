@@ -1,18 +1,23 @@
-import { useState } from 'react'
-import axios from 'axios'
+import { useState } from "react";
+import axios from "axios";
 
 const cryptoToEuro = (crypto) => {
-  const [euroValue, setEuroValue] = useState(null)
+  const [euroValue, setEuroValue] = useState(null);
 
   const resp = axios
-    .get(`https://min-api.cryptocompare.com/data/price?fsym=${crypto}&tsyms=EUR`)
-    .then(({ data }) => {
-      setEuroValue(data.EUR)
+    .get(
+      `https://min-api.cryptocompare.com/data/price?fsym=${crypto}&tsyms=EUR`
+    )
+    .catch(() => {
+      return null;
     })
+    .then(({ data }) => {
+      setEuroValue(data.EUR);
+    });
 
   if (resp) {
-    return euroValue
+    return euroValue;
   }
-}
+};
 
-export default cryptoToEuro
+export default cryptoToEuro;

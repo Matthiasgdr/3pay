@@ -6,12 +6,12 @@ export const lightTheme = {
   fontFamily: "IBM Plex Sans",
   headings: { fontFamily: "Cabinet Grotesk" },
   fontSizes: {
-    h1: '48px',
-    h2: '40px',
-    h3: '32px',
-    h4: '24px',
-    body: '16px',
-    small: '14px'
+    h1: "48px",
+    h2: "40px",
+    h3: "32px",
+    h4: "24px",
+    body: "16px",
+    small: "14px",
   },
   spacing: {
     xs: 4,
@@ -44,6 +44,7 @@ export const lightTheme = {
       "#100F15",
     ],
     green: ["#DDFBA3", "#A7E950", "#256905"],
+    red: ["#FFCCAE", "#FF5035", "#93101E", "#FFDED3"],
     background: {
       primary: "#fff",
       secondary: "#fafafa",
