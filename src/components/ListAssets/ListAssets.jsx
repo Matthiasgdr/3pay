@@ -27,9 +27,10 @@ const ListAssets = () => {
   const avaxEuro = cryptoToEuro("AVAX");
   const bnbEuro = cryptoToEuro("BNB");
   const polygonEuro = cryptoToEuro("MATIC");
-  const avaxFluctuations = useCryptoFluctuations("AVAX");
   const fluctuations = useCryptoFluctuations("AVAX,BNB,MATIC");
 
+  const avaxFluctuations =
+    fluctuations !== null ? fluctuations[1]["1d"]?.volume_change_pct : null;
   const bnbFluctuations =
     fluctuations !== null ? fluctuations[0]["1d"]?.volume_change_pct : null;
   const polygonFluctuations =
