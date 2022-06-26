@@ -9,6 +9,7 @@ import {
   Select,
   Image,
 } from "@mantine/core";
+import { ArrowNarrowUp, ArrowNarrowDown } from "tabler-icons-react";
 
 import useBankTransactions from "../../hooks/useBankTransactions";
 import { useUser } from "../../hooks/useUser";
@@ -111,22 +112,36 @@ const Transactions = () => {
                       width="24px"
                       height="24px"
                       src={getCurrencyIcon[transaction.currency]}
-                    ></Image>
+                    />
                     {transaction.currency}
                   </Box>
                 </td>
                 <td>
-                  {transaction.amount} {transaction.currency}
-                  <Text
-                    size="xs"
-                    sx={(theme) => ({
-                      color: theme.colors.blue[3],
-                      display: "inline-block",
-                      marginLeft: theme.spacing.sm,
-                    })}
-                  >
-                    {transaction?.euro}€
-                  </Text>
+                  <Box sx={{ display: "flex" }}>
+                    <Box sx={(theme) => ({ marginRight: theme.spacing.sm })}>
+                      {transaction.amount > 0 ? (
+                        <ArrowNarrowUp color="green" />
+                      ) : (
+                        <ArrowNarrowDown color="red" />
+                      )}
+                    </Box>
+                    <Box>
+                      <Text>
+                        {transaction.amount} {transaction.currency}
+                      </Text>
+                      {transaction.euro && (
+                        <Text
+                          size="xs"
+                          sx={(theme) => ({
+                            color: theme.colors.blue[3],
+                            display: "inline-block",
+                          })}
+                        >
+                          ≈ {transaction.euro}€
+                        </Text>
+                      )}
+                    </Box>
+                  </Box>
                 </td>
                 <td>
                   {transaction?.description.map((l, y) => (

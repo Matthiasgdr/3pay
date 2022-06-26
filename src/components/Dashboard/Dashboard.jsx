@@ -23,70 +23,70 @@ const Dashboard = () => {
       : null;
 
   return (
-    <Box>
-      <Title order={3} sx={(theme) => ({ marginBottom: theme.spacing.xs })}>
-        Soldes
-      </Title>
-      <Box
-        sx={(theme) => ({ display: "flex", marginBottom: theme.spacing.lg })}
-      >
-        <Box>
-          {loading ? (
-            <Loader size="sm" />
-          ) : (
-            <>
-              <Text>Compte bancaire :</Text>
-              {balanceBank && (
-                <>
-                  <Text
-                    sx={(theme) => ({
-                      ...theme.headings,
-                      ...theme.headings.sizes.h1,
-                      color: theme.colors.blue[8],
-                    })}
-                  >{`${balanceBank?.amount} ${balanceBank?.currency}`}</Text>
-                </>
-              )}
-              {error && <Text>{error}</Text>}
-            </>
-          )}
-        </Box>
+    <Box sx={{ display: "flex" }}>
+      <Box sx={(theme) => ({ flexGrow: "1", marginRight: theme.spacing.md })}>
+        <Title order={3} sx={(theme) => ({ marginBottom: theme.spacing.xs })}>
+          Soldes
+        </Title>
         <Box
-          sx={(theme) => ({
-            display: "flex",
-            alignItems: "stretch",
-            backgroundColor: theme.colors.blue[8],
-            width: "1px",
-            margin: `0 ${theme.spacing.lg}px`,
-          })}
-        />
-        <Box>
-          {loadingWallet ? (
-            <Loader size="sm" />
-          ) : (
-            <>
-              <Text>Wallet :</Text>
-              {balance && (
-                <>
-                  <Text
-                    sx={(theme) => ({
-                      ...theme.headings,
-                      ...theme.headings.sizes.h1,
-                      color: theme.colors.blue[8],
-                    })}
-                  >{`${Number(Number(balance)?.toFixed(7) * euro)?.toFixed(5)} ${
-                    balanceBank?.currency || "EUR"
-                  }`}</Text>
-                </>
-              )}
-              {errorWallet && <Text>{errorWallet}</Text>}
-            </>
-          )}
+          sx={(theme) => ({ display: "flex", marginBottom: theme.spacing.lg })}
+        >
+          <Box>
+            {loading ? (
+              <Loader size="sm" />
+            ) : (
+              <>
+                <Text>Compte bancaire :</Text>
+                {balanceBank && (
+                  <>
+                    <Text
+                      sx={(theme) => ({
+                        ...theme.headings,
+                        ...theme.headings.sizes.h1,
+                        color: theme.colors.blue[8],
+                      })}
+                    >{`${balanceBank?.amount} ${balanceBank?.currency}`}</Text>
+                  </>
+                )}
+                {error && <Text>{error}</Text>}
+              </>
+            )}
+          </Box>
+          <Box
+            sx={(theme) => ({
+              display: "flex",
+              alignItems: "stretch",
+              backgroundColor: theme.colors.blue[8],
+              width: "1px",
+              margin: `0 ${theme.spacing.lg}px`,
+            })}
+          />
+          <Box>
+            {loadingWallet ? (
+              <Loader size="sm" />
+            ) : (
+              <>
+                <Text>Wallet :</Text>
+                {balance && (
+                  <>
+                    <Text
+                      sx={(theme) => ({
+                        ...theme.headings,
+                        ...theme.headings.sizes.h1,
+                        color: theme.colors.blue[8],
+                      })}
+                    >{`${Number(Number(balance)?.toFixed(7) * euro)?.toFixed(
+                      5
+                    )} ${balanceBank?.currency || "EUR"}`}</Text>
+                  </>
+                )}
+                {errorWallet && <Text>{errorWallet}</Text>}
+              </>
+            )}
+          </Box>
         </Box>
+        <Assets />
       </Box>
-      <Assets></Assets>
-      {/* <LineCharts /> */}
-      <ListAssets />
       <InchDex chain="eth" />
     </Box>
   );

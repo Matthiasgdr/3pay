@@ -1,17 +1,17 @@
 import React from "react";
 
-export const USDT = () => {
+export const AVAX = () => {
   return (
-    <svg width="39" height="40" viewBox="0 0 39 40" fill="none">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
       <rect
-        width="39"
-        height="39"
-        transform="matrix(-1 0 0 1 39 0.5)"
-        fill="url(#pattern3)"
+        width="40"
+        height="40"
+        transform="matrix(-1 0 0 1 40 0.5)"
+        fill="url(#pattern2)"
       />
       <defs>
         <pattern
-          id="pattern3"
+          id="pattern2"
           patternContentUnits="objectBoundingBox"
           width="1"
           height="1"

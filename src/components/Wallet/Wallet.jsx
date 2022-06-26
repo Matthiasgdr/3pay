@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Box, Title, Tabs } from "@mantine/core";
 
 import Automatisation from "./tabs/Automatisation";
+import AddCrypto from "./tabs/AddCrypto";
 
 const tabs = ["add", "automatisation"];
 
@@ -26,7 +27,9 @@ const Wallet = () => {
           setParams({ tab: tabs[tab] });
         }}
       >
-        <Tabs.Tab label="Ajouter une crypto"></Tabs.Tab>
+        <Tabs.Tab label="Ajouter une crypto">
+          <AddCrypto />
+        </Tabs.Tab>
         <Tabs.Tab label="Automatisation des transferts">
           <Automatisation />
         </Tabs.Tab>

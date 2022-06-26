@@ -12,9 +12,7 @@ import InchModal from "./Modal";
 const styles = {
   card: {
     width: "430px",
-    boxShadow: "0 0.5rem 1.2rem rgb(189 197 209 / 20%)",
     border: "1px solid #e7eaf3",
-    borderRadius: "1rem",
     fontSize: "16px",
     fontWeight: "500",
   },
@@ -178,9 +176,11 @@ function InchDex({ chain }) {
     <>
       <Card sx={styles.card} style={{ padding: "18px" }}>
         <Card sx={{ borderRadius: "1rem" }} style={{ padding: "0.8rem" }}>
-          <Box sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>
-            From
-          </Box>
+          <Text
+            sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}
+          >
+            De
+          </Text>
           <Box
             sx={{
               display: "flex",
@@ -204,7 +204,6 @@ function InchDex({ chain }) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                borderRadius: "0.6rem",
                 padding: "5px 10px",
                 fontWeight: "500",
                 fontSize: "17px",
@@ -238,9 +237,11 @@ function InchDex({ chain }) {
           \/
         </Box>
         <Card sx={{ borderRadius: "1rem" }} style={{ padding: "0.8rem" }}>
-          <Box sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}>
+          <Text
+            sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}
+          >
             To
-          </Box>
+          </Text>
           <Box
             sx={{
               display: "flex",
@@ -271,7 +272,6 @@ function InchDex({ chain }) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                borderRadius: "0.6rem",
                 padding: "5px 10px",
                 fontWeight: "500",
                 fontSize: "17px",

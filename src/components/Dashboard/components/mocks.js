@@ -3,7 +3,7 @@ import { getCryptoIcon } from "../../../utils/getCryptoIcon";
 export const mocks = [
   {
     name: "Bitcoin",
-    icons: getCryptoIcon("BTC"),
+    icon: getCryptoIcon("BTC"),
     symbol: "BTC",
     price: "27074.86€",
     sold: "0.069",
@@ -11,7 +11,7 @@ export const mocks = [
   },
   {
     name: "Ethereum",
-    icons: getCryptoIcon("ETH"),
+    icon: getCryptoIcon("ETH"),
     symbol: "ETH",
     price: "1654.86€",
     sold: "5.06",
@@ -19,7 +19,7 @@ export const mocks = [
   },
   {
     name: "Tether",
-    icons: getCryptoIcon("USDT"),
+    icon: getCryptoIcon("USDT"),
     symbol: "USDT",
     price: "0.93€",
     sold: "369",
