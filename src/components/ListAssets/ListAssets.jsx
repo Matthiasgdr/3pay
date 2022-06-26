@@ -138,28 +138,30 @@ const ListAssets = () => {
                   {chain.value + "€"}
                 </Text>
               </td>
-              <td className={classes.buttonsAdd}>
-                <Button
-                  onClick={() => handleAddNetwork(chain.chain)}
-                  sx={{
-                    height: "32px",
-                    padding: "0px 24px",
-                    marginLeft: "32px",
-                  }}
-                >
-                  + Ajouter
-                </Button>
-                <Button
-                  variant="light"
-                  onClick={() => console.log("fav")}
-                  sx={{
-                    height: "32px",
-                    padding: "0px 24px",
-                    marginLeft: "32px",
-                  }}
-                >
-                  ♡
-                </Button>
+              <td>
+                <Box className={classes.buttonsAdd}>
+                  <Button
+                    onClick={() => handleAddNetwork(chain.chain)}
+                    sx={{
+                      height: "32px",
+                      padding: "0px 24px",
+                      marginLeft: "32px",
+                    }}
+                  >
+                    + Ajouter
+                  </Button>
+                  <Button
+                    variant="light"
+                    onClick={() => console.log("fav")}
+                    sx={{
+                      height: "32px",
+                      padding: "0px 24px",
+                      marginLeft: "32px",
+                    }}
+                  >
+                    ♡
+                  </Button>
+                </Box>
               </td>
             </tr>
           ))}
