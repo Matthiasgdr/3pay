@@ -1,5 +1,5 @@
 import React from "react";
-import { AvaxLogo, BSCLogo, PolygonLogo } from "./Logo";
+import { AvaxLogo, BSCLogo, PolygonLogo, ETHLogo } from "./Logo";
 
 export const arrayAssets = [
   {
@@ -13,6 +13,19 @@ export const arrayAssets = [
       currencySymbol: "AVAX",
       rpcUrl: "https://api.avax.network/ext/bc/C/rpc",
       blockExplorerUrl: "https://cchain.explorer.avax.network/",
+    },
+  },
+  {
+    icon: <ETHLogo />,
+    name: "Ethereum",
+    symbol: "ETH",
+    chain: {
+      chainId: 1,
+      chainName: "Ethereum",
+      currencyName: "ETH",
+      currencySymbol: "ETH",
+      rpcUrl: "https://mainnet.infura.io/v3/",
+      blockExplorerUrl: "https://etherscan.io",
     },
   },
   {

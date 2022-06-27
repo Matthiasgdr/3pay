@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Table, createStyles, Text, Box, Button } from "@mantine/core";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useChain } from "react-moralis";
 
 import CryptoName from "../../blocks/CryptoName";
 import useCryptoFluctuations from "../../hooks/useCryptoFluctuations";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 import { arrayAssets } from "./mocks";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   td: {
     verticalAlign: "middle",
   },
@@ -19,6 +19,7 @@ const useStyles = createStyles((theme) => ({
 
 const ListAssets = () => {
   const { Moralis } = useMoralis();
+  const { chainId } = useChain();
   const { classes } = useStyles();
 
   const arrayCryptoSymbols = arrayAssets.map((m) => m.symbol).join(",");
@@ -92,16 +93,32 @@ const ListAssets = () => {
                 </td>
                 <td className={classes.td}>
                   <Box className={classes.buttonsAdd}>
-                    <Button
-                      onClick={() => handleAddNetwork(chain.chain)}
-                      sx={{
+                    {'0x' + chain.chain.chainId == chainId ? 
+                      <Text sx={(theme) => ({
+                        display: "flex",
+                        justifyContent: 'center',
+                        alignItems: 'center',
                         height: "32px",
-                        padding: "0px 24px",
+                        width: "110px",
+                        padding: "auto",
                         marginLeft: "32px",
-                      }}
-                    >
-                      + Ajouter
-                    </Button>
+                        background: theme.colors.green[1],
+                        color: theme.colors.grey[0],
+                        fontSize: theme.fontSizes.small
+                      })}>
+                        Ajouté
+                      </Text> :
+                      <Button
+                        onClick={() => handleAddNetwork(chain.chain)}
+                        sx={{
+                          height: "32px",
+                          padding: "0px 24px",
+                          marginLeft: "32px",
+                        }}
+                      >
+                        + Ajouter
+                      </Button>
+                    }
                     <Button
                       variant="light"
                       onClick={() => console.log("fav")}
