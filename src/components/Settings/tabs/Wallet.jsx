@@ -5,7 +5,6 @@ import SignUpButton from "../../WalletLinking/signup";
 const Wallet = () => {
   return (
     <Box>
-      <Title order={2}>Connexion à mon wallet de crypto-monnaies</Title>
       <SignUpButton />
     </Box>
   );

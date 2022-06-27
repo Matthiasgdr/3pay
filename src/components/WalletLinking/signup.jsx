@@ -1,10 +1,11 @@
 import React from "react";
-import { useMoralis } from "react-moralis";
+import { useMoralis, useChain } from "react-moralis";
 import { Button, Box, Text } from "@mantine/core";
 import PropTypes from "prop-types";
 
 const SignUpButton = ({ onConnect = () => {} }) => {
   const { authenticate, isAuthenticated, enableWeb3, Moralis } = useMoralis();
+  const { account } = useChain();
 
   async function authWalletConnect() {
     enableWeb3().then(() => {
@@ -52,7 +53,7 @@ const SignUpButton = ({ onConnect = () => {} }) => {
           </Button>
         </>
       ) : (
-        <Text>Votre wallet est connecté !</Text>
+        <Text sx={(theme) => ({ border: '2px solid '+ theme.colors.grey[2], borderRadius: '5px', padding: '30px 32px', color: theme.colors.grey[7], fontSize: theme.fontSizes.small })}>{account}</Text>
       )}
     </Box>
   );

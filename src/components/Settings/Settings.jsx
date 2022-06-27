@@ -4,6 +4,7 @@ import { Box, Title, Tabs } from "@mantine/core";
 import Profil from "./tabs/Profil";
 import Entreprise from "./tabs/Entreprise";
 import Wallet from "./tabs/Wallet";
+import ConnexionPayment from './tabs/ConnexionPayment';
 
 const tabs = ["profil", "entreprise", "wallet", "payement"];
 
@@ -35,6 +36,9 @@ const Settings = () => {
         </Tabs.Tab>
         <Tabs.Tab label="Wallet">
           <Wallet />
+        </Tabs.Tab>
+        <Tabs.Tab label="Site Internet">
+          <ConnexionPayment />
         </Tabs.Tab>
       </Tabs>
     </Box>
