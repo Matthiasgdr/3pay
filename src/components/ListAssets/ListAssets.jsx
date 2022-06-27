@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const ListAssets = () => {
-  const { Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
+  const { Moralis } = useMoralis();
   const { classes } = useStyles();
 
   const arrayCryptoSymbols = arrayAssets.map((m) => m.symbol).join(",");
@@ -29,12 +29,6 @@ const ListAssets = () => {
       null
     );
   };
-
-  useEffect(() => {
-    if (!isWeb3Enabled) {
-      enableWeb3();
-    }
-  }, [isWeb3Enabled]);
 
   const handleAddNetwork = async (chain) => {
     await Moralis.addNetwork(

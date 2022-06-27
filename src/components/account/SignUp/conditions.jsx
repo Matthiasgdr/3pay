@@ -1,21 +1,16 @@
 import React from "react";
-import { useMoralis } from "react-moralis";
 import { Text, Button, Box, Title } from '@mantine/core';
 import PropTypes from "prop-types";
 
 const Conditions = ({ title, content, dbkey, onValidate, nextStep }) => {
-    const { Moralis } = useMoralis();
-    const currentUser = Moralis.User.current();
+  var retrievedObject = localStorage.getItem('userSignup')
+  const userObject = JSON.parse(retrievedObject)
 
-    const handleAccept = () => {
-        if(currentUser) {
-          currentUser.set(dbkey, true);
-          currentUser.save();
-          onValidate(nextStep);
-        } else {
-          alert("Error: session ended");
-        }
-    }
+  const handleAccept = () => {
+    userObject[dbkey] = true
+    localStorage.setItem('userSignup', JSON.stringify(userObject))
+    onValidate(nextStep);
+  }
   return (
     <>
       <Title

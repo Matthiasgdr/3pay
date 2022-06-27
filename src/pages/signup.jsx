@@ -6,9 +6,11 @@ import Siren from "../components/account/SignUp/siren";
 import EndingSignUp from "../components/account/SignUp/ending";
 
 const SignUpPage = () => {
-  const [step, setStep] = useState("signup");
+  const lastStep = localStorage.getItem('stepSignup') || "signup";
+  const [step, setStep] = useState(lastStep);
   const handleValidate = (index) => {
     setStep(index)
+    localStorage.setItem('stepSignup', index)
   };
   const Funnel = {
     signup: <SignUp onValidate={handleValidate} />,
@@ -16,7 +18,7 @@ const SignUpPage = () => {
     cg: <Conditions onValidate={handleValidate} title="Notre politique générale" content="texte sur nos conditions générales super cool" dbkey="cg" nextStep="siren" />,
     siren: <Siren onValidate={handleValidate} />,
     connectwallet: <ConnectWallet onValidate={handleValidate} />,
-    ending: <EndingSignUp />
+    ending: <EndingSignUp onFinish={handleValidate} />
   }
   return Funnel[step];
 };

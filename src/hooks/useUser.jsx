@@ -23,7 +23,7 @@ export const UserContextProvider = (props) => {
       }
       setUser(currentUser);
     }
-  }, [moralisUser]);
+  }, [moralisUser, isWeb3Enabled]);
 
   const value = {
     user,

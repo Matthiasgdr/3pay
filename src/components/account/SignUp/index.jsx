@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useMoralis } from "react-moralis";
 import { Formik } from "formik";
 import {
   InputWrapper,
@@ -16,7 +15,6 @@ import * as Yup from "yup";
 import PropTypes from "prop-types";
 
 const SignUp = ({ onValidate }) => {
-  const { Moralis } = useMoralis();
   const SignupSchema = Yup.object().shape({
     name: Yup.string().min(1, "Trop court!").required("Champs requis"),
     surname: Yup.string().min(1, "Trop court!").required("Champs requis"),
@@ -25,18 +23,15 @@ const SignUp = ({ onValidate }) => {
   });
 
   const handleSubmitSignup = async ({ name, surname, email, password }) => {
-    const user = new Moralis.User();
-    user.set("name", name);
-    user.set("surname", surname);
-    user.set("username", email);
-    user.set("email", email);
-    user.set("password", password);
-
-    try {
-      await user.signUp().then(() => onValidate("rgpd"));
-    } catch (error) {
-      alert("Error: " + error.code + " " + error.message);
+    const userObject = {
+      name: name,
+      surname: surname,
+      username: email,
+      email: email,
+      password: password
     }
+    localStorage.setItem('userSignup', JSON.stringify(userObject))
+    onValidate("rgpd")
   };
 
   return (
