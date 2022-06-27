@@ -50,7 +50,6 @@ const Theme = ({ children }) => {
             borderBottomColor: themes[theme].colors.blue[5] + "!important",
           },
         },
-        // Text: { root: { color: themes[theme].colors.blue[8] } },
       }}
     >
       {children}

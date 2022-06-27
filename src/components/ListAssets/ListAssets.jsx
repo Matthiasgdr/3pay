@@ -3,16 +3,13 @@ import { Table, createStyles, Text, Box, Button } from "@mantine/core";
 import { useMoralis } from "react-moralis";
 
 import CryptoName from "../../blocks/CryptoName";
-import { AvaxLogo, BSCLogo, PolygonLogo } from "./Logo";
-import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 import useCryptoFluctuations from "../../hooks/useCryptoFluctuations";
+import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
+import { arrayAssets } from "./mocks";
 
 const useStyles = createStyles((theme) => ({
-  fluctuationUpText: {
-    color: theme.colors.green[2],
-  },
-  fluctuationDownText: {
-    color: theme.colors.red[2],
+  td: {
+    verticalAlign: "middle",
   },
   buttonsAdd: {
     display: "flex",
@@ -24,65 +21,14 @@ const ListAssets = () => {
   const { Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
   const { classes } = useStyles();
 
-  const avaxEuro = cryptoToEuro("AVAX");
-  const bnbEuro = cryptoToEuro("BNB");
-  const polygonEuro = cryptoToEuro("MATIC");
-  const fluctuations = useCryptoFluctuations("AVAX,BNB,MATIC");
-
-  const avaxFluctuations =
-    fluctuations !== null ? fluctuations[1]["1d"]?.volume_change_pct : null;
-  const bnbFluctuations =
-    fluctuations !== null ? fluctuations[0]["1d"]?.volume_change_pct : null;
-  const polygonFluctuations =
-    fluctuations !== null ? fluctuations[2]["1d"]?.volume_change_pct : null;
-
-  const arrayAssets = [
-    {
-      icon: <AvaxLogo />,
-      name: "Avalanche",
-      symbol: "AVAX",
-      value: avaxEuro,
-      fluctuations: avaxFluctuations,
-      chain: {
-        chainId: 43114,
-        chainName: "Avalanche Mainnet",
-        currencyName: "AVAX",
-        currencySymbol: "AVAX",
-        rpcUrl: "https://api.avax.network/ext/bc/C/rpc",
-        blockExplorerUrl: "https://cchain.explorer.avax.network/",
-      },
-    },
-    {
-      icon: <BSCLogo />,
-      name: "Binance",
-      symbol: "BNB",
-      value: bnbEuro,
-      fluctuations: bnbFluctuations,
-      chain: {
-        chainId: 56,
-        chainName: "Binance Smart Chain",
-        currencyName: "BNB",
-        currencySymbol: "BNB",
-        rpcUrl: "https://bsc-dataseed.binance.org/",
-        blockExplorerUrl: "https://bscscan.com",
-      },
-    },
-    {
-      icon: <PolygonLogo />,
-      name: "Polygon",
-      symbol: "MATIC",
-      value: polygonEuro,
-      fluctuations: polygonFluctuations,
-      chain: {
-        chainId: 137,
-        chainName: "Polygon Mainnet",
-        currencyName: "MATIC",
-        currencySymbol: "MATIC",
-        rpcUrl: "https://polygon-rpc.com",
-        blockExplorerUrl: "https://explorer-mainnet.maticvigil.com",
-      },
-    },
-  ];
+  const arrayCryptoSymbols = arrayAssets.map((m) => m.symbol).join(",");
+  const fluctuations = useCryptoFluctuations(arrayCryptoSymbols);
+  const getFluctuations = (symbol) => {
+    return (
+      fluctuations?.find((e) => e.id === symbol)["1d"]?.volume_change_pct ||
+      null
+    );
+  };
 
   useEffect(() => {
     if (!isWeb3Enabled) {
@@ -103,68 +49,81 @@ const ListAssets = () => {
 
   return (
     <Box>
-      <Table>
-        <thead className={classes.headTable}>
+      <Table verticalSpacing="md">
+        <thead>
           <tr>
             <th>Nom</th>
-            <th></th>
             <th>Prix</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {arrayAssets.map((chain) => (
-            <tr key={chain.name}>
-              <td className={classes.nameTable}>
-                <CryptoName crypto={chain} />
-              </td>
-              <td
-                className={
-                  chain.fluctuations >= 0
-                    ? classes.fluctuationUpText
-                    : classes.fluctuationDownText
-                }
-              >
-                {chain.fluctuations ? chain.fluctuations + "%" : "+0%"}
-              </td>
-              <td>
-                <Text
-                  size="xs"
-                  sx={(theme) => ({
-                    color: theme.colors.blue[3],
-                    display: "inline-block",
-                  })}
-                >
-                  {chain.value + "€"}
-                </Text>
-              </td>
-              <td>
-                <Box className={classes.buttonsAdd}>
-                  <Button
-                    onClick={() => handleAddNetwork(chain.chain)}
+          {arrayAssets.map((chain) => {
+            const fluctuation = getFluctuations(chain.symbol);
+            const euro = cryptoToEuro(chain.symbol);
+            return (
+              <tr key={chain.name}>
+                <td className={classes.td}>
+                  <Box
                     sx={{
-                      height: "32px",
-                      padding: "0px 24px",
-                      marginLeft: "32px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    + Ajouter
-                  </Button>
-                  <Button
-                    variant="light"
-                    onClick={() => console.log("fav")}
-                    sx={{
-                      height: "32px",
-                      padding: "0px 24px",
-                      marginLeft: "32px",
-                    }}
+                    <CryptoName crypto={chain} />
+                    <Text
+                      sx={(theme) => ({
+                        margin: `0 ${theme.spacing.md}px`,
+                        color:
+                          fluctuation >= 0
+                            ? theme.colors.green[5]
+                            : theme.colors.red[5],
+                      })}
+                    >
+                      {fluctuation} %
+                    </Text>
+                  </Box>
+                </td>
+                <td className={classes.td}>
+                  <Text
+                    size="xs"
+                    sx={(theme) => ({
+                      color: theme.colors.blue[3],
+                      display: "inline-block",
+                    })}
                   >
-                    ♡
-                  </Button>
-                </Box>
-              </td>
-            </tr>
-          ))}
+                    {euro + "€"}
+                  </Text>
+                </td>
+                <td className={classes.td}>
+                  <Box className={classes.buttonsAdd}>
+                    <Button
+                      onClick={() => handleAddNetwork(chain.chain)}
+                      sx={{
+                        height: "32px",
+                        padding: "0px 24px",
+                        marginLeft: "32px",
+                      }}
+                    >
+                      + Ajouter
+                    </Button>
+                    <Button
+                      variant="light"
+                      onClick={() => console.log("fav")}
+                      sx={{
+                        height: "32px",
+                        padding: "0px 24px",
+                        marginLeft: "32px",
+                      }}
+                    >
+                      ♡
+                    </Button>
+                  </Box>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </Box>

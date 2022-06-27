@@ -20,7 +20,7 @@ const SignUpButton = ({ onConnect = () => {} }) => {
     const currentAccount = web3.provider.selectedAddress;
     try {
       await Moralis.link(currentAccount, {
-        signingMessage: `Connectez-vous à Invo!`,
+        signingMessage: `Connectez-vous à Leepay!`,
       }).then(() => {
         onConnect("ending");
       });

@@ -6,7 +6,6 @@ const CryptoName = ({ crypto }) => {
   return (
     <Box
       sx={(theme) => ({
-        margin: `${theme.spacing.sm}px 0px`,
         display: "flex",
         alignItems: "center",
       })}

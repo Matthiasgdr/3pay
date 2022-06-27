@@ -5,12 +5,24 @@ export const UserContext = createContext(null);
 
 export const UserContextProvider = (props) => {
   const [user, setUser] = useState(null);
-  const { Moralis, serverUrl, appId, user: moralisUser } = useMoralis();
+  const {
+    Moralis,
+    serverUrl,
+    appId,
+    user: moralisUser,
+    enableWeb3,
+    isWeb3Enabled,
+  } = useMoralis();
 
   useEffect(() => {
     Moralis.start({ serverUrl, appId });
     const currentUser = Moralis.User.current();
-    setUser(currentUser);
+    if (currentUser) {
+      if (!isWeb3Enabled) {
+        enableWeb3();
+      }
+      setUser(currentUser);
+    }
   }, [moralisUser]);
 
   const value = {
