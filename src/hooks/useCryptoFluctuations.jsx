@@ -11,7 +11,6 @@ const useCryptoFluctuations = (crypto) => {
       })
       .then((res) => {
         setInfos(res.data)
-        //["1d"]?.volume_change_pct
       })
   }
 

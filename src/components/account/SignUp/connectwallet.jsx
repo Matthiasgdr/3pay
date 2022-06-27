@@ -1,11 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useMoralis } from "react-moralis"
 import { Title, Box, Text, Button } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 import SignUpButton from "../../WalletLinking/signup";
 
 const ConnectWallet = ({ onValidate }) => {
+  const { Moralis } = useMoralis();
+  var retrievedObject = localStorage.getItem('userSignup')
+  const userObject = JSON.parse(retrievedObject)
+
+  const user = new Moralis.User()
+  user.set("name", userObject.name)
+  user.set("surname", userObject.surname)
+  user.set("username", userObject.username)
+  user.set("email", userObject.email)
+  user.set("password", userObject.password)
+  user.set("rgpd", userObject.rgpd)
+  user.set("cg", userObject.cg)
+  user.signUp()
+  console.log(user)
+
   return (
     <>
       <Title

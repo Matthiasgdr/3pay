@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMoralis, useMoralisCloudFunction } from "react-moralis";
+import { useMoralisCloudFunction } from "react-moralis";
 import { Formik } from "formik";
 import { InputWrapper, Input, Button, Title, Box } from '@mantine/core';
 import axios from "axios";
@@ -8,7 +8,8 @@ import PropTypes from "prop-types";
 
 const Siren = ({ onValidate }) => {
     const [userSiren, setUserSiren] = useState(null);
-    const { Moralis } = useMoralis();
+    var retrievedObject = localStorage.getItem('userSignup')
+    const userObject = JSON.parse(retrievedObject)
     const config = {
       headers: { Authorization: `Bearer ${process.env.REACT_APP_TOKEN_INSEE}` }
     };
@@ -29,7 +30,6 @@ const Siren = ({ onValidate }) => {
     });
 
     const handleSubmitSignup = async ({ siren }, { setFieldError }) => {
-      const currentUser = Moralis.User.current();
       const isExist = userSiren.includes(siren.toString())
       const checkSiren = await axios
         .get("https://api.insee.fr/entreprises/sirene/V3/siren/" + siren, config)
@@ -37,9 +37,9 @@ const Siren = ({ onValidate }) => {
           setFieldError("siren", "Numéro SIREN inexistant ")
         })
       
-      if(checkSiren && !isExist && currentUser) {
-        currentUser.set("siren", siren.toString());
-        currentUser.save();
+      if(checkSiren && !isExist && userObject) {
+        userObject.siren = siren
+        localStorage.setItem('userSignup', JSON.stringify(userObject))
         onValidate("connectwallet");
       } else if (isExist) {
         setFieldError("siren", "Numéro SIREN déjà utilisé pour un autre compte")
