@@ -4,7 +4,6 @@ import useBankAccount from "../../hooks/useBankAccount";
 import useWalletBalance from "../../hooks/useWalletBalance";
 import InchDex from "../Transfer/Transfer";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
-import ListAssets from "../ListAssets/ListAssets";
 
 import Assets from "./components/Assets";
 
