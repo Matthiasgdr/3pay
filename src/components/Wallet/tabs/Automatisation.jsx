@@ -5,8 +5,8 @@ const Automatisation = () => {
   const [percent, setPercent] = useState(100);
   return (
     <Box>
-      <Title>Transaction automatisé</Title>
-      <Text order={4}>
+      <Title order={2}>Transaction automatisé</Title>
+      <Text>
         Pour chaque transaction, vous pouvez choisir de transferer une partie ou
         la totalité du montant en stable coin afin de ne pas être affécté par la
         fluctuation de la crypto-monnaie reçu
