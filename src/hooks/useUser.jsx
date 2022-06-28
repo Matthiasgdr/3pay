@@ -18,9 +18,9 @@ export const UserContextProvider = (props) => {
     Moralis.start({ serverUrl, appId });
     const currentUser = Moralis.User.current();
     if (currentUser) {
-      if (!isWeb3Enabled) {
-        enableWeb3();
-      }
+      // if (!isWeb3Enabled) {
+      //   enableWeb3();
+      // }
       setUser(currentUser);
     }
   }, [moralisUser, isWeb3Enabled]);

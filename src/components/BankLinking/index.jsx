@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Select, Button, Box, Title, Image, Text } from "@mantine/core";
+import { Select, Button, Box, Image, Text } from "@mantine/core";
 import { Search, Check } from "tabler-icons-react";
 import { useUser } from "../../hooks/useUser";
 import axios from "axios";
@@ -11,7 +11,7 @@ const BankLinking = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5200/banks/?country=" + "fr")
+      .get(`${process.env.REACT_APP_BANK_PROXY_URL}/banks/?country=` + "fr")
       .then(({ data }) => {
         setBanks(data);
       });
@@ -28,8 +28,8 @@ const BankLinking = () => {
 
   const linkAccount = async () => {
     axios
-      .post("http://localhost:5200/link", {
-        redirect: "http://localhost:3000",
+      .post(`${process.env.REACT_APP_BANK_PROXY_URL}/link`, {
+        redirect: process.env.REACT_APP_DOMAIN,
         id: selectedBankId,
       })
       .then(({ data }) => {

@@ -1,23 +1,37 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useCryptoFluctuations = (crypto) => {
-  const [infos, setInfos] = useState(null)
+export const useCryptoFluctuations = (crypto) => {
+  const [infos, setInfos] = useState(null);
   const getInfos = () => {
     axios
-      .get(`https://api.nomics.com/v1/currencies/ticker?key=${process.env.REACT_APP_CURRENCY_RATE_KEY}&ids=${crypto}&interval=1d&convert=EUR`)
-      .catch(() => {
-        return null
-      })
+      .get(
+        `${process.env.REACT_APP_BANK_PROXY_URL}/fluctuations?crypto=${crypto}`
+      )
       .then((res) => {
-        setInfos(res.data)
+        setInfos(res.data.fluctuations);
       })
-  }
+      .catch(() => {
+        return null;
+      });
+  };
 
   useEffect(() => {
-    getInfos()
-  }, [infos])
+    if (!infos) {
+      getInfos();
+    }
+  }, [infos]);
 
-  return infos
-}
-export default useCryptoFluctuations
+  return infos;
+};
+
+export const getFluctuations = (symbol, fluctuations) => {
+  if (fluctuations) {
+    return (
+      fluctuations?.find((e) => e.id === symbol)["1d"]?.volume_change_pct ||
+      null
+    );
+  }
+};
+
+export default useCryptoFluctuations;
