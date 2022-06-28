@@ -133,7 +133,7 @@ const Transactions = () => {
                       <Text>
                         {transaction.amount} {transaction.currency}
                       </Text>
-                      {transaction.euro && (
+                      {transaction.type === "crypto" && (
                         <Text
                           size="xs"
                           sx={(theme) => ({
@@ -141,7 +141,7 @@ const Transactions = () => {
                             display: "inline-block",
                           })}
                         >
-                          ≈ {transaction.euro}€
+                          ≈ {(transaction.amount * euro).toFixed(2)}€
                         </Text>
                       )}
                     </Box>
