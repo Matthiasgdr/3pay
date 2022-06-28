@@ -19,7 +19,7 @@ import { transformBankToDefault } from "./utils/transformBankToDefault";
 import getCurrencyIcon from "./utils/getCurrencyIcon";
 import cryptoToEuro from "./utils/cryptoToEuro";
 import formatWalletTransactions from "./utils/formatWalletTransactions";
-import filter from "./utils/filter";
+import filter from "../../utils/filter";
 import formatDate from "./utils/dateFormat";
 
 const useStyles = createStyles((theme) => ({

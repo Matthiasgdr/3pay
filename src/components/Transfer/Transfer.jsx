@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useMoralis, useTokenPrice } from "react-moralis";
 import { Button, Card, Image, Text, Input, Modal, Box } from "@mantine/core";
+import { ArrowNarrowDown } from "tabler-icons-react";
 
 import useInchDex from "../../hooks/useInchIndex";
 import { tokenValue } from "./helpers/formatters";
@@ -11,7 +12,7 @@ import InchModal from "./Modal";
 
 const styles = {
   card: {
-    width: "430px",
+    width: "350px",
     border: "1px solid #e7eaf3",
     fontSize: "16px",
     fontWeight: "500",
@@ -54,7 +55,6 @@ function InchDex({ chain }) {
   const { trySwap, tokenList, getQuote } = useInchDex(chain);
 
   const { Moralis, isInitialized, chainId } = useMoralis();
-  const chainI = Moralis.getChainId();
 
   const [isFromModalActive, setFromModalActive] = useState(false);
   const [isToModalActive, setToModalActive] = useState(false);
@@ -135,12 +135,11 @@ function InchDex({ chain }) {
 
   const ButtonState = useMemo(() => {
     if (chainIds?.[chainId] !== chain)
-      return { isActive: false, text: `Switch to ${chain}` };
-
+      return { isActive: false, text: `Switch to ${toToken?.symbol || chain}` };
     if (!fromAmount) return { isActive: false, text: "Enter an amount" };
     if (fromAmount && currentTrade) return { isActive: true, text: "Swap" };
     return { isActive: false, text: "Select tokens" };
-  }, [fromAmount, currentTrade, chainId, chain]);
+  }, [fromAmount, currentTrade, chainId, chain, toToken]);
 
   useEffect(() => {
     if (fromToken && toToken && fromAmount)
@@ -175,7 +174,7 @@ function InchDex({ chain }) {
   return (
     <>
       <Card sx={styles.card} style={{ padding: "18px" }}>
-        <Card sx={{ borderRadius: "1rem" }} style={{ padding: "0.8rem" }}>
+        <Card sx={{ borderRadius: "1rem" }}>
           <Text
             sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}
           >
@@ -187,7 +186,7 @@ function InchDex({ chain }) {
               flexFlow: "row nowrap",
             }}
           >
-            <Box>
+            <Box sx={{ height: "40px" }}>
               <Input
                 placeholder="0.00"
                 styles={{ ...styles.input, marginLeft: "-10px" }}
@@ -219,9 +218,9 @@ function InchDex({ chain }) {
                     "https://etherscan.io/images/main/empty-token.png"
                   }
                   alt="nologo"
-                  width="30px"
+                  width="25px"
                   preview={false}
-                  sx={{ borderRadius: "15px" }}
+                  sx={{ borderRadius: "15px", marginRight: "4px" }}
                 />
               ) : (
                 <span>Select a token</span>
@@ -231,12 +230,10 @@ function InchDex({ chain }) {
             </Button>
           </Box>
         </Card>
-        <Box
-          sx={{ display: "flex", justifyContent: "center", padding: "10px" }}
-        >
-          \/
+        <Box sx={{ display: "flex", justifyContent: "center", padding: "4px" }}>
+          <ArrowNarrowDown color="gray" />
         </Box>
-        <Card sx={{ borderRadius: "1rem" }} style={{ padding: "0.8rem" }}>
+        <Card sx={{ borderRadius: "1rem" }}>
           <Text
             sx={{ marginBottom: "5px", fontSize: "14px", color: "#434343" }}
           >
@@ -288,9 +285,9 @@ function InchDex({ chain }) {
                     "https://etherscan.io/images/main/empty-token.png"
                   }
                   alt="nologo"
-                  width="30px"
+                  width="25px"
                   preview={false}
-                  sx={{ borderRadius: "15px" }}
+                  sx={{ borderRadius: "15px", marginRight: "4px" }}
                 />
               ) : (
                 <span>Select a token</span>
@@ -338,6 +335,7 @@ function InchDex({ chain }) {
         onClose={() => setFromModalActive(false)}
         sx={{ padding: 0 }}
         size={450}
+        centered
       >
         <InchModal
           open={isFromModalActive}
@@ -352,6 +350,7 @@ function InchDex({ chain }) {
         onClose={() => setToModalActive(false)}
         sx={{ padding: 0 }}
         size={450}
+        centered
       >
         <InchModal
           open={isToModalActive}
