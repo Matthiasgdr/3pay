@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table, createStyles, Text, Box, Button } from "@mantine/core";
 import { useMoralis, useChain } from "react-moralis";
 
@@ -21,7 +21,7 @@ const useStyles = createStyles(() => ({
 }));
 
 const ListAssets = () => {
-  const { Moralis } = useMoralis();
+  const { Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
   const { chainId } = useChain();
   const { classes } = useStyles();
 
@@ -38,6 +38,12 @@ const ListAssets = () => {
       chain.blockExplorerUrl
     );
   };
+
+  useEffect(() => {
+    if(!isWeb3Enabled) {
+      enableWeb3()
+    }
+  }, [isWeb3Enabled])
 
   return (
     <Box>

@@ -54,7 +54,7 @@ const IsNative = (address) =>
 function InchDex({ chain }) {
   const { trySwap, tokenList, getQuote } = useInchDex(chain);
 
-  const { Moralis, isInitialized, chainId } = useMoralis();
+  const { Moralis, isInitialized, chainId, isWeb3Enabled, enableWeb3 } = useMoralis();
 
   const [isFromModalActive, setFromModalActive] = useState(false);
   const [isToModalActive, setToModalActive] = useState(false);
@@ -94,6 +94,12 @@ function InchDex({ chain }) {
       toTokenPriceUsd
     ).toFixed(4)}`;
   }, [toTokenPriceUsd, quote]);
+
+  useEffect(() => {
+    if(!isWeb3Enabled) {
+      enableWeb3()
+    }
+  }, [isWeb3Enabled])
 
   // tokenPrices
   useEffect(() => {
