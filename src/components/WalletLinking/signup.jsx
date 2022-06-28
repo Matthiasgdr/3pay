@@ -1,6 +1,6 @@
 import React from "react";
 import { useMoralis, useChain } from "react-moralis";
-import { Button, Box, Text } from "@mantine/core";
+import { Button, Box, Text, Title } from "@mantine/core";
 import PropTypes from "prop-types";
 
 const SignUpButton = ({ onConnect = () => {} }) => {
@@ -53,7 +53,27 @@ const SignUpButton = ({ onConnect = () => {} }) => {
           </Button>
         </>
       ) : (
-        <Text sx={(theme) => ({ border: '2px solid '+ theme.colors.grey[2], borderRadius: '5px', padding: '30px 32px', color: theme.colors.grey[7], fontSize: theme.fontSizes.small })}>{account}</Text>
+        <>
+          <Title
+            order={2}
+            sx={(theme) => ({
+              marginBottom: theme.spacing.md,
+            })}
+          >
+            Votre wallet
+          </Title>
+          <Text
+            sx={(theme) => ({
+              border: "2px solid " + theme.colors.grey[2],
+              borderRadius: "5px",
+              padding: "30px 32px",
+              color: theme.colors.grey[7],
+              fontSize: theme.fontSizes.small,
+            })}
+          >
+            {account}
+          </Text>
+        </>
       )}
     </Box>
   );

@@ -44,6 +44,7 @@ export const lightTheme = {
       "#100F15",
     ],
     green: [
+      "#E6EDDD",
       "#D3E3BE",
       "#C2DE9D",
       "#B3E079",
@@ -52,7 +53,6 @@ export const lightTheme = {
       "#87BE40",
       "#789F45",
       "#6B8746",
-      "#607445",
     ],
     red: [
       "#E7BAB3",
