@@ -2,20 +2,16 @@ import React from "react";
 import { Table, Box, Text, createStyles } from "@mantine/core";
 
 import CryptoName from "../../../blocks/CryptoName/CryptoName";
-import useCryptoFluctuations from "../../../hooks/useCryptoFluctuations";
+import {
+  useCryptoFluctuations,
+  getFluctuations,
+} from "../../../hooks/useCryptoFluctuations";
 import { mocks } from "./mocks";
 
 const Assets = () => {
   const { classes } = useStyle();
   const arrayCryptoSymbols = mocks.map((m) => m.symbol).join(",");
   const fluctuations = useCryptoFluctuations(arrayCryptoSymbols);
-
-  const getFluctuations = (symbol) => {
-    return (
-      fluctuations?.find((e) => e.id === symbol)["1d"]?.volume_change_pct ||
-      null
-    );
-  };
 
   return (
     <Table verticalSpacing="md">
@@ -28,7 +24,7 @@ const Assets = () => {
       </thead>
       <tbody>
         {mocks.map((t) => {
-          const fluctuation = getFluctuations(t.symbol);
+          const fluctuation = getFluctuations(t.symbol, fluctuations);
           return (
             <tr key={t.symbol}>
               <td className={classes.td}>

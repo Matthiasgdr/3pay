@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Table, createStyles, Text, Box, Button } from "@mantine/core";
 import { useMoralis } from "react-moralis";
 
 import CryptoName from "../../blocks/CryptoName";
-import useCryptoFluctuations from "../../hooks/useCryptoFluctuations";
+import {
+  useCryptoFluctuations,
+  getFluctuations,
+} from "../../hooks/useCryptoFluctuations";
 import cryptoToEuro from "../Transactions/utils/cryptoToEuro";
 import { arrayAssets } from "./mocks";
 
@@ -23,12 +26,6 @@ const ListAssets = () => {
 
   const arrayCryptoSymbols = arrayAssets.map((m) => m.symbol).join(",");
   const fluctuations = useCryptoFluctuations(arrayCryptoSymbols);
-  const getFluctuations = (symbol) => {
-    return (
-      fluctuations?.find((e) => e.id === symbol)["1d"]?.volume_change_pct ||
-      null
-    );
-  };
 
   const handleAddNetwork = async (chain) => {
     await Moralis.addNetwork(
@@ -53,7 +50,7 @@ const ListAssets = () => {
         </thead>
         <tbody>
           {arrayAssets.map((chain) => {
-            const fluctuation = getFluctuations(chain.symbol);
+            const fluctuation = getFluctuations(chain.symbol, fluctuations);
             const euro = cryptoToEuro(chain.symbol);
             return (
               <tr key={chain.name}>
