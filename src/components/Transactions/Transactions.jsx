@@ -29,6 +29,10 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.body,
     fontWeight: 700,
     textTransform: "uppercase",
+    verticalAlign: "middle",
+  },
+  td: {
+    verticalAlign: "middle",
   },
   headTable: {
     position: "sticky",
@@ -116,7 +120,7 @@ const Transactions = () => {
                     {transaction.currency}
                   </Box>
                 </td>
-                <td>
+                <td className={classes.td}>
                   <Box sx={{ display: "flex" }}>
                     <Box sx={(theme) => ({ marginRight: theme.spacing.sm })}>
                       {transaction.amount > 0 ? (
@@ -129,7 +133,7 @@ const Transactions = () => {
                       <Text>
                         {transaction.amount} {transaction.currency}
                       </Text>
-                      {transaction.euro && (
+                      {transaction.type === "crypto" && (
                         <Text
                           size="xs"
                           sx={(theme) => ({
@@ -137,18 +141,18 @@ const Transactions = () => {
                             display: "inline-block",
                           })}
                         >
-                          ≈ {transaction.euro}€
+                          ≈ {(transaction.amount * euro).toFixed(2)}€
                         </Text>
                       )}
                     </Box>
                   </Box>
                 </td>
-                <td>
+                <td className={classes.td}>
                   {transaction?.description.map((l, y) => (
                     <p key={y}>{l}</p>
                   ))}
                 </td>
-                <td>{formatDate(transaction.date)}</td>
+                <td className={classes.td}>{formatDate(transaction.date)}</td>
               </tr>
             ))}
           </tbody>

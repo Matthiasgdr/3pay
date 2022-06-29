@@ -42,9 +42,7 @@ const BankLinking = () => {
   return !user.attributes.bankId ? (
     <Box
       sx={(t) => ({
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        width: "400px",
         marginTop: t.spacing.lg,
       })}
     >
@@ -81,7 +79,7 @@ const BankLinking = () => {
           <Text
             sx={(theme) => ({
               textAlign: "center",
-              color: theme.colors.green[2],
+              color: theme.colors.green[8],
               marginTop: theme.spacing.sm,
             })}
           >

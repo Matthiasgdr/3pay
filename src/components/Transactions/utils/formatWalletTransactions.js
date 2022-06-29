@@ -10,10 +10,6 @@ const formatWalletTransactions = (transactions, euro) => {
       ).toFixed(4),
       description: [null],
       date: transaction.attributes.block_timestamp,
-      euro: Number(
-        Number(transaction.attributes.decimal.value.$numberDecimal).toFixed(5) *
-          euro
-      ).toFixed(2),
       type: "crypto",
     };
 

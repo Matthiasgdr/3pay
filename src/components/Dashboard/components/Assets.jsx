@@ -1,11 +1,14 @@
 import React from "react";
 import { Table, Box, Text, createStyles } from "@mantine/core";
+import { ArrowWaveRightUp } from "tabler-icons-react";
 
 import CryptoName from "../../../blocks/CryptoName/CryptoName";
 import {
   useCryptoFluctuations,
   getFluctuations,
 } from "../../../hooks/useCryptoFluctuations";
+import cryptoToEuro from "../../Transactions/utils/cryptoToEuro";
+
 import { mocks } from "./mocks";
 
 const Assets = () => {
@@ -18,6 +21,11 @@ const Assets = () => {
       <thead>
         <tr>
           <th>Nom</th>
+          <th>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Text sx={{ marginRight: "6px" }}>1d</Text> <ArrowWaveRightUp />
+            </Box>
+          </th>
           <th>Mon solde</th>
           <th>Prix</th>
         </tr>
@@ -25,6 +33,7 @@ const Assets = () => {
       <tbody>
         {mocks.map((t) => {
           const fluctuation = getFluctuations(t.symbol, fluctuations);
+          const euro = cryptoToEuro(t.symbol);
           return (
             <tr key={t.symbol}>
               <td className={classes.td}>
@@ -36,18 +45,19 @@ const Assets = () => {
                   }}
                 >
                   <CryptoName crypto={t} />
-                  <Text
-                    sx={(theme) => ({
-                      margin: `0 ${theme.spacing.md}px`,
-                      color:
-                        fluctuation >= 0
-                          ? theme.colors.green[5]
-                          : theme.colors.red[5],
-                    })}
-                  >
-                    {fluctuation} %
-                  </Text>
                 </Box>
+              </td>
+              <td className={classes.td}>
+                <Text
+                  sx={(theme) => ({
+                    color:
+                      fluctuation >= 0
+                        ? theme.colors.green[5]
+                        : theme.colors.red[5],
+                  })}
+                >
+                  {fluctuation} %
+                </Text>
               </td>
               <td className={classes.td}>
                 <Box>
@@ -55,11 +65,11 @@ const Assets = () => {
                     {t.sold} {t.symbol}
                   </Text>
                   <Text size="sm" color="gray">
-                    ≈ {t.euro} €
+                    ≈ {(t.sold * euro).toFixed(2)} €
                   </Text>
                 </Box>
               </td>
-              <td className={classes.td}>{t.price}</td>
+              <td className={classes.td}>{euro} €</td>
             </tr>
           );
         })}

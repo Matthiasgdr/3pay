@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Table, createStyles, Text, Box, Button } from "@mantine/core";
 import { useMoralis, useChain } from "react-moralis";
+import { ArrowWaveRightUp } from "tabler-icons-react";
 
 import CryptoName from "../../blocks/CryptoName";
 import {
@@ -40,10 +41,10 @@ const ListAssets = () => {
   };
 
   useEffect(() => {
-    if(!isWeb3Enabled) {
-      enableWeb3()
+    if (!isWeb3Enabled) {
+      enableWeb3();
     }
-  }, [isWeb3Enabled])
+  }, [isWeb3Enabled]);
 
   return (
     <Box>
@@ -51,6 +52,12 @@ const ListAssets = () => {
         <thead>
           <tr>
             <th>Nom</th>
+            <th>
+              {" "}
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Text sx={{ marginRight: "6px" }}>1d</Text> <ArrowWaveRightUp />
+              </Box>
+            </th>
             <th>Prix</th>
             <th></th>
           </tr>
@@ -70,22 +77,23 @@ const ListAssets = () => {
                     }}
                   >
                     <CryptoName crypto={chain} />
-                    <Text
-                      sx={(theme) => ({
-                        margin: `0 ${theme.spacing.md}px`,
-                        color:
-                          fluctuation >= 0
-                            ? theme.colors.green[5]
-                            : theme.colors.red[5],
-                      })}
-                    >
-                      {fluctuation} %
-                    </Text>
                   </Box>
                 </td>
                 <td className={classes.td}>
                   <Text
-                    size="xs"
+                    sx={(theme) => ({
+                      color:
+                        fluctuation >= 0
+                          ? theme.colors.green[5]
+                          : theme.colors.red[5],
+                    })}
+                  >
+                    {fluctuation} %
+                  </Text>
+                </td>
+                <td className={classes.td}>
+                  <Text
+                    size="sm"
                     sx={(theme) => ({
                       color: theme.colors.blue[3],
                       display: "inline-block",
@@ -96,21 +104,24 @@ const ListAssets = () => {
                 </td>
                 <td className={classes.td}>
                   <Box className={classes.buttonsAdd}>
-                    {'0x' + chain.chain.chainId == chainId ? 
-                      <Text sx={(theme) => ({
-                        display: "flex",
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: "32px",
-                        width: "110px",
-                        padding: "auto",
-                        marginLeft: "32px",
-                        background: theme.colors.green[1],
-                        color: theme.colors.grey[0],
-                        fontSize: theme.fontSizes.small
-                      })}>
+                    {"0x" + chain.chain.chainId == chainId ? (
+                      <Text
+                        sx={(theme) => ({
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "32px",
+                          width: "110px",
+                          padding: "auto",
+                          marginLeft: "32px",
+                          background: theme.colors.green[1],
+                          color: theme.colors.grey[0],
+                          fontSize: theme.fontSizes.small,
+                        })}
+                      >
                         Ajouté
-                      </Text> :
+                      </Text>
+                    ) : (
                       <Button
                         onClick={() => handleAddNetwork(chain.chain)}
                         sx={{
@@ -121,7 +132,7 @@ const ListAssets = () => {
                       >
                         + Ajouter
                       </Button>
-                    }
+                    )}
                     <Button
                       variant="light"
                       onClick={() => console.log("fav")}
