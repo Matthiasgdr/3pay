@@ -1,6 +1,6 @@
-import React from "react";
-import { Box, Title } from "@mantine/core";
-import SignUpButton from "../../WalletLinking/signup";
+import React from "react"
+import { Box } from "@mantine/core"
+import SignUpButton from "../../WalletLinking/signup"
 
 const Wallet = () => {
   return (

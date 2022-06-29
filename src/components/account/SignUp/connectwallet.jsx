@@ -20,7 +20,6 @@ const ConnectWallet = ({ onValidate }) => {
   user.set("rgpd", userObject.rgpd)
   user.set("cg", userObject.cg)
   user.signUp()
-  console.log(user)
 
   return (
     <>
@@ -31,7 +30,7 @@ const ConnectWallet = ({ onValidate }) => {
       >
         Connecter mon wallet
       </Title>
-      <SignUpButton onConnect={onValidate} />
+      <SignUpButton onConnect={onValidate} newUser={true} />
       <Text sx={(theme) => ({ marginBottom: theme.spacing.sm })} align="center">
         Pas encore de wallet ?{" "}
         <Link to="create-wallet">Me créer un wallet</Link>

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMoralis, useChain } from "react-moralis";
 import { Button, Box, Text } from "@mantine/core";
 import PropTypes from "prop-types";
 
-const SignUpButton = ({ onConnect = () => {} }) => {
-  const { authenticate, isAuthenticated, enableWeb3, Moralis } = useMoralis();
+const SignUpButton = ({ onConnect = () => {}, newUser = false }) => {
+  const { authenticate, isAuthenticated, enableWeb3, Moralis, isWeb3Enabled } = useMoralis();
   const { account } = useChain();
 
   async function authWalletConnect() {
@@ -29,6 +29,12 @@ const SignUpButton = ({ onConnect = () => {} }) => {
       alert(err);
     }
   }
+
+  useEffect(() => {
+    if(!isWeb3Enabled && newUser) {
+      enableWeb3()
+    }
+  }, [isWeb3Enabled])
 
   return (
     <Box
@@ -61,6 +67,7 @@ const SignUpButton = ({ onConnect = () => {} }) => {
 
 SignUpButton.propTypes = {
   onConnect: PropTypes.func,
+  newUser: PropTypes.bool
 };
 
 export default SignUpButton;
