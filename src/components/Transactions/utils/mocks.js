@@ -1,5 +1,12 @@
 export const cryptoTransacMock = [
   {
+    amount: "0.12",
+    currency: "ETH",
+    date: new Date("2022-06-30"),
+    description: ["Commande N° :", "4245854512"],
+    type: "crypto",
+  },
+  {
     amount: "0.65",
     currency: "ETH",
     date: new Date("2022-06-15"),
