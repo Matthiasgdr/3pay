@@ -30,7 +30,7 @@ const ConnectWallet = ({ onValidate }) => {
       >
         Connecter mon wallet
       </Title>
-      <SignUpButton onConnect={onValidate} newUser={true} />
+      <SignUpButton onConnect={onValidate} newUser={false} />
       <Text sx={(theme) => ({ marginBottom: theme.spacing.sm })} align="center">
         Pas encore de wallet ?{" "}
         <Link to="create-wallet">Me créer un wallet</Link>

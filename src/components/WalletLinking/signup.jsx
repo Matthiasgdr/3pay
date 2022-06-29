@@ -3,7 +3,7 @@ import { useMoralis, useChain } from "react-moralis";
 import { Button, Box, Text } from "@mantine/core";
 import PropTypes from "prop-types";
 
-const SignUpButton = ({ onConnect = () => {}, newUser = false }) => {
+const SignUpButton = ({ onConnect = () => {}, newUser = true }) => {
   const { authenticate, isAuthenticated, enableWeb3, Moralis, isWeb3Enabled } = useMoralis();
   const { account } = useChain();
 
